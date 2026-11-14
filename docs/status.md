@@ -1,11 +1,11 @@
 # Build status
 
-Read this first when resuming work, on any machine. Last updated: 2026-11-14, Phase 15 (gap questions, Round 3 improvement 2) built on `build/phase-15`, awaiting review and merge. Phase 14 is merged.
+Read this first when resuming work, on any machine. Last updated: 2026-11-14, Phase 16 (counterparty handoff notes, Round 3 improvement 3) built on `build/phase-16`, awaiting review and merge. Phases 14 and 15 are merged.
 
 Other docs:
 - [dev-setup.md](dev-setup.md): setting up a new computer (tools, secrets, local database, hosted project).
 - [architecture.md](architecture.md): migrations, `src/lib`, routes and tests.
-- [decisions.md](decisions.md): why things are built this way (Phases 5 to 15).
+- [decisions.md](decisions.md): why things are built this way (Phases 5 to 16).
 - [gotchas.md](gotchas.md): things that broke once; read before touching the database, pipeline, demo copies or tests.
 - [known-gaps.md](known-gaps.md): what is knowingly unfinished, and what the model still gets wrong.
 - [deploy.md](deploy.md): hosted Supabase and Vercel, and the after-every-phase checklist.
@@ -20,14 +20,26 @@ Round 2 (Phases 0 to 13, plus the guided tour) is merged and was submitted; the 
 |---|---|---|
 | 0 to 13 | Round 2 (see the README status table and [decisions.md](decisions.md)) | merged |
 | 14 | Round 3: remove both walkthroughs; UI/UX overhaul so the app guides itself | merged (deploy: see outstanding tasks) |
-| 15 | Round 3, improvement 2: gap questions for the outgoing lead | built, awaiting merge and deploy |
-| 16 | Round 3, improvement 3: counterparty handoff notes | next |
-| 17 | Round 3, improvement 1: inferred recurring duties | later |
+| 15 | Round 3, improvement 2: gap questions for the outgoing lead | merged (deploy: see outstanding tasks) |
+| 16 | Round 3, improvement 3: counterparty handoff notes | built, awaiting merge and deploy |
+| 17 | Round 3, improvement 1: inferred recurring duties | next |
 | 18 | Round 3: hardening, end-to-end sweeps, README, final report PDF | later |
 
-Tests on `build/phase-15`: 646 unit plus RLS (`pnpm test`; Phase 14 had 606), 66 Playwright (new: `gap-questions.spec.ts`), all passing; lint, typecheck and production build clean.
+Tests on `build/phase-16`: 683 unit plus RLS (`pnpm test`; Phase 15 had 646), 67 Playwright (new: `counterparty-notes.spec.ts`), all passing; lint, typecheck and production build clean.
 
-### Phase 15 (built, awaiting merge)
+### Phase 16 (built, awaiting merge)
+
+Counterparty handoff notes, Round 3 improvement 3, delivered to its minimum: in a year copy, Arun drafts a note to Brightwave Labs (the sponsor), adds how to reach Kavya and a message, saves, approves, copies the signed link; the link opens in a fresh browser with no account, "Ms. Rao" acknowledges it; the acknowledgement shows on the handover for Arun and Kavya and in the review History (covered end to end by `e2e/counterparty-notes.spec.ts`).
+
+- **Who:** every person or office outside the club the latest approved version names (a promise's counterparty, a duty's approver). In the year club: Brightwave Labs, Bala sir, workshop speakers, the volunteers, the HoD, the Dean's office, the Dean. The club and its committees are not counterparties.
+- **What:** only approved items the incoming lead may read (everyone or committee; never finance or private), chosen and copied by the database (migration 0023). A fixed template, no model text: still owed and by when, what they approve each time, already done, and Kavya as the new contact. Honest about what the records do not settle. A promise and its linked Trello card are said once.
+- **Who acts:** only the outgoing lead drafts, edits, approves or discards (`/handover/notes`, live preview of the exact note; approve only once saved). An approved note never changes. Every action is audited with before and after.
+- **The link:** `/n/<id>.<signature>`, an HMAC under a key derived from `SUPABASE_SECRET_KEY` (no new environment variable). The server checks it, then reads that one note through a service-role-only function; the page has no app header and records one acknowledgement.
+- **Guidance:** after approval, the home page sends Arun to write the notes before handing on to Kavya, and offers a note beside the questions and the review. The handover has a "Notes to people outside the club" section.
+- Also fixed: a year copy's 39 items all had the same `created_at` (one insert), so "oldest first" ties fell back to random ids; they now keep the build's order.
+- Decisions and open points: [decisions.md](decisions.md#phase-16-decisions-counterparty-notes-round-3-improvement-3) (please check the one on levels: committee items are offered, finance and private never, even when released), [known-gaps.md](known-gaps.md#known-gaps-phase-16).
+
+### Phase 15 (merged)
 
 Gap questions, Round 3 improvement 2, delivered to its minimum and beyond: in a year copy, Arun answers "set up the demo kits" on the Questions tab of `/check`, sees "It is now Open, trust Corroborated", accepts it again, marks ready; Dr. Meena approves version 2; Kavya's handover shows the answer labelled "Stated by the outgoing lead (Arun, …)" (covered end to end by `e2e/gap-questions.spec.ts`).
 
@@ -56,7 +68,7 @@ Not done in Phase 14, by choice: a dark mode, and a Lighthouse or axe run (the p
 
 ## Outstanding user tasks
 
-1. Review and merge `build/phase-15`, then deploy (checklist in [deploy.md](deploy.md#after-every-phase)). **This phase adds migrations 0021 and 0022: run `pnpm db:push` before redeploying**, or `/check` fails on the hosted app (the new code reads `gap_answers`). No seed or prompt change, so no `seed:hosted` or `cache:warm`. If Phase 14 was not deployed yet, this deploy covers both.
+1. Review and merge `build/phase-16`, then deploy (checklist in [deploy.md](deploy.md#after-every-phase)). **This phase adds migration 0023: run `pnpm db:push` before redeploying**, or `/handover` and the home page fail on the hosted app (the new code reads `counterparty_notes`). If Phase 15 was not deployed yet, the push also applies 0021 and 0022, and this deploy covers both. No seed or prompt change, so no `seed:hosted` or `cache:warm`; no new environment variable (the link key comes from `SUPABASE_SECRET_KEY`, already set). After deploying, in a private window: Explore a built handover → Notes to people outside the club → draft, save, approve, open the link in another private window, acknowledge, then check the handover.
 2. Before the first Round 3 deploy, confirm the hosted database is current: `/api/health` should report the latest `main` commit, and `pnpm db:push` should report migrations 0018 to 0020 as already applied. If `pnpm cache:warm` was never run against the hosted database, run it (building from the sample files then costs nothing).
 3. The Round 1 user interviews were not done. The docs say so. Do not add interview answers unless real people gave them.
 
