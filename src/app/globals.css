@@ -152,3 +152,8 @@
   .skeleton, .rise-in, .route-bar, .soft-pulse, .progress-stripes { animation: none; }
   .route-bar { transform: none; width: 100%; }
 }
+
+/* The signed note page (/n/…) is for people outside the club: no sign-in, person switcher or steps. */
+body:has([data-public-note]) [data-app-chrome] {
+  display: none;
+}

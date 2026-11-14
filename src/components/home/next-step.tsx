@@ -9,6 +9,7 @@ import { findGaps, type GapInput } from "@/lib/ledger-view";
 import { openCount } from "@/lib/questions";
 import { needsRereview } from "@/lib/review/rereview";
 import { loadQuestions } from "@/components/check/question-data";
+import { loadNotes, withoutApprovedNote } from "@/components/notes/note-data";
 import type { Viewer } from "@/lib/session";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -53,6 +54,17 @@ async function loadFacts(viewer: Viewer, m: Membership): Promise<JourneyFacts | 
     openQuestions = openCount(asked.questions);
   }
 
+  // Notes to people outside the club: only the outgoing lead writes them.
+  const notes = { toWrite: 0, approved: 0, acknowledged: 0 };
+  if (m.role === "outgoing_lead" && latest) {
+    const n = await loadNotes(supabase, ws);
+    if (n.error) return null;
+    const approved = n.notes.filter((x) => x.state === "approved");
+    notes.toWrite = withoutApprovedNote(n.candidates, n.notes).length;
+    notes.approved = approved.length;
+    notes.acknowledged = approved.filter((x) => n.acks.has(x.id)).length;
+  }
+
   const rows = obligations.data ?? [];
   const changed = rows.filter(needsRereview).length;
   const drafts = rows.filter((r) => r.review_state === "draft").length;
@@ -69,6 +81,7 @@ async function loadFacts(viewer: Viewer, m: Membership): Promise<JourneyFacts | 
     unruledConflicts: (docket.data ?? []).filter((d) => !d.ruling).length,
     gaps: findGaps(rows as unknown as GapInput[]).length,
     openQuestions,
+    notes,
   };
 }
 

@@ -31,10 +31,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Suspense fallback={null}>
           <RouteProgress />
         </Suspense>
-        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-[80] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground">
-          Skip to the page
-        </a>
-        <SiteHeader />
+        {/* The app's own chrome. Hidden on the signed note page (see globals.css), which outsiders open. */}
+        <div data-app-chrome className="contents">
+          <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-[80] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground">
+            Skip to the page
+          </a>
+          <SiteHeader />
+        </div>
         <div id="main" className="flex flex-1 flex-col">{children}</div>
       </body>
     </html>

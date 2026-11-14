@@ -26,6 +26,11 @@ export type JourneyFacts = {
   gaps: number;
   /** Gap questions still waiting for the outgoing lead's answer; counted for that role only. */
   openQuestions: number;
+  /**
+   * Notes to people outside the club (Phase 16), counted for the outgoing lead only: people or
+   * offices in the latest version with no approved note, approved notes, and acknowledged ones.
+   */
+  notes: { toWrite: number; approved: number; acknowledged: number };
 };
 
 export type JourneyStage = { key: string; label: string; href: string; state: "done" | "current" | "todo" };
@@ -74,6 +79,13 @@ function stageDone(f: JourneyFacts): boolean[] {
   ];
 }
 
+const NOTES_HREF = "/handover/notes";
+
+/** While no note is approved yet, the outgoing lead is offered one beside whatever else they are doing. */
+function noteOffer(f: JourneyFacts): Journey["also"] {
+  return f.version && f.notes.approved === 0 && f.notes.toWrite > 0 ? [{ label: "Write a note to someone outside the club", href: NOTES_HREF }] : [];
+}
+
 export function journey(f: JourneyFacts): Journey {
   const done = stageDone(f);
   const firstOpen = done.indexOf(false);
@@ -115,7 +127,7 @@ export function journey(f: JourneyFacts): Journey {
         body: "The records do not say whether some promises were kept, or when a duty is due or who approves it. Answer what you know while you can still be asked: each answer is saved as a message from you and becomes a quote on its item. \"I don't know\" is a fine answer.",
         cta: { label: "Answer the questions", href: "/check?tab=questions" },
         switchTo: null,
-        also: f.toReview > 0 ? [{ label: `Review ${plural(f.toReview, "item")} instead`, href: "/review?tab=draft" }] : [],
+        also: [...(f.toReview > 0 ? [{ label: `Review ${plural(f.toReview, "item")} instead`, href: "/review?tab=draft" }] : []), ...noteOffer(f)],
       };
     }
     if (f.toReview > 0) {
@@ -125,7 +137,7 @@ export function journey(f: JourneyFacts): Journey {
         body: "Read each item against its quote, then accept, edit or reject it. Only accepted items go to the advisor.",
         cta: { label: `Review ${plural(f.toReview, "item")}`, href: "/review?tab=draft" },
         switchTo: null,
-        also: [{ label: "See gaps in the records", href: "/check?tab=gaps" }],
+        also: [{ label: "See gaps in the records", href: "/check?tab=gaps" }, ...noteOffer(f)],
       };
     }
     if (ask) {
@@ -134,10 +146,26 @@ export function journey(f: JourneyFacts): Journey {
     if (f.accepted > 0 && (!v || !f.signoff?.isCurrent)) {
       return { ...base, title: "Mark the draft ready for the advisor", body: "Every item is checked. Tell the advisor it is ready; they approve it as a version the incoming lead can read.", cta: { label: "Mark ready", href: "/review?tab=draft" }, switchTo: null };
     }
-    if (v) {
-      const left = v.itemCount - f.answered;
+    // The approved version names people outside the club, and nobody has told them yet.
+    if (v && f.notes.approved === 0 && f.notes.toWrite > 0) {
       return {
         ...base,
+        title: "Tell the people outside the club",
+        body: `Version ${v.number} names ${plural(f.notes.toWrite, "person or office", "people or offices")} outside the club that the club owes something to. Write each a short note: what is still owed, by when, and that Kavya is their contact now. It is built from approved items only; you approve it and send its link.`,
+        cta: { label: "Write the notes", href: NOTES_HREF },
+        switchTo: null,
+        also: [{ label: "Open the handover", href: "/handover" }],
+      };
+    }
+    if (v) {
+      const left = v.itemCount - f.answered;
+      const waitingAck = f.notes.approved - f.notes.acknowledged;
+      return {
+        ...base,
+        also: [
+          ...(f.notes.toWrite > 0 ? [{ label: `Write notes to ${plural(f.notes.toWrite, "more person or office", "more people or offices")} outside the club`, href: NOTES_HREF }] : []),
+          ...(waitingAck > 0 ? [{ label: `${plural(waitingAck, "note")} not acknowledged yet`, href: NOTES_HREF }] : []),
+        ],
         title: left > 0 ? `Version ${v.number} is with the incoming lead` : "The incoming lead has answered every item",
         body: left > 0 ? `${f.answered} of ${plural(v.itemCount, "item")} answered so far. Switch to Kavya to answer them as the incoming lead.` : "Read their questions and replies on the handover page.",
         cta: { label: "Open the handover", href: "/handover" },
