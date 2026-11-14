@@ -14,6 +14,7 @@ const item = (over: Partial<NoteItem> = {}): NoteItem => ({
   period: null,
   next_due: null,
   approval: null,
+  linked_same: [],
   ...over,
 });
 
@@ -63,7 +64,7 @@ describe("noteCandidates", () => {
     expect(JSON.stringify(out)).not.toContain("2,400");
   });
 
-  it("names a counterparty as the records most often do, and takes the most restricted level", () => {
+  it("names a counterparty as the records most often do (the shortest on a tie), and takes the most restricted level", () => {
     const out = noteCandidates([
       row("a", "everyone", { owed_to: "workshop speakers" }),
       row("b", "committee", { owed_to: "all workshop speakers" }),
@@ -72,6 +73,7 @@ describe("noteCandidates", () => {
     expect(out).toHaveLength(1);
     expect(out[0]).toMatchObject({ key: "workshop speakers", name: "workshop speakers", level: "committee" });
     expect(out[0].items).toHaveLength(3);
+    expect(noteCandidates([row("a", "everyone", { owed_to: "all workshop speakers" }), row("b", "everyone", { owed_to: "workshop speakers" })])[0].name).toBe("workshop speakers");
   });
 
   it("finds the outside parties of the built year club, and leaves out the club itself", () => {
@@ -98,8 +100,9 @@ describe("noteItemFrom", () => {
     });
     expect(ni).toEqual({
       obligation_id: "x", kind: "commitment", description: "Certificates", due_text: null, due_date: null, status: "contradicted",
-      ruling: "done", cadence: null, period: null, next_due: null, approval: null,
+      ruling: "done", cadence: null, period: null, next_due: null, approval: null, linked_same: [],
     });
+    expect(noteItemFrom("y", { obligation: { kind: "commitment" }, linked_same: ["x", 3] })?.linked_same).toEqual(["x"]);
   });
 });
 
@@ -176,6 +179,19 @@ describe("renderNote", () => {
     expect(text).toContain("- Return the borrowed ESP32 boards (Due by Friday 27 Feb Still to be done.)");
     expect(text).toContain("Thank you for the boards!");
     expect(text.endsWith("Arun, for IoT Club")).toBe(true);
+  });
+
+  it("says a promise once when its records are marked as the same item", () => {
+    const card = item({ obligation_id: "00000000-0000-4000-8000-00000000000c", description: "Certificates for the March speakers", linked_same: ["00000000-0000-4000-8000-00000000000d"] });
+    const chat = item({ obligation_id: "00000000-0000-4000-8000-00000000000d", description: "participation certificates", linked_same: ["00000000-0000-4000-8000-00000000000c"] });
+    const other = item({ obligation_id: "00000000-0000-4000-8000-00000000000e", description: "return the projector" });
+    const lines = renderNote({ ...base, items: [chat, other, card] }).sections[0].lines.map((l) => l.text);
+    expect(lines).toEqual(["Certificates for the March speakers", "Return the projector"]);
+    // Links are not transitive: A-B and B-C keep A and C.
+    const a = item({ obligation_id: "00000000-0000-4000-8000-0000000000a1", description: "a", linked_same: ["00000000-0000-4000-8000-0000000000b1"] });
+    const b = item({ obligation_id: "00000000-0000-4000-8000-0000000000b1", description: "b", linked_same: ["00000000-0000-4000-8000-0000000000a1", "00000000-0000-4000-8000-0000000000c1"] });
+    const c = item({ obligation_id: "00000000-0000-4000-8000-0000000000c1", description: "c", linked_same: ["00000000-0000-4000-8000-0000000000b1"] });
+    expect(renderNote({ ...base, items: [a, b, c] }).sections[0].lines.map((l) => l.text)).toEqual(["A", "C"]);
   });
 
   it("orders items the same way whatever order they come in", () => {

@@ -22,6 +22,8 @@ export type NoteItem = {
   period: string | null;
   next_due: string | null;
   approval: string | null;
+  /** Other records marked as the same item (version_items.item.linked_same). */
+  linked_same: string[];
 };
 
 const INTERNAL = /^((new|next|incoming|outgoing|old|current|core|club)\s+)*(club|committee|team|members|committee members)$/u;
@@ -57,7 +59,7 @@ export function noteParty(o: Obligation | null | undefined): { key: string; labe
 type Conflict = { ruling?: unknown; ruled_at?: unknown };
 
 /** The fields of one approved item a note may carry. Mirrors `app.note_item()`. */
-export function noteItemFrom(obligationId: string, item: { obligation?: Obligation; conflicts?: unknown } | null | undefined): NoteItem | null {
+export function noteItemFrom(obligationId: string, item: { obligation?: Obligation; conflicts?: unknown; linked_same?: unknown } | null | undefined): NoteItem | null {
   const o = item?.obligation;
   if (!o) return null;
   const ruled = (Array.isArray(item?.conflicts) ? (item!.conflicts as Conflict[]) : [])
@@ -75,6 +77,7 @@ export function noteItemFrom(obligationId: string, item: { obligation?: Obligati
     period: str(o.period),
     next_due: str(o.next_due),
     approval: str(o.approval_required),
+    linked_same: Array.isArray((item as { linked_same?: unknown }).linked_same) ? ((item as { linked_same: unknown[] }).linked_same.filter((x) => typeof x === "string") as string[]) : [],
   };
 }
 
@@ -84,7 +87,8 @@ export type Counterparty = { key: string; name: string; items: NoteItem[]; level
 /**
  * Everyone outside the club that the version's items are owed to, with the items a note to them
  * may carry: at most committee level (what the incoming lead may read), never private. Mirrors
- * `app.note_candidates()`. The name shown is the one the records use most often for them.
+ * `app.note_candidates()`. The name shown is the one the records use most often for them (the
+ * shortest, on a tie).
  */
 export function noteCandidates(rows: readonly VersionRow[]): Counterparty[] {
   const groups = new Map<string, { labels: Map<string, number>; items: NoteItem[]; level: Counterparty["level"] }>();
@@ -104,14 +108,27 @@ export function noteCandidates(rows: readonly VersionRow[]): Counterparty[] {
   return [...groups]
     .map(([key, g]) => ({
       key,
-      name: [...g.labels].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0][0],
+      name: [...g.labels].sort((a, b) => b[1] - a[1] || a[0].length - b[0].length || a[0].localeCompare(b[0]))[0][0],
       items: sortItems(g.items),
       level: g.level,
     }))
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
-/** As the database orders a note's items: by description, then id. */
+/**
+ * Records marked as the same item are said once: the first in `sortItems` order stands for the
+ * others. Links are direct only, as on the ledger (A-B and B-C do not fold A and C).
+ */
+export function foldLinked(items: readonly NoteItem[]): NoteItem[] {
+  const kept: NoteItem[] = [];
+  for (const i of sortItems(items)) {
+    if (kept.some((k) => k.linked_same.includes(i.obligation_id) || i.linked_same.includes(k.obligation_id))) continue;
+    kept.push(i);
+  }
+  return kept;
+}
+
+/** By description, then id (code-point order, so the same everywhere). */
 export function sortItems(items: readonly NoteItem[]): NoteItem[] {
   return [...items].sort((a, b) => (a.description < b.description ? -1 : a.description > b.description ? 1 : a.obligation_id.localeCompare(b.obligation_id)));
 }
@@ -163,7 +180,7 @@ export function renderNote(n: NoteFields): NoteDoc {
   const owed: NoteLine[] = [];
   const done: NoteLine[] = [];
   const recurring: NoteLine[] = [];
-  for (const i of sortItems(n.items)) {
+  for (const i of foldLinked(n.items)) {
     if (i.kind === "recurring") {
       recurring.push({
         text: sentence(i.description),
