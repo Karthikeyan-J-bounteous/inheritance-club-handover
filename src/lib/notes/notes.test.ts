@@ -14,6 +14,7 @@ const item = (over: Partial<NoteItem> = {}): NoteItem => ({
   period: null,
   next_due: null,
   approval: null,
+  created_at: null,
   linked_same: [],
   ...over,
 });
@@ -100,7 +101,7 @@ describe("noteItemFrom", () => {
     });
     expect(ni).toEqual({
       obligation_id: "x", kind: "commitment", description: "Certificates", due_text: null, due_date: null, status: "contradicted",
-      ruling: "done", cadence: null, period: null, next_due: null, approval: null, linked_same: [],
+      ruling: "done", cadence: null, period: null, next_due: null, approval: null, created_at: null, linked_same: [],
     });
     expect(noteItemFrom("y", { obligation: { kind: "commitment" }, linked_same: ["x", 3] })?.linked_same).toEqual(["x"]);
   });
@@ -181,12 +182,12 @@ describe("renderNote", () => {
     expect(text.endsWith("Arun, for IoT Club")).toBe(true);
   });
 
-  it("says a promise once when its records are marked as the same item", () => {
-    const card = item({ obligation_id: "00000000-0000-4000-8000-00000000000c", description: "Certificates for the March speakers", linked_same: ["00000000-0000-4000-8000-00000000000d"] });
-    const chat = item({ obligation_id: "00000000-0000-4000-8000-00000000000d", description: "participation certificates", linked_same: ["00000000-0000-4000-8000-00000000000c"] });
+  it("says a promise once when its records are marked as the same item, in the oldest record's words", () => {
+    const card = item({ obligation_id: "00000000-0000-4000-8000-00000000000c", description: "Certificates for the March speakers", created_at: "2026-11-10T10:00:02Z", linked_same: ["00000000-0000-4000-8000-00000000000d"] });
+    const chat = item({ obligation_id: "00000000-0000-4000-8000-00000000000d", description: "participation certificates", created_at: "2026-11-10T10:00:01Z", linked_same: ["00000000-0000-4000-8000-00000000000c"] });
     const other = item({ obligation_id: "00000000-0000-4000-8000-00000000000e", description: "return the projector" });
-    const lines = renderNote({ ...base, items: [chat, other, card] }).sections[0].lines.map((l) => l.text);
-    expect(lines).toEqual(["Certificates for the March speakers", "Return the projector"]);
+    const lines = renderNote({ ...base, items: [card, other, chat] }).sections[0].lines.map((l) => l.text);
+    expect(lines).toEqual(["Participation certificates", "Return the projector"]);
     // Links are not transitive: A-B and B-C keep A and C.
     const a = item({ obligation_id: "00000000-0000-4000-8000-0000000000a1", description: "a", linked_same: ["00000000-0000-4000-8000-0000000000b1"] });
     const b = item({ obligation_id: "00000000-0000-4000-8000-0000000000b1", description: "b", linked_same: ["00000000-0000-4000-8000-0000000000a1", "00000000-0000-4000-8000-0000000000c1"] });

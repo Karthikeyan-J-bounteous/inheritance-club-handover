@@ -11,7 +11,7 @@ const WS = DEMO_WORKSPACE.id;
 const O = (k: string) => byKey(OBLIGATIONS, k).id;
 // Restricted text in the shared fixture: O3 (finance), O4 and O6 (private).
 const RESTRICTED = ["2,400", "Ganesan", "DHT22", "Robotics", "soldering"];
-const ITEM_KEYS = ["approval", "cadence", "description", "due_date", "due_text", "kind", "linked_same", "next_due", "obligation_id", "period", "ruling", "status"];
+const ITEM_KEYS = ["approval", "cadence", "created_at", "description", "due_date", "due_text", "kind", "linked_same", "next_due", "obligation_id", "period", "ruling", "status"];
 
 describe.skipIf(!hasEnv)("counterparty notes", () => {
   let as: Record<Viewer, Client>;

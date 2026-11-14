@@ -34,7 +34,7 @@ create table public.counterparty_notes (
   -- needs nothing but this row.
   club_name text not null,
   sender_name text not null,
-  -- [{obligation_id, kind, description, due_text, due_date, status, ruling, cadence, period, next_due, approval, linked_same}]
+  -- [{obligation_id, kind, description, due_text, due_date, status, ruling, cadence, period, next_due, approval, created_at, linked_same}]
   items jsonb not null default '[]' check (jsonb_typeof(items) = 'array'),
   -- The most restrictive level among the items: everyone or committee, never higher.
   access_level public.access_level not null default 'everyone' check (access_level <= 'committee'),
@@ -156,7 +156,9 @@ as $$
     'period', o ->> 'period',
     'next_due', o ->> 'next_due',
     'approval', o ->> 'approval_required',
-    -- Records the reviewers marked as the same item, so the note can say it once.
+    -- Records marked as the same item, so the note can say it once (in the oldest one's words,
+    -- as the ledger's card does).
+    'created_at', o ->> 'created_at',
     'linked_same', coalesce(p_item -> 'linked_same', '[]')
   )
   from (select p_item -> 'obligation' as o) x

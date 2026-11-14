@@ -22,6 +22,8 @@ export type NoteItem = {
   period: string | null;
   next_due: string | null;
   approval: string | null;
+  /** When the record was made: of records marked as the same item, the oldest speaks for them. */
+  created_at: string | null;
   /** Other records marked as the same item (version_items.item.linked_same). */
   linked_same: string[];
 };
@@ -77,6 +79,7 @@ export function noteItemFrom(obligationId: string, item: { obligation?: Obligati
     period: str(o.period),
     next_due: str(o.next_due),
     approval: str(o.approval_required),
+    created_at: str(o.created_at),
     linked_same: Array.isArray((item as { linked_same?: unknown }).linked_same) ? ((item as { linked_same: unknown[] }).linked_same.filter((x) => typeof x === "string") as string[]) : [],
   };
 }
@@ -116,16 +119,17 @@ export function noteCandidates(rows: readonly VersionRow[]): Counterparty[] {
 }
 
 /**
- * Records marked as the same item are said once: the first in `sortItems` order stands for the
- * others. Links are direct only, as on the ledger (A-B and B-C do not fold A and C).
+ * Records marked as the same item are said once, in the words of the oldest of them, as the
+ * ledger's card does. Links are direct only, as on the ledger (A-B and B-C do not fold A and C).
  */
 export function foldLinked(items: readonly NoteItem[]): NoteItem[] {
+  const oldestFirst = [...items].sort((a, b) => (a.created_at ?? "").localeCompare(b.created_at ?? "") || a.obligation_id.localeCompare(b.obligation_id));
   const kept: NoteItem[] = [];
-  for (const i of sortItems(items)) {
+  for (const i of oldestFirst) {
     if (kept.some((k) => k.linked_same.includes(i.obligation_id) || i.linked_same.includes(k.obligation_id))) continue;
     kept.push(i);
   }
-  return kept;
+  return sortItems(kept);
 }
 
 /** By description, then id (code-point order, so the same everywhere). */

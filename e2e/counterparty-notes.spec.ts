@@ -44,7 +44,9 @@ test.describe("counterparty notes", () => {
     const preview = page.getByTestId("note-document");
     await expect(preview).toContainText("Dear Brightwave Labs,");
     await expect(preview).toContainText("From now on, your contact at the club is Kavya.");
+    // The proposal's chat promise and its Trello card are one item, said once.
     await expect(preview.getByTestId("note-section-done")).toContainText("Send the sponsorship proposal");
+    await expect(preview).not.toContainText("deck v3");
 
     // Unsaved changes must be saved before approving, so what is approved is what was previewed.
     await page.getByLabel(/How to reach them/).fill("kavya.iot@example.edu");
