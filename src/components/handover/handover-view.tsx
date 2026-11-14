@@ -33,6 +33,9 @@ import { SealForm } from "./seal-form";
 import { ErrorState } from "@/components/feedback/error-state";
 import { loadQuoteSources, type QuoteSource } from "@/components/check/stated";
 import { EmptyState } from "@/components/feedback/empty-state";
+import { asNote, NOTE_SELECT, withoutApprovedNote, type NoteAck } from "@/components/notes/note-data";
+import { noteCandidates } from "@/lib/notes/notes";
+import { HandoverNotes } from "./handover-notes";
 
 const TIMING: Record<string, string> = { overdue: "Overdue", start_now: "Start now", upcoming: "Upcoming", undated: "No date recorded" };
 const STATED_WORDS: Record<string, string> = { fulfils: "Says it was done", contradicts: "Says it was not done", supports: "Added to the item", past_instance: "A past time it happened" };
@@ -244,13 +247,15 @@ export async function HandoverView({ workspaceId, role, userId, today }: { works
     );
   }
 
-  const [rowsRes, acksRes, releases, notesRes] = await Promise.all([
-    supabase.from("version_items").select("obligation_id, item, access_level").eq("version_id", version.id),
+  const [rowsRes, acksRes, releases, notesRes, cpNotes, cpAcks] = await Promise.all([
+    supabase.from("version_items").select("obligation_id, item, access_level, private_uploaders").eq("version_id", version.id),
     supabase.from("latest_acks").select("id, obligation_id, user_id, action, note, created_at").eq("version_id", version.id),
     supabase.from("releases").select("target_id, to_role").eq("workspace_id", workspaceId).eq("target_type", "obligation"),
     supabase.from("version_context_items").select("obligation_id, kind, text").eq("version_id", version.id).order("context_item_id"),
+    supabase.from("counterparty_notes").select(NOTE_SELECT).eq("workspace_id", workspaceId).order("counterparty"),
+    supabase.from("counterparty_note_acks").select("note_id, name, created_at").eq("workspace_id", workspaceId),
   ]);
-  if (rowsRes.error || acksRes.error || releases.error || notesRes.error) return <ErrorState title="Could not load the handover">Nothing was changed. Try again in a minute, or reload the page.</ErrorState>;
+  if (rowsRes.error || acksRes.error || releases.error || notesRes.error || cpNotes.error || cpAcks.error) return <ErrorState title="Could not load the handover">Nothing was changed. Try again in a minute, or reload the page.</ErrorState>;
 
   const evidence = new Map<string, VersionItem["evidence"]>();
   const items: HandoverItem[] = [];
@@ -294,6 +299,11 @@ export async function HandoverView({ workspaceId, role, userId, today }: { works
   const sealable = reviewer
     ? items.filter((i) => (levels.get(i.id) === "finance" || levels.get(i.id) === "private") && !sealedIds.has(i.id) && !released.has(i.id)).map((i) => ({ id: i.id, label: capitalise(i.description) }))
     : [];
+
+  // Notes to people outside the club (Phase 16), as RLS lets this role read them.
+  const outsideNotes = (cpNotes.data ?? []).map((n) => asNote(n));
+  const outsideAcks = new Map<string, NoteAck>((cpAcks.data ?? []).map((a) => [a.note_id, a]));
+  const notesToWrite = role === "outgoing_lead" ? withoutApprovedNote(noteCandidates(rowsRes.data ?? []), outsideNotes).length : 0;
 
   const months = new Map<string, typeof calendar>();
   for (const e of calendar) months.set(e.month, [...(months.get(e.month) ?? []), e]);
@@ -359,6 +369,8 @@ export async function HandoverView({ workspaceId, role, userId, today }: { works
           ))
         )}
       </section>
+
+      <HandoverNotes role={role} notes={outsideNotes} acks={outsideAcks} toWrite={notesToWrite} />
 
       <section aria-labelledby="sealed-h" className="flex flex-col gap-3">
         <h2 id="sealed-h" className="text-xl font-semibold">Sealed items</h2>
