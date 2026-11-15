@@ -24,7 +24,8 @@ test.describe("review", () => {
     await page.goto("/review");
     await expect(page.getByRole("heading", { name: "Review", level: 1 })).toBeVisible();
     const status = page.getByTestId("signoff-status");
-    await expect(status).toContainText("Marked ready for the advisor");
+    // Version 1 is approved and nothing has changed since, so there is nothing to mark yet.
+    await expect(status).toContainText("Approved as version 1. Nothing has changed since");
 
     // The page opens on "To check" when something is still a draft; the sensors item is accepted.
     await page.getByRole("button", { name: /^Accepted/ }).click();

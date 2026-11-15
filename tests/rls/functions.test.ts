@@ -150,8 +150,13 @@ describe.skipIf(!hasEnv)("release_item", () => {
   });
 
   // The incoming lead reads approved versions, not the working ledger, so a release is seen there.
+  // The latest version, approving a new one only if something changed (an identical one is refused).
   const publish = async () => {
-    expect((await as.arun.rpc("mark_ready", { p_workspace: WS, p_reason: "Ready" })).error).toBeNull();
+    const mark = await as.arun.rpc("mark_ready", { p_workspace: WS, p_reason: "Ready" });
+    if (/nothing has changed since version/.test(mark.error?.message ?? "")) {
+      return (await admin().from("versions").select("id").eq("workspace_id", WS).order("number", { ascending: false }).limit(1).single()).data!.id;
+    }
+    expect(mark.error).toBeNull();
     const v = await as.meena.rpc("approve_version", { p_workspace: WS, p_reason: "Approved" });
     expect(v.error).toBeNull();
     return v.data as string;

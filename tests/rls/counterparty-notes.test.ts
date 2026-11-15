@@ -209,7 +209,8 @@ describe.skipIf(!hasEnv)("counterparty notes", () => {
     const d = await draft(as.arun, "ECE department");
     expect(d.error).toBeNull();
     const ece = d.data!;
-    // Version 3 comes after the draft.
+    // Version 3 comes after the draft (with a change: an identical version is refused).
+    expect((await as.arun.rpc("review_obligation", { p_id: O("O5"), p_action: "accept", p_reason: "Checked" })).error).toBeNull();
     expect((await as.arun.rpc("mark_ready", { p_workspace: WS, p_reason: "Ready" })).error).toBeNull();
     expect((await as.meena.rpc("approve_version", { p_workspace: WS, p_reason: "Version 3" })).error).toBeNull();
     expect((await as.arun.rpc("approve_counterparty_note", { p_note: ece })).error?.message).toMatch(/newer version/);
