@@ -9,8 +9,11 @@ export type ReadinessInput = {
   acceptedCount: number;
   /** Of those, how many changed since they were accepted. */
   needsRereviewCount: number;
-  /** The outgoing lead's latest mark, and whether it still matches the pending items. */
-  signoff: { isCurrent: boolean } | null;
+  /**
+   * The outgoing lead's latest mark, whether it still matches the pending items, and the version
+   * it was approved as (a mark approves one version; migration 0025).
+   */
+  signoff: { isCurrent: boolean; approvedAs?: number | null } | null;
 };
 
 export type Gate = { ok: boolean; reasons: string[] };
@@ -24,13 +27,16 @@ export function readiness(input: ReadinessInput): { markReady: Gate; approve: Ga
     common.push(`${plural(input.needsRereviewCount, "accepted item has", "accepted items have")} changed since ${input.needsRereviewCount === 1 ? "it was" : "they were"} accepted. Accept or reject ${input.needsRereviewCount === 1 ? "it" : "them"} again.`);
   }
 
+  const used = input.signoff?.isCurrent && input.signoff.approvedAs ? input.signoff.approvedAs : null;
   const markReady: string[] = [...common];
   if (input.role !== "outgoing_lead") markReady.unshift("Only the outgoing lead marks the draft ready for the advisor.");
+  if (used) markReady.push(`Nothing has changed since version ${used} was approved. Accept, edit or reject an item first.`);
 
   const approve: string[] = [...common];
   if (input.role !== "advisor") approve.unshift("Only the faculty advisor approves a version.");
   if (!input.signoff) approve.push("The outgoing lead has not marked the draft ready for the advisor.");
   else if (!input.signoff.isCurrent) approve.push("The draft changed after the outgoing lead marked it ready. It must be marked ready again.");
+  else if (used) approve.push(`This draft is already approved as version ${used}. Nothing has changed since.`);
 
   return { markReady: { ok: markReady.length === 0, reasons: markReady }, approve: { ok: approve.length === 0, reasons: approve } };
 }

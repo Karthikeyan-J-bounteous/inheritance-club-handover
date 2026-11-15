@@ -85,6 +85,16 @@ describe("readiness", () => {
     expect(readiness({ ...ok, role: "advisor", signoff: { isCurrent: false } }).approve.reasons[0]).toMatch(/must be marked ready again/);
   });
 
+  it("a mark approves one version: once approved, neither step is offered until the draft changes", () => {
+    const used = { isCurrent: true, approvedAs: 1 };
+    expect(readiness({ ...ok, role: "advisor", signoff: used }).approve).toEqual({ ok: false, reasons: ["This draft is already approved as version 1. Nothing has changed since."] });
+    expect(readiness({ ...ok, role: "outgoing_lead", signoff: used }).markReady.reasons).toEqual(["Nothing has changed since version 1 was approved. Accept, edit or reject an item first."]);
+    // The draft changed after version 1: the lead may mark it again, and the advisor waits for that.
+    const changed = { isCurrent: false, approvedAs: 1 };
+    expect(readiness({ ...ok, role: "outgoing_lead", signoff: changed }).markReady.ok).toBe(true);
+    expect(readiness({ ...ok, role: "advisor", signoff: changed }).approve.reasons).toEqual(["The draft changed after the outgoing lead marked it ready. It must be marked ready again."]);
+  });
+
   it("blocks both when nothing is accepted", () => {
     const r = readiness({ ...ok, role: "advisor", acceptedCount: 0 });
     expect(r.markReady.reasons).toContain("No item is accepted yet.");
