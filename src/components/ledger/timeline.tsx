@@ -11,21 +11,41 @@ import { EmptyState } from "@/components/feedback/empty-state";
 const TYPE_LABELS = { whatsapp: "WhatsApp", trello: "Trello", minutes: "Minutes", statement: "Stated by the outgoing lead" } as const;
 
 /** Every message this role may read, oldest first, in IST. RLS filters before anything renders. */
-export async function Timeline({ workspaceId, params }: { workspaceId: string; params: TimelineParams }) {
+type TimelineRow = {
+  id: string; author: string | null; ts: string | null; text: string; access_level: keyof typeof ACCESS_LABELS;
+  meta: unknown; source_id: string; sources: { filename: string; type: keyof typeof TYPE_LABELS } | null;
+};
+
+export async function Timeline({ workspaceId, params: asked }: { workspaceId: string; params: TimelineParams }) {
+  let params = asked;
   const supabase = await createSupabaseServerClient();
-  const from = (params.page - 1) * TIMELINE_PAGE_SIZE;
+  const filteredQuery = (columns: string, head = false) => {
+    let query = supabase.from("events").select(columns, { count: "exact", head }).eq("workspace_id", workspaceId);
+    if (params.source) query = query.eq("source_id", params.source);
+    if (params.q) query = query.ilike("text", likePattern(params.q));
+    return query;
+  };
+  const pageOf = (page: number) => {
+    const from = (page - 1) * TIMELINE_PAGE_SIZE;
+    return filteredQuery("id, author, ts, text, access_level, meta, source_id, sources(filename, type)")
+      .order("ts", { ascending: true, nullsFirst: false }).order("id").range(from, from + TIMELINE_PAGE_SIZE - 1)
+      .overrideTypes<TimelineRow[], { merge: false }>();
+  };
 
-  let query = supabase
-    .from("events")
-    .select("id, author, ts, text, access_level, meta, source_id, sources(filename, type)", { count: "exact" })
-    .eq("workspace_id", workspaceId);
-  if (params.source) query = query.eq("source_id", params.source);
-  if (params.q) query = query.ilike("text", likePattern(params.q));
-
-  const [{ data: events, count, error }, { data: sources }] = await Promise.all([
-    query.order("ts", { ascending: true, nullsFirst: false }).order("id").range(from, from + TIMELINE_PAGE_SIZE - 1),
+  const [first, { data: sources }] = await Promise.all([
+    pageOf(params.page),
     supabase.from("sources").select("id, filename").eq("workspace_id", workspaceId).order("filename"),
   ]);
+  let { data: events, count, error } = first;
+  // A page past the end (an old link, or a hand-typed number): show the last page instead.
+  let pastEnd = false;
+  if (error?.code === "PGRST103" && params.page > 1) {
+    const { count: n } = await filteredQuery("id", true);
+    const last = Math.max(1, Math.ceil((n ?? 0) / TIMELINE_PAGE_SIZE));
+    ({ data: events, count, error } = await pageOf(last));
+    params = { ...params, page: last };
+    pastEnd = true;
+  }
 
   if (error) return <ErrorState title="Could not load the timeline">Nothing was changed. Try again in a minute, or reload the page.</ErrorState>;
   const total = count ?? 0;
@@ -75,7 +95,7 @@ export async function Timeline({ workspaceId, params }: { workspaceId: string; p
       <p className="text-sm text-muted-foreground" role="status">
         {total === 0
           ? "No entries match these filters."
-          : `${total} ${total === 1 ? "entry" : "entries"} you can read${filtered ? " match" : ""}. Page ${params.page} of ${pages}. Times are IST.`}
+          : `${pastEnd ? "That page is past the end, so this is the last one. " : ""}${total} ${total === 1 ? "entry" : "entries"} you can read${filtered ? " match" : ""}. Page ${params.page} of ${pages}. Times are IST.`}
       </p>
 
       <ol className="flex flex-col gap-2" data-testid="timeline">
