@@ -1,5 +1,5 @@
-# The year scenario: one synthetic IoT club, 1 Nov 2025 to 31 Oct 2026. SYNTHETIC: every name,
-# club and number is invented. The generator (scripts/generate-scenario.ts) turns this file into
+# The year scenario: one synthetic IoT club, 1 Nov 2025 to 31 Oct 2026, plus the previous
+# committee's chat (1 Nov 2024 to 31 Oct 2025). SYNTHETIC: every name, club and number is invented. The generator (scripts/generate-scenario.ts) turns this file into
 # the four export files next to it, the same way every time (`seed`). The planted messages
 # (`beats`), card histories and meetings are written here word for word; only the filler chat
 # between them is made from templates. ground_truth.yaml says what a correct reading finds.
@@ -21,6 +21,11 @@ people:
   - { name: Imran,   role: volunteer,     nicknames: [Imran] }
   - { name: Ananya,  role: volunteer,     nicknames: [Ananya, Anu] }
   - { name: Dr. Meena, role: faculty advisor, nicknames: [ma'am] }
+
+# The 2024-25 committee's lead and events head; both graduated in 2025.
+alumni:
+  - { name: Nikhil, role: lead 2024-25,   nicknames: [Nikhil, Nik] }
+  - { name: Sneha,  role: events 2024-25, nicknames: [Sneha] }
 
 filler:
   typoRate: 0.04
@@ -182,6 +187,47 @@ chats:
       - { at: "2026-09-21 18:05", by: Arun, say: "Ma'am, Karthik told me about his medical leave in confidence. Please keep it between us." }
       - { at: "2026-09-21 18:20", by: Dr. Meena, say: "I'll write to the HoD about Karthik's attendance condonation by 30 September." }
       - { at: "2026-09-29 11:15", by: Dr. Meena, say: "Letter about Karthik's attendance condonation sent to the HoD, he approved it." }
+
+  # The previous committee's group (2024-25), exported by its lead and handed to Arun, who
+  # uploads it at the committee level. Nobody in it says that anything happens every year: the
+  # four tasks below are done at about the same time as in 2025-26, and only that repetition
+  # shows they are duties (Phase 17, inferred duties). It also repeats three duties the
+  # 2025-26 records do state (lab letter, auditorium, registration), and one look-alike that is
+  # not at the same time of year (a June sponsorship proposal to another company).
+  - file: whatsapp-committee-2024-25.txt
+    format: android
+    group: IoT Club Committee 2024-25
+    accessLevel: committee
+    creator: Nikhil
+    template: committee
+    startsAt: "2024-11-01 09:00"
+    activeFrom: 2024-11-01
+    activeTo: 2025-10-31
+    members: [Nikhil, Sneha, Priya, Arun, Divya, Rohan]
+    perDay: { default: 0.6, "2025-01": 1.5, "2025-02": 1.5, "2025-05": 0.2, "2025-06": 0.2 }
+    system:
+      - { at: "2025-10-30 18:00", text: "Nikhil left" }
+    beats:
+      # Stated in the 2025-26 records (R1, R2, R3): past instances, not new duties.
+      - { at: "2024-11-05 18:20", by: Nikhil, say: "HoD signed the lab permission letter, the November workshop is on." }
+      - { at: "2025-01-07 16:40", by: Sneha, say: "Auditorium booked for the fest, the Dean's office approved it." }
+      - { at: "2025-08-12 12:10", by: Priya, say: "Registration renewal submitted to Student Affairs today." }
+      - { at: "2025-08-27 17:35", by: Priya, say: "Dean finally signed the registration renewal, two weeks of chasing." }
+      # I4: the IoT basics workshop slides, late November (2025-26: the Trello card "Workshop slides").
+      - { at: "2024-11-11 19:30", by: Rohan, say: "I'll make the IoT basics workshop slides by 25 November." }
+      - { at: "2024-11-24 21:10", by: Rohan, say: "IoT basics workshop slides are done, shared them in the drive." }
+      # I1: the sponsorship proposal to Brightwave Labs, mid January.
+      - { at: "2025-01-03 20:15", by: Nikhil, say: "I'll send the sponsorship proposal to Brightwave Labs by 15 January." }
+      - { at: "2025-01-14 11:30", by: Nikhil, say: "Sent the sponsorship proposal to Brightwave Labs today." }
+      # I2: the borrowed ESP32 boards back to Bala sir, late February.
+      - { at: "2025-02-10 17:45", by: Rohan, say: "I'll return the ESP32 boards to Bala sir by 28 Feb." }
+      - { at: "2025-02-24 16:20", by: Rohan, say: "Returned the ESP32 boards to Bala sir today, he signed the register." }
+      # Decoy: a sponsorship proposal, but to another company and in June, not January.
+      - { at: "2025-06-09 19:20", by: Sneha, say: "I'll send a sponsorship proposal to Zentro Systems for the summer hackathon by 15 June." }
+      - { at: "2025-06-13 18:05", by: Sneha, say: "Sent the sponsorship proposal to Zentro Systems." }
+      # I3: recruitment posters in the first-year blocks, early September (2025-26: the Trello card "Recruit new members").
+      - { at: "2025-08-18 19:00", by: Arun, say: "I'll put up the recruitment posters in the first-year blocks by 5 September." }
+      - { at: "2025-09-04 17:50", by: Arun, say: "Recruitment posters are up in all the first-year blocks." }
 
 trello:
   file: trello-board.json

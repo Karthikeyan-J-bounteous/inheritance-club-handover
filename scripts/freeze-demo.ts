@@ -36,6 +36,7 @@ import { loadWorld } from "../src/lib/synth/world.ts";
 import { isLocalUrl, readSeedEnv } from "./seed.ts";
 
 type Db = SupabaseClient<Database>;
+type StoredOccurrence = { year: number; done_event: string; done_on: string; start_event: string | null; started_on: string | null; days: number | null };
 
 const arg = (name: string) => {
   const i = process.argv.indexOf(name);
@@ -113,7 +114,7 @@ must("memberships", await admin.from("memberships").insert([
 // Aliases: the world's people and their nicknames, so matching knows "Aru" is Arun.
 const worldPath = `data/scenarios/${scenarioName}/world.yaml`;
 const aliases: FrozenClub["aliases"] = existsSync(worldPath)
-  ? loadWorld(readFileSync(worldPath, "utf8")).people
+  ? ((w) => [...w.people, ...w.alumni])(loadWorld(readFileSync(worldPath, "utf8")))
       .map((p) => ({ canonical: p.name, variants: p.nicknames.filter((n) => n !== p.name), kind: "person" as const }))
       .filter((a) => a.variants.length > 0)
   : [];
@@ -207,7 +208,7 @@ const result: MemoryResult = {
       context: ctxOf(o.id),
     };
   }),
-  duties: obligations.filter((o) => o.kind === "recurring").map((o) => ({
+  duties: obligations.filter((o) => o.kind === "recurring" && !o.occurrences).map((o) => ({
     id: o.id, level: o.access_level, trust: o.trust_state,
     duty: {
       description: o.description, period: (o.period ?? "year") as Period, cadence: o.cadence ?? "", approval: o.approval_required, approver: o.approver,
@@ -217,6 +218,24 @@ const result: MemoryResult = {
     schedule: { nextDue: o.next_due, startBy: o.start_by, basis: o.next_due_basis },
     context: ctxOf(o.id),
   })),
+  // Duties found from repetition (stage 7), read back from what add_inferred_duty() stored.
+  inferred: obligations.filter((o) => o.occurrences).map((o) => {
+    const quoteOf = (id: string) => evOf(o.id).find((e) => e.event_id === id)!.quote;
+    const occ = o.occurrences as unknown as StoredOccurrence[];
+    const occurrences = occ.map((x) => ({
+      year: x.year, doneDay: x.done_on, startDay: x.started_on, days: x.days,
+      done: { event: eventOf(x.done_event), quote: quoteOf(x.done_event) },
+      start: x.start_event ? { event: eventOf(x.start_event), quote: quoteOf(x.start_event) } : null,
+    }));
+    const spans = occ.map((x) => x.days).filter((n): n is number => n !== null);
+    return {
+      id: o.id, level: o.access_level, trust: o.trust_state,
+      repeat: {
+        description: o.description, occurrences, leadDays: spans.length ? Math.max(...spans) : null, nextDue: o.next_due!, startBy: o.start_by,
+        cadence: o.cadence ?? "", leadTime: o.lead_time, basis: o.next_due_basis ?? "", core: [],
+      },
+    };
+  }),
   links: links.map((l) => ({ a: l.a, b: l.b, verdict: l.verdict as "same" | "possible", method: l.method as "rule" | "model" })),
   dropped, usage: { inputTokens: usage.input, outputTokens: usage.output }, calls: usage.calls,
 };
@@ -241,6 +260,8 @@ const planted = new Set<string>([
   ...card.commitments.rows.map((r) => r.itemId).filter((x): x is string => Boolean(x)),
   ...card.extras.rows.filter((x) => x.kind === "restatement").map((x) => x.itemId),
   ...card.duties.rows.map((r) => r.itemId).filter((x): x is string => Boolean(x)),
+  // Duties found from repetition that are planted (I1 to I4).
+  ...card.inferred.rows.map((r) => r.itemId).filter((x): x is string => Boolean(x)),
   // A duty's copy at a more restricted level (the finance minutes restating a committee rule).
   ...result.duties.filter((d) => scenario.truth.recurring.some((r) => d.duty.quotes.some((q) => r.quotes.some((t) => q.event.id === eventFor(scenario.events, t)?.id)))).map((d) => d.id),
 ]);
@@ -251,6 +272,9 @@ const frozenObligations: FrozenObligation[] = obligations.map((o) => ({
   access_level: o.access_level as AccessLevel, private_uploaders: (o.private_uploaders ?? []).map((u) => keyOfUser.get(u)).filter((k): k is DemoUserKey => Boolean(k)),
   review_state: planted.has(o.id) ? "accepted" : "draft", fulfilment_checked_at: o.fulfilment_checked_at, period: o.period, cadence: o.cadence,
   lead_time: o.lead_time, start_by: o.start_by, next_due_basis: o.next_due_basis,
+  occurrences: o.occurrences
+    ? (o.occurrences as unknown as StoredOccurrence[]).map((x) => ({ ...x, done_event: ref(x.done_event), start_event: x.start_event ? ref(x.start_event) : null }))
+    : null,
 }));
 
 // Sealed placeholders: one for a finance item and one for a private item, if the build made them.

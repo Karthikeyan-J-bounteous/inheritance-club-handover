@@ -48,7 +48,12 @@ export type FrozenObligation = {
   lead_time: string | null;
   start_by: string | null;
   next_due_basis: string | null;
+  /** A duty found from repetition (Phase 17): its occurrences, with message references. */
+  occurrences?: FrozenOccurrence[] | null;
 };
+
+/** obligations.occurrences as add_inferred_duty() wrote it, with event ids as references. */
+export type FrozenOccurrence = { year: number; done_event: EventRef; done_on: string; start_event: EventRef | null; started_on: string | null; days: number | null };
 
 export type FrozenClub = {
   synthetic: true;
@@ -149,6 +154,7 @@ export async function insertFrozenClub(admin: Db, club: FrozenClub, t: FrozenTar
     status: o.status, access_level: o.access_level, private_uploaders: o.private_uploaders.map((k) => users[k]),
     review_state: o.review_state, fulfilment_checked_at: o.fulfilment_checked_at, period: o.period, cadence: o.cadence,
     lead_time: o.lead_time, start_by: o.start_by, next_due_basis: o.next_due_basis,
+    occurrences: o.occurrences ? o.occurrences.map((x) => ({ ...x, done_event: ev(x.done_event), start_event: x.start_event ? ev(x.start_event) : null })) : null,
   }))));
 
   check("evidence", await admin.from("evidence").insert(club.evidence.map((e) => ({

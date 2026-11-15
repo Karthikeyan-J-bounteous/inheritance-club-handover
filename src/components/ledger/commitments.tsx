@@ -21,7 +21,7 @@ export const TRUST_LABELS = {
 export const TRUST_HELP = {
   corroborated: "Two independent records (different files or different people) agree.",
   sourced: "Backed by one record only.",
-  inferred: "Done only by inference: no record says so plainly.",
+  inferred: "Only implied: no record says so plainly (a completion only suggested, or a duty found because it was done at the same time in past years).",
   contradicted: "One record says it was done and another says it was not. See “Check the records”.",
   gap: "No verified evidence is kept for this item.",
 } as const;

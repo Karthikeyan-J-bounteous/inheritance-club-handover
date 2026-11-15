@@ -11,6 +11,7 @@ files:
   trello-board.json: { type: trello, accessLevel: committee }
   minutes.md: { type: minutes, accessLevel: finance }
   WhatsApp Chat with Arun.txt: { type: whatsapp, accessLevel: private, uploader: meena }
+  whatsapp-committee-2024-25.txt: { type: whatsapp, accessLevel: committee }
 
 commitments:
   - id: C1
@@ -227,6 +228,61 @@ commitments:
     evidence:
       - { relation: fulfils, file: WhatsApp Chat with Arun.txt, text: "Letter about Karthik's attendance condonation sent to the HoD, he approved it." }
 
+  # The previous committee's promises (2024-25 chat). All kept, each reported by the person who
+  # made it in the same chat, so one person's word: sourced.
+  - id: C20
+    owedBy: Rohan
+    owedTo: Club
+    deliverable: IoT basics workshop slides
+    due: 2024-11-25
+    expectedStatus: fulfilled
+    expectedTrust: sourced
+    quote: { file: whatsapp-committee-2024-25.txt, text: "I'll make the IoT basics workshop slides by 25 November." }
+    evidence:
+      - { relation: fulfils, file: whatsapp-committee-2024-25.txt, text: "IoT basics workshop slides are done, shared them in the drive." }
+  - id: C21
+    owedBy: Nikhil
+    owedTo: Brightwave Labs
+    deliverable: Sponsorship proposal (2025)
+    due: 2025-01-15
+    expectedStatus: fulfilled
+    expectedTrust: sourced
+    note: Last year's proposal; C6 is this year's. They are different promises.
+    quote: { file: whatsapp-committee-2024-25.txt, text: "I'll send the sponsorship proposal to Brightwave Labs by 15 January." }
+    evidence:
+      - { relation: fulfils, file: whatsapp-committee-2024-25.txt, text: "Sent the sponsorship proposal to Brightwave Labs today." }
+  - id: C22
+    owedBy: Rohan
+    owedTo: Bala sir
+    deliverable: Return the ESP32 boards (2025)
+    due: 2025-02-28
+    expectedStatus: fulfilled
+    expectedTrust: sourced
+    note: Last year's boards; C9 is this year's.
+    quote: { file: whatsapp-committee-2024-25.txt, text: "I'll return the ESP32 boards to Bala sir by 28 Feb." }
+    evidence:
+      - { relation: fulfils, file: whatsapp-committee-2024-25.txt, text: "Returned the ESP32 boards to Bala sir today, he signed the register." }
+  - id: C23
+    owedBy: Sneha
+    owedTo: Zentro Systems
+    deliverable: Sponsorship proposal for the summer hackathon
+    due: 2025-06-15
+    expectedStatus: fulfilled
+    expectedTrust: sourced
+    quote: { file: whatsapp-committee-2024-25.txt, text: "I'll send a sponsorship proposal to Zentro Systems for the summer hackathon by 15 June." }
+    evidence:
+      - { relation: fulfils, file: whatsapp-committee-2024-25.txt, text: "Sent the sponsorship proposal to Zentro Systems." }
+  - id: C24
+    owedBy: Arun
+    owedTo: Club
+    deliverable: Recruitment posters in the first-year blocks
+    due: 2025-09-05
+    expectedStatus: fulfilled
+    expectedTrust: sourced
+    quote: { file: whatsapp-committee-2024-25.txt, text: "I'll put up the recruitment posters in the first-year blocks by 5 September." }
+    evidence:
+      - { relation: fulfils, file: whatsapp-committee-2024-25.txt, text: "Recruitment posters are up in all the first-year blocks." }
+
 recurring:
   - id: R1
     duty: Get the HoD's permission letter before booking the lab
@@ -276,6 +332,52 @@ recurring:
       - { file: whatsapp-committee.txt, text: "IoT Fest is our annual event." }
       - { file: whatsapp-committee.txt, text: "Last year the fest was on 14 Feb, let's keep the same date." }
       - { file: whatsapp-committee.txt, text: "IoT Fest is on 14 Feb 2026" }
+
+# Duties no record states, found by code from repetition (Phase 17): the same task done at about
+# the same time of year in 2024-25 and in 2025-26. Each occurrence is the first record that it
+# was done (`done`) and the first record that it was under way (`start`); the lead time is the
+# longest gap between the two, in IST calendar days, and the dates are for `built.today`
+# (2026-11-10): due a year after it was last done, start that many days before.
+inferred:
+  - id: I1
+    duty: Send the sponsorship proposal to Brightwave Labs
+    expectedNextDue: 2027-01-21
+    expectedStartBy: 2027-01-10
+    leadDays: 11
+    occurrences:
+      - { year: 2025, done: { file: whatsapp-committee-2024-25.txt, text: "Sent the sponsorship proposal to Brightwave Labs today." }, start: { file: whatsapp-committee-2024-25.txt, text: "I'll send the sponsorship proposal to Brightwave Labs by 15 January." } }
+      - { year: 2026, done: { file: whatsapp-committee.txt, text: "Sponsorship proposal sent to Brightwave Labs this morning." }, start: { file: whatsapp-committee.txt, text: "I'll send the sponsorship proposal to Brightwave Labs by 20 January." } }
+  - id: I2
+    duty: Return the borrowed ESP32 boards to Bala sir
+    expectedNextDue: 2027-02-27
+    expectedStartBy: 2027-02-12
+    leadDays: 15
+    occurrences:
+      - { year: 2025, done: { file: whatsapp-committee-2024-25.txt, text: "Returned the ESP32 boards to Bala sir today, he signed the register." }, start: { file: whatsapp-committee-2024-25.txt, text: "I'll return the ESP32 boards to Bala sir by 28 Feb." } }
+      - { year: 2026, done: { file: whatsapp-committee.txt, text: "Returned all 8 boards, Bala sir signed the register." }, start: { file: whatsapp-committee.txt, text: "I'll return the borrowed ESP32 boards to Bala sir by Friday 27 Feb." } }
+  - id: I3
+    duty: Put up the recruitment posters in the first-year blocks
+    expectedNextDue: 2027-09-08
+    expectedStartBy: 2027-08-20
+    leadDays: 19
+    occurrences:
+      - { year: 2025, done: { file: whatsapp-committee-2024-25.txt, text: "Recruitment posters are up in all the first-year blocks." }, start: { file: whatsapp-committee-2024-25.txt, text: "I'll put up the recruitment posters in the first-year blocks by 5 September." } }
+      - { year: 2026, done: { file: trello-board.json, text: "Moved card \"Recruit new members\" from \"To Do\" to \"Done\"" }, start: { file: trello-board.json, text: "Card: Recruit new members" } }
+  - id: I4
+    duty: Make the IoT basics workshop slides
+    expectedNextDue: 2026-11-27
+    expectedStartBy: 2026-11-10
+    leadDays: 17
+    note: Due a fortnight after the handover; its start-by date is the handover day.
+    occurrences:
+      - { year: 2024, done: { file: whatsapp-committee-2024-25.txt, text: "IoT basics workshop slides are done, shared them in the drive." }, start: { file: whatsapp-committee-2024-25.txt, text: "I'll make the IoT basics workshop slides by 25 November." } }
+      - { year: 2025, done: { file: trello-board.json, text: "Moved card \"Workshop slides\" from \"Doing\" to \"Done\"" }, start: { file: trello-board.json, text: "Card: Workshop slides" } }
+
+# Repeated in both years but already stated as duties: repetition must not add them again.
+restatedRecurring: [R1, R2, R3]
+# Repeated tasks that are not at the same time of year: no inferred duty may cite them.
+inferredDecoys:
+  - { file: whatsapp-committee-2024-25.txt, text: "Sent the sponsorship proposal to Zentro Systems." }
 
 decoys:
   - { file: whatsapp-committee.txt, text: "Maybe I'll check the projector too, will see." }

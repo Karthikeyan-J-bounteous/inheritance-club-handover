@@ -63,6 +63,16 @@ What is knowingly unfinished, and what the model still gets wrong on the synthet
 - The default new contact is the incoming lead's demo name (Kavya); in a real club the lead would type it.
 - `tests/rls/leak.test.ts` does not walk `counterparty_notes`; its rules are covered by `tests/rls/counterparty-notes.test.ts`, and the e2e sweep includes `/handover/notes`.
 
+## Known gaps (Phase 17)
+
+- Only yearly repetition is inferred. A task repeated every semester, every month or before every event is found only when a record states it.
+- "The same task" is decided by shared rare words. Two records of one task in different words ("posters are up" and "the noticeboards are done") are not matched; two different tasks that share a rare name could be. Each inferred duty is a draft for the reviewer, and its quotes are shown.
+- A task already stated as a duty is skipped, not added to: the old year's records do not become past instances of the stated duty.
+- The next due date is a year after the last time it was done. If the club moved the event, the date is wrong until the records say so; the card shows its basis.
+- The outgoing lead cannot confirm or deny an inferred duty through a gap question; the reviewer accepts or rejects it. A confirmation by the lead (which would lift it out of Inferred, on the lead's word) is not built. The database would still accept an approver answer for one through the API.
+- Stated duties the model finds are still re-proposed after a reviewer rejects them (the inferred ones are not).
+- The live build's stage 7 reads every message the user can read in one step. A club with several years of chat would need it split.
+
 ## What the model got wrong (Phase 12 paid runs)
 
 - **Photo P6** (hand over the camera and keys): the follow-up check took "the passbook stays in the cupboard", from the finance chat, as implying it was done. Status became Likely done, and, by the provenance rule, the committee item became finance-level, so the incoming lead would not see it. See outstanding task 4.
@@ -71,6 +81,15 @@ What is knowingly unfinished, and what the model still gets wrong on the synthet
 - **Year C15:** "Registration desk is ready, forms are printed." judged only implied (Likely done).
 - **Year R4** (hold the annual IoT Fest, no approval) not found apart from R2 (the auditorium), which shares its message.
 - 23 context notes were dropped by code for naming people or numbers not in their message: the check is doing its job.
+
+## What the model got wrong (Phase 17 build, database path, 15 Nov 2026)
+
+The year club rebuilt with the 2024-25 chat. Scorecard: 24/24 commitments, 23/24 statuses, 19/21 trust, 2/2 levels, 31/31 follow-up quotes, 2/2 contradictions, 3/4 stated duties with 3/3 approvers, 4/4 duties found from repetition with 4/4 dates right and 4/4 labelled Inferred (no extra, no decoy), 0 decoys, 0 wrong links, 0 leaks, precision 88%.
+
+- **Year C15** ("I'll handle the registration desk on the day"): the follow-up check took two filler lines ("Lakshmi where are you, we are at the parking") as saying it was not done, so the item is Contradicted and has a conflict for the advisor, although "Registration desk is ready, forms are printed" says it was done. The new chat changed the word weights, so this prompt was asked afresh. The advisor can rule it done; the demo leaves it unruled, as the build made it.
+- **Year C21** (last year's sponsorship proposal): this year's "sent" messages were also cited as its follow-up, so it is Corroborated instead of Sourced. Its status (done) is right.
+- **Year R4** (hold the annual IoT Fest) is still missed.
+- 18 extra commitments, 13 of them Trello cards or minutes lines restating planted promises (accepted with them) and 5 unplanned (drafts).
 
 ## What the model got wrong (Phase 13 builds, database path)
 

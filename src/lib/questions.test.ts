@@ -63,6 +63,12 @@ describe("gapQuestions", () => {
     expect(gapQuestions([item({ id: "r", kind: "recurring", approver: "HoD", next_due: "2027-01-01" })], [], [])).toEqual([]);
   });
 
+  it("asks nothing about a duty found from repetition: whether it is a duty at all is the reviewer's call", () => {
+    const occurrences = [{ year: 2025, done_event: "a", done_on: "2025-01-14" }, { year: 2026, done_event: "b", done_on: "2026-01-21" }];
+    expect(gapQuestions([item({ id: "r", kind: "recurring", next_due: "2027-01-21", occurrences })], [], [])).toEqual([]);
+    expect(gapQuestions([item({ id: "r", kind: "recurring", next_due: "2027-01-21" })], [], []).map((q) => q.question)).toEqual(["approver"]);
+  });
+
   it("asks nothing about a rejected item", () => {
     expect(gapQuestions([item({ id: "a", status: "no_evidence", review_state: "rejected" })], [], [])).toEqual([]);
   });

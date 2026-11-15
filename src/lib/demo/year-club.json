@@ -4,9 +4,9 @@
  "built": {
   "scenario": "year",
   "model": "claude-haiku-5-5",
-  "builtOn": "2026-11-10",
+  "builtOn": "2026-11-15",
   "today": "2026-11-10",
-  "calls": 163,
+  "calls": 185,
   "note": "Built once by scripts/freeze-demo.ts through the app's own pipeline on synthetic data; loaded into demo copies without a model call."
  },
  "sources": [
@@ -14096,11 +14096,2231 @@
      "meta": {}
     }
    ]
+  },
+  {
+   "key": "whatsapp-committee-2024-25.txt",
+   "type": "whatsapp",
+   "filename": "whatsapp-committee-2024-25.txt",
+   "access_level": "committee",
+   "uploadedBy": "arun",
+   "sha256": "a49858fae8b8e5e5a7e8f405e5c172d764facdd7509d6548c6808bbf79bde8f0",
+   "read_summary": {
+    "sourceType": "whatsapp",
+    "unit": "message",
+    "rawUnits": 316,
+    "eventCount": 294,
+    "dropped": {
+     "system": 4,
+     "deleted": 3,
+     "media": 15
+    },
+    "first": "2024-11-01T13:13:00+05:30",
+    "last": "2025-10-30T12:57:00+05:30",
+    "warnings": []
+   },
+   "events": [
+    {
+     "author": "Arun",
+     "ts": "2024-11-01T07:43:00+00:00",
+     "text": "The fest schedule needs a look when someone gets time",
+     "thread_id": "wa:2024-11-01",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2024-11-01T12:26:00+00:00",
+     "text": "Class got cancelled today, free till noon",
+     "thread_id": "wa:2024-11-01",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2024-11-05T12:50:00+00:00",
+     "text": "HoD signed the lab permission letter, the November workshop is on.",
+     "thread_id": "wa:2024-11-05",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2024-11-05T18:00:00+00:00",
+     "text": "Semma da",
+     "thread_id": "wa:2024-11-05",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2024-11-08T05:27:00+00:00",
+     "text": "Exam timetable is out, check the notice board",
+     "thread_id": "wa:2024-11-08",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2024-11-08T12:36:00+00:00",
+     "text": "Seri da",
+     "thread_id": "wa:2024-11-08",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2024-11-09T11:02:00+00:00",
+     "text": "Anyone has the banner design?",
+     "thread_id": "wa:2024-11-09",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2024-11-11T14:00:00+00:00",
+     "text": "I'll make the IoT basics workshop slides by 25 November.",
+     "thread_id": "wa:2024-11-11",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2024-11-13T15:16:00+00:00",
+     "text": "The breadboards is in the shared drive, check it",
+     "thread_id": "wa:2024-11-13",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2024-11-13T15:18:00+00:00",
+     "text": "The sensor kit looks good to me",
+     "thread_id": "wa:2024-11-13",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2024-11-14T16:23:00+00:00",
+     "text": "Exam timetable is out, check the notice board",
+     "thread_id": "wa:2024-11-14",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2024-11-17T13:57:00+00:00",
+     "text": "Exam timetable is out, check the notice board",
+     "thread_id": "wa:2024-11-17",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2024-11-20T13:47:00+00:00",
+     "text": "Why is the canteen locked today",
+     "thread_id": "wa:2024-11-20",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2024-11-21T13:00:00+00:00",
+     "text": "Which attendance sheet are we using, the old one or the new one?",
+     "thread_id": "wa:2024-11-21",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2024-11-23T17:10:00+00:00",
+     "text": "Why is the library locked today",
+     "thread_id": "wa:2024-11-23",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2024-11-24T06:20:00+00:00",
+     "text": "Why is the library locked today",
+     "thread_id": "wa:2024-11-24",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2024-11-24T15:40:00+00:00",
+     "text": "IoT basics workshop slides are done, shared them in the drive.",
+     "thread_id": "wa:2024-11-24",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2024-11-25T08:02:00+00:00",
+     "text": "Reached the auditorium, where is everyone?",
+     "thread_id": "wa:2024-11-25",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2024-11-26T15:10:00+00:00",
+     "text": "Did anyone see the new soldering station?",
+     "thread_id": "wa:2024-11-26",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2024-11-27T09:53:00+00:00",
+     "text": "Anyone has the sponsor deck?",
+     "thread_id": "wa:2024-11-27",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2024-11-27T16:55:00+00:00",
+     "text": "Ro you free tomorrow evening?",
+     "thread_id": "wa:2024-11-27",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2024-11-28T07:11:00+00:00",
+     "text": "Why is the auditorium locked today",
+     "thread_id": "wa:2024-11-28",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2024-11-30T06:56:00+00:00",
+     "text": "Semma da",
+     "thread_id": "wa:2024-11-30",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2024-12-01T15:53:00+00:00",
+     "text": "Reached the main gate, where is everyone?",
+     "thread_id": "wa:2024-12-01",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2024-12-02T15:43:00+00:00",
+     "text": "Power cut in the seminar hall again",
+     "thread_id": "wa:2024-12-02",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2024-12-03T12:54:00+00:00",
+     "text": "Did anyone see the new sensor kit?",
+     "thread_id": "wa:2024-12-03",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2024-12-04T14:33:00+00:00",
+     "text": "lol all that was funny",
+     "thread_id": "wa:2024-12-04",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2024-12-04T16:15:00+00:00",
+     "text": "Semma da",
+     "thread_id": "wa:2024-12-04",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2024-12-05T09:14:00+00:00",
+     "text": "Arun did you see the workshop slides message?",
+     "thread_id": "wa:2024-12-05",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2024-12-07T15:46:00+00:00",
+     "text": "Exam timetable is out, check the notice board",
+     "thread_id": "wa:2024-12-07",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2024-12-10T13:13:00+00:00",
+     "text": "The budget sheet looks good to me",
+     "thread_id": "wa:2024-12-10",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2024-12-13T08:52:00+00:00",
+     "text": "The router looks good to me",
+     "thread_id": "wa:2024-12-13",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2024-12-17T13:09:00+00:00",
+     "text": "Smema da",
+     "thread_id": "wa:2024-12-17",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2024-12-17T17:34:00+00:00",
+     "text": "Machan, lab key yaar kitta irukku?",
+     "thread_id": "wa:2024-12-17",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2024-12-19T13:40:00+00:00",
+     "text": "lol all that was funny",
+     "thread_id": "wa:2024-12-19",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2024-12-19T15:41:00+00:00",
+     "text": "Did anyone see the new banner design?",
+     "thread_id": "wa:2024-12-19",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2024-12-21T07:16:00+00:00",
+     "text": "Lunch at the canteen? canteen is crowded though",
+     "thread_id": "wa:2024-12-21",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2024-12-21T15:19:00+00:00",
+     "text": "The router looks good to me",
+     "thread_id": "wa:2024-12-21",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2024-12-22T08:23:00+00:00",
+     "text": "Seri da",
+     "thread_id": "wa:2024-12-22",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2024-12-24T08:58:00+00:00",
+     "text": "Sneha did you see the lab schedule message?",
+     "thread_id": "wa:2024-12-24",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2024-12-25T13:31:00+00:00",
+     "text": "lol Divya that was funny",
+     "thread_id": "wa:2024-12-25",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2024-12-26T12:30:00+00:00",
+     "text": "Seri da",
+     "thread_id": "wa:2024-12-26",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2024-12-26T13:55:00+00:00",
+     "text": "Anyone has the attendance sheet?",
+     "thread_id": "wa:2024-12-26",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2024-12-27T09:34:00+00:00",
+     "text": "Sneha you free tomorrow evening?",
+     "thread_id": "wa:2024-12-27",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2024-12-28T02:49:00+00:00",
+     "text": "Class got cancelled today, free till 7 pm",
+     "thread_id": "wa:2024-12-28",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2024-12-28T12:13:00+00:00",
+     "text": "Why is the library locked today",
+     "thread_id": "wa:2024-12-28",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2024-12-30T17:44:00+00:00",
+     "text": "The breadboards is in the shared drive, check it",
+     "thread_id": "wa:2024-12-30",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-01-01T08:57:00+00:00",
+     "text": "The soldering station looks good to me",
+     "thread_id": "wa:2025-01-01",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-01-01T09:32:00+00:00",
+     "text": "all you free tomorrow evening?",
+     "thread_id": "wa:2025-01-01",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-01-02T04:42:00+00:00",
+     "text": "Is the library open now?",
+     "thread_id": "wa:2025-01-02",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-01-02T15:04:00+00:00",
+     "text": "Is the parking open now?",
+     "thread_id": "wa:2025-01-02",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-01-03T14:45:00+00:00",
+     "text": "I'll send the sponsorship proposal to Brightwave Labs by 15 January.",
+     "thread_id": "wa:2025-01-03",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-01-03T16:54:00+00:00",
+     "text": "Which poster are we using, the old one or the new one?",
+     "thread_id": "wa:2025-01-03",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-01-04T05:35:00+00:00",
+     "text": "Why is the IoT lab locked today",
+     "thread_id": "wa:2025-01-04",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-01-04T18:01:00+00:00",
+     "text": "Why is the library locked today",
+     "thread_id": "wa:2025-01-04",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-01-05T06:27:00+00:00",
+     "text": "Lunch at the canteen? main gate is crowded though",
+     "thread_id": "wa:2025-01-05",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-01-05T11:41:00+00:00",
+     "text": "Why is the department office locked today",
+     "thread_id": "wa:2025-01-05",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-01-06T02:55:00+00:00",
+     "text": "Why is the IoT lab locked today",
+     "thread_id": "wa:2025-01-06",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-01-06T16:24:00+00:00",
+     "text": "Did anyone see the new lab schedule?",
+     "thread_id": "wa:2025-01-06",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-01-07T02:57:00+00:00",
+     "text": "lol Aru that was funny",
+     "thread_id": "wa:2025-01-07",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-01-07T11:10:00+00:00",
+     "text": "Auditorium booked for the fest, the Dean's office approved it.",
+     "thread_id": "wa:2025-01-07",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-01-08T06:32:00+00:00",
+     "text": "Why is the IoT lab locked today",
+     "thread_id": "wa:2025-01-08",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-01-10T04:41:00+00:00",
+     "text": "lol Divya that was funny",
+     "thread_id": "wa:2025-01-10",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-01-10T14:56:00+00:00",
+     "text": "The router needs a look when someone gets time",
+     "thread_id": "wa:2025-01-10",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-01-11T18:10:00+00:00",
+     "text": "all did you see the fest schedule message?",
+     "thread_id": "wa:2025-01-11",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-01-12T07:34:00+00:00",
+     "text": "The workshop slides needs a look when someone gets time",
+     "thread_id": "wa:2025-01-12",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-01-12T15:14:00+00:00",
+     "text": "Class got cancelled today, free till 7 pm",
+     "thread_id": "wa:2025-01-12",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-01-13T04:55:00+00:00",
+     "text": "Semma da",
+     "thread_id": "wa:2025-01-13",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-01-13T17:11:00+00:00",
+     "text": "Romba nalla irukku",
+     "thread_id": "wa:2025-01-13",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-01-14T06:00:00+00:00",
+     "text": "Sent the sponsorship proposal to Brightwave Labs today.",
+     "thread_id": "wa:2025-01-14",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-01-15T13:26:00+00:00",
+     "text": "Power cut in the IoT lab again",
+     "thread_id": "wa:2025-01-15",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-01-16T14:07:00+00:00",
+     "text": "Is the parking open now?",
+     "thread_id": "wa:2025-01-16",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-01-17T12:33:00+00:00",
+     "text": "Anyone has the budget sheet?",
+     "thread_id": "wa:2025-01-17",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-01-17T14:39:00+00:00",
+     "text": "The workshop sildes looks good to me",
+     "thread_id": "wa:2025-01-17",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-01-18T14:34:00+00:00",
+     "text": "Power cut in the parking agian",
+     "thread_id": "wa:2025-01-18",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-01-18T16:22:00+00:00",
+     "text": "Exam timetable is out, check the notice board",
+     "thread_id": "wa:2025-01-18",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-01-19T17:05:00+00:00",
+     "text": "Anyone has the banner design?",
+     "thread_id": "wa:2025-01-19",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-01-19T17:53:00+00:00",
+     "text": "Power cut in the seminar hall again",
+     "thread_id": "wa:2025-01-19",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-01-20T11:58:00+00:00",
+     "text": "Why is the library locked today",
+     "thread_id": "wa:2025-01-20",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-01-21T02:45:00+00:00",
+     "text": "Which banner design are we using, the old one or the new one?",
+     "thread_id": "wa:2025-01-21",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-01-21T12:54:00+00:00",
+     "text": "The poster needs a look when someone gets time",
+     "thread_id": "wa:2025-01-21",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-01-22T17:08:00+00:00",
+     "text": "Seri da",
+     "thread_id": "wa:2025-01-22",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-01-23T08:00:00+00:00",
+     "text": "Did anyone see the new router?",
+     "thread_id": "wa:2025-01-23",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-01-23T13:10:00+00:00",
+     "text": "Aama da, same doubt enakkum",
+     "thread_id": "wa:2025-01-23",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-01-24T08:21:00+00:00",
+     "text": "Lunch at the canteen? auditorium is crowded though",
+     "thread_id": "wa:2025-01-24",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-01-24T13:43:00+00:00",
+     "text": "Innaiku class illa da",
+     "thread_id": "wa:2025-01-24",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-01-24T15:42:00+00:00",
+     "text": "Class got cancelled today, free till 5",
+     "thread_id": "wa:2025-01-24",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-01-25T02:30:00+00:00",
+     "text": "The workshop slides is in the shared drive, check it",
+     "thread_id": "wa:2025-01-25",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-01-25T17:20:00+00:00",
+     "text": "Machan, lab key yaar kitta irukku?",
+     "thread_id": "wa:2025-01-25",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-01-26T08:33:00+00:00",
+     "text": "Aama da, same doubt enakkum",
+     "thread_id": "wa:2025-01-26",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-01-26T13:16:00+00:00",
+     "text": "Semma da",
+     "thread_id": "wa:2025-01-26",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-01-27T04:36:00+00:00",
+     "text": "Lunch at the canteen? department office is crowded though",
+     "thread_id": "wa:2025-01-27",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-01-27T10:14:00+00:00",
+     "text": "The soldering station looks good to me",
+     "thread_id": "wa:2025-01-27",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-01-28T14:04:00+00:00",
+     "text": "Innaiku class illa da",
+     "thread_id": "wa:2025-01-28",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-01-29T13:06:00+00:00",
+     "text": "Sneha you free tomorrow evening?",
+     "thread_id": "wa:2025-01-29",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-01-30T17:50:00+00:00",
+     "text": "Which banner design are we using, the old one or the new one?",
+     "thread_id": "wa:2025-01-30",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-01-31T15:49:00+00:00",
+     "text": "Lunch at the canteen? auditorium is crowded though",
+     "thread_id": "wa:2025-01-31",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-02-01T06:54:00+00:00",
+     "text": "Why is the seminar hall locked today",
+     "thread_id": "wa:2025-02-01",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-02-01T10:20:00+00:00",
+     "text": "Class got cancelled today, free till 6 pm",
+     "thread_id": "wa:2025-02-01",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-02-01T13:06:00+00:00",
+     "text": "Did anyone see the new router?",
+     "thread_id": "wa:2025-02-01",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-02-02T15:37:00+00:00",
+     "text": "The sensor kit is in the shared drive, check it",
+     "thread_id": "wa:2025-02-02",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-02-03T17:40:00+00:00",
+     "text": "Exam timetable is out, check the notice board",
+     "thread_id": "wa:2025-02-03",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-02-03T17:45:00+00:00",
+     "text": "Which sponsor deck are we using, the old one or the new one?",
+     "thread_id": "wa:2025-02-03",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-02-04T14:21:00+00:00",
+     "text": "Exam timetable is out, check the notice board",
+     "thread_id": "wa:2025-02-04",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-02-05T15:40:00+00:00",
+     "text": "The workshop slides looks good to me",
+     "thread_id": "wa:2025-02-05",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-02-05T16:04:00+00:00",
+     "text": "Lunch at the canteen? department office is crowded though",
+     "thread_id": "wa:2025-02-05",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-02-06T14:05:00+00:00",
+     "text": "lol Rohan that was funny",
+     "thread_id": "wa:2025-02-06",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-02-07T09:11:00+00:00",
+     "text": "The workshop slides is in the shared drive, check it",
+     "thread_id": "wa:2025-02-07",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-02-08T04:18:00+00:00",
+     "text": "Why is the seminar hall locked today",
+     "thread_id": "wa:2025-02-08",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-02-08T17:00:00+00:00",
+     "text": "Class got cancelled today, free till noon",
+     "thread_id": "wa:2025-02-08",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-02-09T04:28:00+00:00",
+     "text": "Lunch at the canteen? IoT lab is crowded though",
+     "thread_id": "wa:2025-02-09",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-02-09T12:04:00+00:00",
+     "text": "Why is the auditorium locked today",
+     "thread_id": "wa:2025-02-09",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-02-09T12:07:00+00:00",
+     "text": "Is the parking open now?",
+     "thread_id": "wa:2025-02-09",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-02-10T05:22:00+00:00",
+     "text": "The lab schedule needs a look when someone gets time",
+     "thread_id": "wa:2025-02-10",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-02-10T07:57:00+00:00",
+     "text": "Lunch at the canteen? department office is crowded though",
+     "thread_id": "wa:2025-02-10",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-02-10T12:15:00+00:00",
+     "text": "I'll return the ESP32 boards to Bala sir by 28 Feb.",
+     "thread_id": "wa:2025-02-10",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-02-11T05:59:00+00:00",
+     "text": "The poster needs a look when someone gets time",
+     "thread_id": "wa:2025-02-11",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-02-11T13:44:00+00:00",
+     "text": "The lab schedule is in the shared drive, check it",
+     "thread_id": "wa:2025-02-11",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-02-12T08:22:00+00:00",
+     "text": "Is the seminar hall open now?",
+     "thread_id": "wa:2025-02-12",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-02-12T17:41:00+00:00",
+     "text": "Innaiku class illa da",
+     "thread_id": "wa:2025-02-12",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-02-13T11:14:00+00:00",
+     "text": "The sensor kit looks good to me",
+     "thread_id": "wa:2025-02-13",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-02-13T14:35:00+00:00",
+     "text": "Aama da, same dobut enakkum",
+     "thread_id": "wa:2025-02-13",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-02-14T10:31:00+00:00",
+     "text": "Enna da idhu",
+     "thread_id": "wa:2025-02-14",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-02-15T15:07:00+00:00",
+     "text": "Nikhil you free tomorrow evening?",
+     "thread_id": "wa:2025-02-15",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-02-15T17:33:00+00:00",
+     "text": "The router needs a look when someone gets time",
+     "thread_id": "wa:2025-02-15",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-02-16T07:55:00+00:00",
+     "text": "Which lab schedule are we using, the old one or the new one?",
+     "thread_id": "wa:2025-02-16",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-02-16T09:50:00+00:00",
+     "text": "The fest schedule is in the shared drive, check it",
+     "thread_id": "wa:2025-02-16",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-02-17T07:39:00+00:00",
+     "text": "Why is the department office locked today",
+     "thread_id": "wa:2025-02-17",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-02-18T14:47:00+00:00",
+     "text": "Lunch at the canteen? IoT lab is crowded though",
+     "thread_id": "wa:2025-02-18",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-02-18T16:23:00+00:00",
+     "text": "Aru you free tomorrow evening?",
+     "thread_id": "wa:2025-02-18",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-02-19T08:36:00+00:00",
+     "text": "Lunch at the canteen? library is crowded though",
+     "thread_id": "wa:2025-02-19",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-02-20T05:43:00+00:00",
+     "text": "Reached the main gate, where is everyone?",
+     "thread_id": "wa:2025-02-20",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-02-21T10:46:00+00:00",
+     "text": "Arun you free tomorrow evening?",
+     "thread_id": "wa:2025-02-21",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-02-21T17:15:00+00:00",
+     "text": "Is the seminar hall open now?",
+     "thread_id": "wa:2025-02-21",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-02-22T09:05:00+00:00",
+     "text": "Why is the parking locked today",
+     "thread_id": "wa:2025-02-22",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-02-22T11:37:00+00:00",
+     "text": "Lunch at the canteen? IoT lab is crowded though",
+     "thread_id": "wa:2025-02-22",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-02-23T10:27:00+00:00",
+     "text": "lol Ro that was funny",
+     "thread_id": "wa:2025-02-23",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-02-24T10:50:00+00:00",
+     "text": "Returned the ESP32 boards to Bala sir today, he signed the register.",
+     "thread_id": "wa:2025-02-24",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-02-24T14:02:00+00:00",
+     "text": "Which breadboards are we using, the old one or the new one?",
+     "thread_id": "wa:2025-02-24",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-02-24T16:59:00+00:00",
+     "text": "Power cut in the main gate again",
+     "thread_id": "wa:2025-02-24",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-02-25T16:40:00+00:00",
+     "text": "Reached the canteen, whree is everyone?",
+     "thread_id": "wa:2025-02-25",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-02-26T11:32:00+00:00",
+     "text": "The budget sheet is in the shared drive, check it",
+     "thread_id": "wa:2025-02-26",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-02-26T12:46:00+00:00",
+     "text": "The attendance sheet is in the shared drive, check it",
+     "thread_id": "wa:2025-02-26",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-02-27T04:46:00+00:00",
+     "text": "lol Divs that was funny",
+     "thread_id": "wa:2025-02-27",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-02-27T15:29:00+00:00",
+     "text": "Class got cancelled today, free till 4",
+     "thread_id": "wa:2025-02-27",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-02-28T17:50:00+00:00",
+     "text": "Divs did you see the banner design message?",
+     "thread_id": "wa:2025-02-28",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-03-01T09:05:00+00:00",
+     "text": "Semma da",
+     "thread_id": "wa:2025-03-01",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-03-02T10:25:00+00:00",
+     "text": "The sensor kit looks good to me",
+     "thread_id": "wa:2025-03-02",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-03-05T17:40:00+00:00",
+     "text": "Class got cancelled today, free till 7 pm",
+     "thread_id": "wa:2025-03-05",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-03-08T15:11:00+00:00",
+     "text": "Reached the seminar hall, where is everyone?",
+     "thread_id": "wa:2025-03-08",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-03-12T11:35:00+00:00",
+     "text": "Innaiku class illa da",
+     "thread_id": "wa:2025-03-12",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-03-12T16:05:00+00:00",
+     "text": "Which sensor kit are we using, the old one or the new one?",
+     "thread_id": "wa:2025-03-12",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-03-13T16:58:00+00:00",
+     "text": "Power cut in the canteen again",
+     "thread_id": "wa:2025-03-13",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-03-13T17:00:00+00:00",
+     "text": "Power cut in the auditorium again",
+     "thread_id": "wa:2025-03-13",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-03-14T14:44:00+00:00",
+     "text": "lol all that was funny",
+     "thread_id": "wa:2025-03-14",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-03-14T18:07:00+00:00",
+     "text": "Did anyone see the new lab schedule?",
+     "thread_id": "wa:2025-03-14",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-03-15T18:05:00+00:00",
+     "text": "all you free tomorrow evening?",
+     "thread_id": "wa:2025-03-15",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-03-18T17:33:00+00:00",
+     "text": "Anyone has the workshop slides?",
+     "thread_id": "wa:2025-03-18",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-03-19T02:33:00+00:00",
+     "text": "Did anyone see the new lab schedule?",
+     "thread_id": "wa:2025-03-19",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-03-20T10:55:00+00:00",
+     "text": "The banner design needs a look when someone gets time",
+     "thread_id": "wa:2025-03-20",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-03-22T15:31:00+00:00",
+     "text": "Machan, lab key yaar kitta irukku?",
+     "thread_id": "wa:2025-03-22",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-03-22T17:34:00+00:00",
+     "text": "Reached the auditorium, where is everyone?",
+     "thread_id": "wa:2025-03-22",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-03-24T14:32:00+00:00",
+     "text": "Class got cancelled today, free till 4",
+     "thread_id": "wa:2025-03-24",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-03-25T17:22:00+00:00",
+     "text": "lol Arun that was funny",
+     "thread_id": "wa:2025-03-25",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-03-26T08:05:00+00:00",
+     "text": "The lab schedule is in the shared drive, check it",
+     "thread_id": "wa:2025-03-26",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-03-27T15:54:00+00:00",
+     "text": "Did anyone see the new workshop slides?",
+     "thread_id": "wa:2025-03-27",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-03-28T08:07:00+00:00",
+     "text": "Lunch at the canteen? main gate is crowded though",
+     "thread_id": "wa:2025-03-28",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-03-28T17:34:00+00:00",
+     "text": "Why is the auditorium locked today",
+     "thread_id": "wa:2025-03-28",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-03-29T12:58:00+00:00",
+     "text": "Power cut in the main gate again",
+     "thread_id": "wa:2025-03-29",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-03-30T14:22:00+00:00",
+     "text": "Is the seminar hall open now?",
+     "thread_id": "wa:2025-03-30",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-04-01T07:33:00+00:00",
+     "text": "Exam timetable is out, check the notice board",
+     "thread_id": "wa:2025-04-01",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-04-02T15:13:00+00:00",
+     "text": "Class got cancelled today, free till 5",
+     "thread_id": "wa:2025-04-02",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-04-03T14:49:00+00:00",
+     "text": "Why is the auditorium locked today",
+     "thread_id": "wa:2025-04-03",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-04-04T04:01:00+00:00",
+     "text": "Did anyone see the new soldering station?",
+     "thread_id": "wa:2025-04-04",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-04-05T11:49:00+00:00",
+     "text": "The poster needs a look when someone gets time",
+     "thread_id": "wa:2025-04-05",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-04-07T02:39:00+00:00",
+     "text": "The sponsor deck needs a look when someone gets time",
+     "thread_id": "wa:2025-04-07",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-04-08T15:47:00+00:00",
+     "text": "The breadboards is in the shared drive, check it",
+     "thread_id": "wa:2025-04-08",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-04-09T02:55:00+00:00",
+     "text": "all you free tomorrow evening?",
+     "thread_id": "wa:2025-04-09",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-04-09T03:20:00+00:00",
+     "text": "The breadboards is in the shared drive, check it",
+     "thread_id": "wa:2025-04-09",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-04-12T15:55:00+00:00",
+     "text": "lol Rohan that was funny",
+     "thread_id": "wa:2025-04-12",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-04-13T07:38:00+00:00",
+     "text": "lol all that was funny",
+     "thread_id": "wa:2025-04-13",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-04-15T03:41:00+00:00",
+     "text": "Power cut in the seminar hall again",
+     "thread_id": "wa:2025-04-15",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-04-19T06:18:00+00:00",
+     "text": "Class got cancelled today, free till 4",
+     "thread_id": "wa:2025-04-19",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-04-19T09:54:00+00:00",
+     "text": "Aama da, same doubt enakkum",
+     "thread_id": "wa:2025-04-19",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-04-20T16:10:00+00:00",
+     "text": "Reached the seimnar hall, where is everyone?",
+     "thread_id": "wa:2025-04-20",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-04-22T17:23:00+00:00",
+     "text": "lol all that was funny",
+     "thread_id": "wa:2025-04-22",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-04-27T17:21:00+00:00",
+     "text": "The attendance sheet needs a look when someone gets time",
+     "thread_id": "wa:2025-04-27",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-04-28T05:24:00+00:00",
+     "text": "Anyone has the attendance sheet?",
+     "thread_id": "wa:2025-04-28",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-04-30T07:54:00+00:00",
+     "text": "lol all that was funny",
+     "thread_id": "wa:2025-04-30",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-05-01T14:30:00+00:00",
+     "text": "Power cut in the library again",
+     "thread_id": "wa:2025-05-01",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-05-09T08:58:00+00:00",
+     "text": "Anyone has the workshop slides?",
+     "thread_id": "wa:2025-05-09",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-05-16T13:31:00+00:00",
+     "text": "Which sponsor deck are we using, the old one or the new one?",
+     "thread_id": "wa:2025-05-16",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-05-17T10:22:00+00:00",
+     "text": "Lunch at the canteen? canteen is crowded though",
+     "thread_id": "wa:2025-05-17",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-05-17T17:29:00+00:00",
+     "text": "The fest schedule needs a look when someone gets time",
+     "thread_id": "wa:2025-05-17",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-05-26T09:04:00+00:00",
+     "text": "The sensor kit is in the shared drive, check it",
+     "thread_id": "wa:2025-05-26",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-05-30T12:55:00+00:00",
+     "text": "Which banner design are we using, the old one or the new one?",
+     "thread_id": "wa:2025-05-30",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-05-30T15:47:00+00:00",
+     "text": "Did anyone see the new soldering station?",
+     "thread_id": "wa:2025-05-30",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-06-07T16:34:00+00:00",
+     "text": "Power cut in the library again",
+     "thread_id": "wa:2025-06-07",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-06-08T14:13:00+00:00",
+     "text": "Is the smeinar hall open now?",
+     "thread_id": "wa:2025-06-08",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-06-09T13:50:00+00:00",
+     "text": "I'll send a sponsorship proposal to Zentro Systems for the summer hackathon by 15 June.",
+     "thread_id": "wa:2025-06-09",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-06-10T06:13:00+00:00",
+     "text": "Innaiku class illa da",
+     "thread_id": "wa:2025-06-10",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-06-13T12:35:00+00:00",
+     "text": "Sent the sponsorship proposal to Zentro Systems.",
+     "thread_id": "wa:2025-06-13",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-06-13T16:50:00+00:00",
+     "text": "Seri da",
+     "thread_id": "wa:2025-06-13",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-06-16T15:39:00+00:00",
+     "text": "The breadboards looks good to me",
+     "thread_id": "wa:2025-06-16",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-06-17T12:08:00+00:00",
+     "text": "Exam timetable is out, check the notice board",
+     "thread_id": "wa:2025-06-17",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-07-01T12:15:00+00:00",
+     "text": "Class got cancelled today, free till noon",
+     "thread_id": "wa:2025-07-01",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-07-01T17:35:00+00:00",
+     "text": "Class got cancelled today, free till 5",
+     "thread_id": "wa:2025-07-01",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-07-04T10:06:00+00:00",
+     "text": "Did anyone see the new router?",
+     "thread_id": "wa:2025-07-04",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-07-04T12:41:00+00:00",
+     "text": "Enna da idhu",
+     "thread_id": "wa:2025-07-04",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-07-05T11:41:00+00:00",
+     "text": "The sponsor deck is in the shared drive, check it",
+     "thread_id": "wa:2025-07-05",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-07-07T11:45:00+00:00",
+     "text": "Why is the parking locked today",
+     "thread_id": "wa:2025-07-07",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-07-10T12:13:00+00:00",
+     "text": "Anyone has the lab schedule?",
+     "thread_id": "wa:2025-07-10",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-07-11T14:05:00+00:00",
+     "text": "The attendance sheet looks good to me",
+     "thread_id": "wa:2025-07-11",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-07-12T09:10:00+00:00",
+     "text": "Rohan did you see the soldering station message?",
+     "thread_id": "wa:2025-07-12",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-07-13T15:17:00+00:00",
+     "text": "all did you see the breadboards message?",
+     "thread_id": "wa:2025-07-13",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-07-16T12:31:00+00:00",
+     "text": "Which banner design are we using, the old one or the new one?",
+     "thread_id": "wa:2025-07-16",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-07-17T15:54:00+00:00",
+     "text": "Why is the IoT lab locked today",
+     "thread_id": "wa:2025-07-17",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-07-18T14:18:00+00:00",
+     "text": "The soldering station is in the shared drive, check it",
+     "thread_id": "wa:2025-07-18",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-07-19T18:07:00+00:00",
+     "text": "Machan, lab key yaar kitta irukku?",
+     "thread_id": "wa:2025-07-19",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-07-20T12:53:00+00:00",
+     "text": "Exam timetable is out, check the notice board",
+     "thread_id": "wa:2025-07-20",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-07-21T05:05:00+00:00",
+     "text": "Which poster are we using, the old one or the new one?",
+     "thread_id": "wa:2025-07-21",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-07-23T07:07:00+00:00",
+     "text": "Why is the parking locked today",
+     "thread_id": "wa:2025-07-23",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-07-24T16:12:00+00:00",
+     "text": "Why is the parking locked today",
+     "thread_id": "wa:2025-07-24",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-07-25T15:16:00+00:00",
+     "text": "Exam timetable is out, check the notice board",
+     "thread_id": "wa:2025-07-25",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-07-26T10:58:00+00:00",
+     "text": "Reached the seminar hall, where is everyone?",
+     "thread_id": "wa:2025-07-26",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-07-27T12:08:00+00:00",
+     "text": "Exam timetable is out, check the notice board",
+     "thread_id": "wa:2025-07-27",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-07-28T16:05:00+00:00",
+     "text": "Whcih sponsor deck are we using, the old one or the new one?",
+     "thread_id": "wa:2025-07-28",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-07-29T14:52:00+00:00",
+     "text": "Why is the main gate locked today",
+     "thread_id": "wa:2025-07-29",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-07-30T07:02:00+00:00",
+     "text": "Bus romba late da",
+     "thread_id": "wa:2025-07-30",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-07-30T10:04:00+00:00",
+     "text": "Power cut in the seminar hall again",
+     "thread_id": "wa:2025-07-30",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-07-31T15:56:00+00:00",
+     "text": "Class got cancelled today, free till noon",
+     "thread_id": "wa:2025-07-31",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-08-01T09:10:00+00:00",
+     "text": "Is the department office open now?",
+     "thread_id": "wa:2025-08-01",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-08-01T15:02:00+00:00",
+     "text": "The attendance sheet looks good to me",
+     "thread_id": "wa:2025-08-01",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-08-02T18:06:00+00:00",
+     "text": "Power cut in the seminar hall again",
+     "thread_id": "wa:2025-08-02",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-08-04T16:12:00+00:00",
+     "text": "Anyone has the budget sheet?",
+     "thread_id": "wa:2025-08-04",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-08-08T13:30:00+00:00",
+     "text": "The poster is in the shared drive, check it",
+     "thread_id": "wa:2025-08-08",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-08-10T09:04:00+00:00",
+     "text": "Power cut in the library again",
+     "thread_id": "wa:2025-08-10",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-08-12T06:40:00+00:00",
+     "text": "Registration renewal submitted to Student Affairs today.",
+     "thread_id": "wa:2025-08-12",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-08-12T10:09:00+00:00",
+     "text": "Innaiku class illa da",
+     "thread_id": "wa:2025-08-12",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-08-15T09:43:00+00:00",
+     "text": "Exam timetable is out, cehck the notice board",
+     "thread_id": "wa:2025-08-15",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-08-15T13:49:00+00:00",
+     "text": "Which attendance sheet are we using, the old one or the new one?",
+     "thread_id": "wa:2025-08-15",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-08-16T16:01:00+00:00",
+     "text": "Bus romba late da",
+     "thread_id": "wa:2025-08-16",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-08-17T12:14:00+00:00",
+     "text": "The attendance sheet needs a look when someone gets time",
+     "thread_id": "wa:2025-08-17",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-08-18T13:30:00+00:00",
+     "text": "I'll put up the recruitment posters in the first-year blocks by 5 September.",
+     "thread_id": "wa:2025-08-18",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-08-21T08:14:00+00:00",
+     "text": "The router is in the shared drive, check it",
+     "thread_id": "wa:2025-08-21",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-08-22T05:02:00+00:00",
+     "text": "Machan, lab key yaar kitta irukku?",
+     "thread_id": "wa:2025-08-22",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-08-27T12:05:00+00:00",
+     "text": "Dean finally signed the registration renewal, two weeks of chasing.",
+     "thread_id": "wa:2025-08-27",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-08-27T16:26:00+00:00",
+     "text": "Power cut in the parking again",
+     "thread_id": "wa:2025-08-27",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-08-29T08:53:00+00:00",
+     "text": "Arun you free tomorrow evening?",
+     "thread_id": "wa:2025-08-29",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-08-31T16:09:00+00:00",
+     "text": "Enna da idhu",
+     "thread_id": "wa:2025-08-31",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-09-01T12:54:00+00:00",
+     "text": "Aama da, same doubt enakkum",
+     "thread_id": "wa:2025-09-01",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-09-01T13:02:00+00:00",
+     "text": "The sensor kit looks good to me",
+     "thread_id": "wa:2025-09-01",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-09-03T14:39:00+00:00",
+     "text": "Lunch at the canteen? department office is crowded though",
+     "thread_id": "wa:2025-09-03",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-09-04T10:43:00+00:00",
+     "text": "Seri da",
+     "thread_id": "wa:2025-09-04",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-09-04T12:20:00+00:00",
+     "text": "Recruitment posters are up in all the first-year blocks.",
+     "thread_id": "wa:2025-09-04",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-09-05T17:29:00+00:00",
+     "text": "Did anynoe see the new poster?",
+     "thread_id": "wa:2025-09-05",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-09-11T12:39:00+00:00",
+     "text": "The fest schedule needs a look when someone gets time",
+     "thread_id": "wa:2025-09-11",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-09-11T12:39:00+00:00",
+     "text": "all did you see the attendance sheet message?",
+     "thread_id": "wa:2025-09-11",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-09-12T14:41:00+00:00",
+     "text": "The router needs a look when someone gets time",
+     "thread_id": "wa:2025-09-12",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-09-12T17:37:00+00:00",
+     "text": "The soldreing station looks good to me",
+     "thread_id": "wa:2025-09-12",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-09-13T07:55:00+00:00",
+     "text": "Semma da",
+     "thread_id": "wa:2025-09-13",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-09-15T05:27:00+00:00",
+     "text": "The budget sheet is in the shared drive, check it",
+     "thread_id": "wa:2025-09-15",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-09-16T13:31:00+00:00",
+     "text": "Lunch at the canteen? IoT lab is crowded though",
+     "thread_id": "wa:2025-09-16",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-09-19T17:35:00+00:00",
+     "text": "Semma da",
+     "thread_id": "wa:2025-09-19",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-09-22T14:46:00+00:00",
+     "text": "Seri da",
+     "thread_id": "wa:2025-09-22",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-09-23T12:41:00+00:00",
+     "text": "The fest schedule looks good to me",
+     "thread_id": "wa:2025-09-23",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-09-24T05:23:00+00:00",
+     "text": "Is the auditorium open now?",
+     "thread_id": "wa:2025-09-24",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-09-25T07:21:00+00:00",
+     "text": "Is the seminar hall open now?",
+     "thread_id": "wa:2025-09-25",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-09-26T12:48:00+00:00",
+     "text": "Arun you free tomorrow evening?",
+     "thread_id": "wa:2025-09-26",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-09-29T12:42:00+00:00",
+     "text": "Is the IoT lab open now?",
+     "thread_id": "wa:2025-09-29",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-10-01T06:32:00+00:00",
+     "text": "lol all that was funny",
+     "thread_id": "wa:2025-10-01",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-10-04T13:16:00+00:00",
+     "text": "Lunch at the canteen? auditorium is crowded though",
+     "thread_id": "wa:2025-10-04",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-10-04T16:49:00+00:00",
+     "text": "Why is the auditorium locked today",
+     "thread_id": "wa:2025-10-04",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-10-05T17:36:00+00:00",
+     "text": "Reached the seminar hall, where is everyone?",
+     "thread_id": "wa:2025-10-05",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-10-06T06:14:00+00:00",
+     "text": "Anyone has the attendance sheet?",
+     "thread_id": "wa:2025-10-06",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-10-07T15:49:00+00:00",
+     "text": "Did anyone see the new lab schedule?",
+     "thread_id": "wa:2025-10-07",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-10-08T16:33:00+00:00",
+     "text": "Bus romba late da",
+     "thread_id": "wa:2025-10-08",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-10-08T17:29:00+00:00",
+     "text": "The banner design is in the shared drive, check it",
+     "thread_id": "wa:2025-10-08",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-10-10T17:50:00+00:00",
+     "text": "Class got cancelled today, free till noon",
+     "thread_id": "wa:2025-10-10",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-10-12T17:23:00+00:00",
+     "text": "Is the canteen open now?",
+     "thread_id": "wa:2025-10-12",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-10-13T08:34:00+00:00",
+     "text": "Did anyone see the new bnaner design?",
+     "thread_id": "wa:2025-10-13",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-10-14T14:08:00+00:00",
+     "text": "Lunch at the canteen? library is crowded though",
+     "thread_id": "wa:2025-10-14",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-10-17T14:05:00+00:00",
+     "text": "Is the parking open now?",
+     "thread_id": "wa:2025-10-17",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-10-20T04:29:00+00:00",
+     "text": "Divya did you see the lab schedule message?",
+     "thread_id": "wa:2025-10-20",
+     "meta": {}
+    },
+    {
+     "author": "Rohan",
+     "ts": "2025-10-21T11:49:00+00:00",
+     "text": "Which router are we using, the old one or the new one?",
+     "thread_id": "wa:2025-10-21",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-10-21T16:45:00+00:00",
+     "text": "Lunch at the canteen? main gate is crowded though",
+     "thread_id": "wa:2025-10-21",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-10-22T15:14:00+00:00",
+     "text": "Seri da",
+     "thread_id": "wa:2025-10-22",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-10-24T15:58:00+00:00",
+     "text": "Which budget sheet are we using, the old one or the new one?",
+     "thread_id": "wa:2025-10-24",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-10-25T11:50:00+00:00",
+     "text": "Which soldering station are we using, the old one or the new one?",
+     "thread_id": "wa:2025-10-25",
+     "meta": {}
+    },
+    {
+     "author": "Nikhil",
+     "ts": "2025-10-26T10:38:00+00:00",
+     "text": "The sponsor deck is in the shared drive, check it",
+     "thread_id": "wa:2025-10-26",
+     "meta": {}
+    },
+    {
+     "author": "Priya",
+     "ts": "2025-10-27T05:53:00+00:00",
+     "text": "lol all that was funny",
+     "thread_id": "wa:2025-10-27",
+     "meta": {}
+    },
+    {
+     "author": "Arun",
+     "ts": "2025-10-29T14:37:00+00:00",
+     "text": "Anyone has the banner design?",
+     "thread_id": "wa:2025-10-29",
+     "meta": {}
+    },
+    {
+     "author": "Sneha",
+     "ts": "2025-10-29T15:18:00+00:00",
+     "text": "Reached the seminar hall, where is everyone?",
+     "thread_id": "wa:2025-10-29",
+     "meta": {}
+    },
+    {
+     "author": "Divya",
+     "ts": "2025-10-30T07:27:00+00:00",
+     "text": "Class got cancelled today, free till 5",
+     "thread_id": "wa:2025-10-30",
+     "meta": {}
+    }
+   ]
   }
  ],
  "obligations": [
   {
    "key": "C1",
+   "kind": "commitment",
+   "description": "IoT basics workshop slides",
+   "owed_by": "Rohan",
+   "owed_to": "the club",
+   "due_text": "by 25 November",
+   "due_date": null,
+   "next_due": null,
+   "approval_required": null,
+   "approver": null,
+   "status": "fulfilled",
+   "access_level": "committee",
+   "private_uploaders": [],
+   "review_state": "accepted",
+   "fulfilment_checked_at": "2026-11-15T03:38:18.200124+00:00",
+   "period": null,
+   "cadence": null,
+   "lead_time": null,
+   "start_by": null,
+   "next_due_basis": null,
+   "occurrences": null
+  },
+  {
+   "key": "C2",
+   "kind": "commitment",
+   "description": "sponsorship proposal",
+   "owed_by": "Nikhil",
+   "owed_to": "Brightwave Labs",
+   "due_text": "by 15 January",
+   "due_date": null,
+   "next_due": null,
+   "approval_required": null,
+   "approver": null,
+   "status": "fulfilled",
+   "access_level": "committee",
+   "private_uploaders": [],
+   "review_state": "accepted",
+   "fulfilment_checked_at": "2026-11-15T03:38:24.945629+00:00",
+   "period": null,
+   "cadence": null,
+   "lead_time": null,
+   "start_by": null,
+   "next_due_basis": null,
+   "occurrences": null
+  },
+  {
+   "key": "C3",
+   "kind": "commitment",
+   "description": "return the ESP32 boards",
+   "owed_by": "Rohan",
+   "owed_to": "Bala sir",
+   "due_text": "by 28 Feb",
+   "due_date": null,
+   "next_due": null,
+   "approval_required": null,
+   "approver": null,
+   "status": "fulfilled",
+   "access_level": "committee",
+   "private_uploaders": [],
+   "review_state": "accepted",
+   "fulfilment_checked_at": "2026-11-15T03:38:30.679061+00:00",
+   "period": null,
+   "cadence": null,
+   "lead_time": null,
+   "start_by": null,
+   "next_due_basis": null,
+   "occurrences": null
+  },
+  {
+   "key": "C4",
+   "kind": "commitment",
+   "description": "return ESP32 boards",
+   "owed_by": "Rohan",
+   "owed_to": "Bala sir",
+   "due_text": "today",
+   "due_date": null,
+   "next_due": null,
+   "approval_required": null,
+   "approver": null,
+   "status": "fulfilled",
+   "access_level": "committee",
+   "private_uploaders": [],
+   "review_state": "accepted",
+   "fulfilment_checked_at": "2026-11-15T03:38:37.571028+00:00",
+   "period": null,
+   "cadence": null,
+   "lead_time": null,
+   "start_by": null,
+   "next_due_basis": null,
+   "occurrences": null
+  },
+  {
+   "key": "C5",
+   "kind": "commitment",
+   "description": "sponsorship proposal for the summer hackathon",
+   "owed_by": "Sneha",
+   "owed_to": "Zentro Systems",
+   "due_text": "by 15 June",
+   "due_date": null,
+   "next_due": null,
+   "approval_required": null,
+   "approver": null,
+   "status": "fulfilled",
+   "access_level": "committee",
+   "private_uploaders": [],
+   "review_state": "accepted",
+   "fulfilment_checked_at": "2026-11-15T03:38:41.722873+00:00",
+   "period": null,
+   "cadence": null,
+   "lead_time": null,
+   "start_by": null,
+   "next_due_basis": null,
+   "occurrences": null
+  },
+  {
+   "key": "C6",
+   "kind": "commitment",
+   "description": "put up recruitment posters in first-year blocks",
+   "owed_by": "Arun",
+   "owed_to": "the club",
+   "due_text": "by 5 September",
+   "due_date": null,
+   "next_due": null,
+   "approval_required": null,
+   "approver": null,
+   "status": "fulfilled",
+   "access_level": "committee",
+   "private_uploaders": [],
+   "review_state": "accepted",
+   "fulfilment_checked_at": "2026-11-15T03:38:46.071112+00:00",
+   "period": null,
+   "cadence": null,
+   "lead_time": null,
+   "start_by": null,
+   "next_due_basis": null,
+   "occurrences": null
+  },
+  {
+   "key": "C7",
    "kind": "commitment",
    "description": "get the lab permission letter signed by the HoD",
    "owed_by": "Arun",
@@ -14114,15 +16334,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:09:19.329008+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:38:54.008369+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C2",
+   "key": "C8",
    "kind": "commitment",
    "description": "book the auditorium",
    "owed_by": "Priya",
@@ -14136,15 +16357,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:09:26.849438+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:39:00.528018+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C3",
+   "key": "C9",
    "kind": "commitment",
    "description": "get the lab permission letter signed",
    "owed_by": "Arun",
@@ -14158,15 +16380,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:09:32.604944+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:39:07.483496+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C4",
+   "key": "C10",
    "kind": "commitment",
    "description": "send the sponsorship proposal",
    "owed_by": "Arun",
@@ -14180,15 +16403,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:09:37.453093+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:39:14.965477+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C5",
+   "key": "C11",
    "kind": "commitment",
    "description": "have the fest posters printed",
    "owed_by": "Kavya",
@@ -14202,15 +16426,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:09:41.839168+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:39:19.188969+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C6",
+   "key": "C12",
    "kind": "commitment",
    "description": "set up the WiFi router in the fest hall",
    "owed_by": "Rohan",
@@ -14224,15 +16449,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:09:48.108338+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:39:24.00136+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C7",
+   "key": "C13",
    "kind": "commitment",
    "description": "collect the printed posters",
    "owed_by": "Kavya",
@@ -14245,16 +16471,17 @@
    "status": "likely_fulfilled",
    "access_level": "committee",
    "private_uploaders": [],
-   "review_state": "draft",
-   "fulfilment_checked_at": "2026-11-10T09:09:53.518813+00:00",
+   "review_state": "accepted",
+   "fulfilment_checked_at": "2026-11-15T03:39:24.119963+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C8",
+   "key": "C14",
    "kind": "commitment",
    "description": "return the borrowed ESP32 boards",
    "owed_by": "Rohan",
@@ -14268,15 +16495,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:09:55.757152+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:39:28.736954+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C9",
+   "key": "C15",
    "kind": "commitment",
    "description": "participation certificates",
    "owed_by": "Arun",
@@ -14290,15 +16518,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:10:01.023205+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:39:33.990819+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C10",
+   "key": "C16",
    "kind": "commitment",
    "description": "Submit the club registration renewal",
    "owed_by": "Arun",
@@ -14312,15 +16541,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:10:06.104349+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:39:41.282745+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C11",
+   "key": "C17",
    "kind": "commitment",
    "description": "Get the lab permission letter signed for the new semester",
    "owed_by": "Kavya",
@@ -14334,15 +16564,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:10:11.511162+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:39:48.330612+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C12",
+   "key": "C18",
    "kind": "commitment",
    "description": "registration renewal status report",
    "owed_by": "Arun",
@@ -14356,15 +16587,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "draft",
-   "fulfilment_checked_at": "2026-11-10T09:10:17.245702+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:39:53.453117+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C13",
+   "key": "C19",
    "kind": "commitment",
    "description": "get the lab permission letter signed",
    "owed_by": "Arun",
@@ -14378,15 +16610,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:10:23.16811+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:39:58.955623+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C14",
+   "key": "C20",
    "kind": "commitment",
    "description": "write the handover document",
    "owed_by": "Arun",
@@ -14400,15 +16633,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:10:27.902267+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:40:03.886597+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C15",
+   "key": "C21",
    "kind": "commitment",
    "description": "Reimburse speaker travel of ₹2,400",
    "owed_by": "Divya",
@@ -14422,15 +16656,16 @@
    "access_level": "finance",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:10:32.508736+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:40:03.993962+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C16",
+   "key": "C22",
    "kind": "commitment",
    "description": "Write the handover document",
    "owed_by": "Arun",
@@ -14444,15 +16679,16 @@
    "access_level": "finance",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:10:39.77307+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:40:08.041446+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C17",
+   "key": "C23",
    "kind": "commitment",
    "description": "Card: Lab permission letter (Nov workshop)",
    "owed_by": "Arun",
@@ -14466,15 +16702,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:10:44.699903+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:40:14.146227+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C18",
+   "key": "C24",
    "kind": "commitment",
    "description": "Auditorium booking for IoT Fest",
    "owed_by": "Priya",
@@ -14488,15 +16725,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:10:50.450948+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:40:20.529897+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C19",
+   "key": "C25",
    "kind": "commitment",
    "description": "Card: Lab permission letter (Jan semester)",
    "owed_by": "Arun",
@@ -14510,15 +16748,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:10:55.067006+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:40:27.854098+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C20",
+   "key": "C26",
    "kind": "commitment",
    "description": "Sponsorship proposal deck v3",
    "owed_by": "Arun",
@@ -14532,15 +16771,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:10:59.725394+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:40:33.570641+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C21",
+   "key": "C27",
    "kind": "commitment",
    "description": "40 A3 fest posters",
    "owed_by": "Kavya",
@@ -14554,15 +16794,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:11:04.426961+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:40:33.671347+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C22",
+   "key": "C28",
    "kind": "commitment",
    "description": "Main stage banner design",
    "owed_by": "Meghna",
@@ -14576,15 +16817,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "draft",
-   "fulfilment_checked_at": "2026-11-10T09:11:09.306039+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:40:38.586707+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C23",
+   "key": "C29",
    "kind": "commitment",
    "description": "Router and two access points in the fest hall",
    "owed_by": "Rohan",
@@ -14598,15 +16840,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:11:14.686672+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:40:38.671626+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C24",
+   "key": "C30",
    "kind": "commitment",
    "description": "Certificates for all fest volunteers",
    "owed_by": "Priya",
@@ -14620,15 +16863,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:11:18.91149+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:40:38.72672+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C25",
+   "key": "C31",
    "kind": "commitment",
    "description": "Certificates for the March speakers",
    "owed_by": "Arun",
@@ -14642,15 +16886,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:11:24.192146+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:40:44.235415+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C26",
+   "key": "C32",
    "kind": "commitment",
    "description": "Registration renewal form plus fee receipt, with Dean's signature",
    "owed_by": "Arun",
@@ -14664,15 +16909,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "draft",
-   "fulfilment_checked_at": "2026-11-10T09:11:29.446752+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:40:50.771349+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C27",
+   "key": "C33",
    "kind": "commitment",
    "description": "Card: Lab permission letter (Aug semester)",
    "owed_by": "Kavya",
@@ -14685,16 +16931,17 @@
    "status": "fulfilled",
    "access_level": "committee",
    "private_uploaders": [],
-   "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:11:34.686357+00:00",
+   "review_state": "draft",
+   "fulfilment_checked_at": "2026-11-15T03:40:56.416414+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C28",
+   "key": "C34",
    "kind": "commitment",
    "description": "Recruitment posters in first-year blocks",
    "owed_by": "Kavya",
@@ -14708,15 +16955,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "draft",
-   "fulfilment_checked_at": "2026-11-10T09:11:37.586351+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:41:02.457723+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C29",
+   "key": "C35",
    "kind": "commitment",
    "description": "Lab permission letter with HoD signature for the even semester",
    "owed_by": "Arun",
@@ -14729,16 +16977,17 @@
    "status": "no_evidence",
    "access_level": "committee",
    "private_uploaders": [],
-   "review_state": "draft",
-   "fulfilment_checked_at": "2026-11-10T09:11:44.420458+00:00",
+   "review_state": "accepted",
+   "fulfilment_checked_at": "2026-11-15T03:41:08.508981+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C30",
+   "key": "C36",
    "kind": "commitment",
    "description": "Handover document covering everything the next committee needs",
    "owed_by": "Arun",
@@ -14752,15 +17001,16 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:11:49.071829+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:41:14.217023+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C31",
+   "key": "C37",
    "kind": "commitment",
    "description": "extension boards for the fest hall",
    "owed_by": "Sanjay",
@@ -14774,15 +17024,16 @@
    "access_level": "everyone",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:11:51.399193+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:41:17.110355+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C32",
+   "key": "C38",
    "kind": "commitment",
    "description": "handle the registration desk on the day",
    "owed_by": "Lakshmi",
@@ -14792,19 +17043,20 @@
    "next_due": null,
    "approval_required": null,
    "approver": null,
-   "status": "likely_fulfilled",
+   "status": "contradicted",
    "access_level": "everyone",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:11:56.396315+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:41:22.734143+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C33",
+   "key": "C39",
    "kind": "commitment",
    "description": "snacks for the volunteers",
    "owed_by": "Ananya",
@@ -14818,15 +17070,16 @@
    "access_level": "everyone",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:11:59.53687+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:41:22.79465+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C34",
+   "key": "C40",
    "kind": "commitment",
    "description": "set up the demo kits",
    "owed_by": "Imran",
@@ -14840,15 +17093,16 @@
    "access_level": "everyone",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:12:03.256314+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:41:24.987701+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "C35",
+   "key": "C41",
    "kind": "commitment",
    "description": "send volunteer certificates",
    "owed_by": "Priya",
@@ -14862,18 +17116,19 @@
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:12:08.399637+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:41:30.932012+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   },
   {
-   "key": "R36",
+   "key": "R42",
    "kind": "recurring",
    "description": "Get the HoD's permission letter signed before booking the lab",
-   "owed_by": null,
+   "owed_by": "Arun",
    "owed_to": null,
    "due_text": null,
    "due_date": null,
@@ -14887,15 +17142,39 @@
    "fulfilment_checked_at": null,
    "period": "semester",
    "cadence": "every semester",
-   "lead_time": "two weeks ahead",
+   "lead_time": "Apply two weeks ahead",
    "start_by": "2027-01-31",
-   "next_due_basis": "Estimated: one semester after it was last recorded, on 14 Aug 2026; start two weeks ahead"
+   "next_due_basis": "Estimated: one semester after it was last recorded, on 14 Aug 2026; start Apply two weeks ahead",
+   "occurrences": null
   },
   {
-   "key": "R37",
+   "key": "R43",
    "kind": "recurring",
-   "description": "Book the auditorium for IoT Fest with Dean's office approval",
-   "owed_by": null,
+   "description": "Renew the club registration with Student Affairs, signed by the Dean",
+   "owed_by": "Priya",
+   "owed_to": null,
+   "due_text": null,
+   "due_date": null,
+   "next_due": "2027-08-01",
+   "approval_required": "Dean's signature from Student Affairs",
+   "approver": "Dean",
+   "status": "open",
+   "access_level": "committee",
+   "private_uploaders": [],
+   "review_state": "accepted",
+   "fulfilment_checked_at": null,
+   "period": "year",
+   "cadence": "Club registration renewal is due every August",
+   "lead_time": null,
+   "start_by": null,
+   "next_due_basis": "Stated in the records: \"every August\"",
+   "occurrences": null
+  },
+  {
+   "key": "R44",
+   "kind": "recurring",
+   "description": "Book the auditorium for the IoT Fest with Dean's office approval",
+   "owed_by": "Priya",
    "owed_to": null,
    "due_text": null,
    "due_date": null,
@@ -14908,35 +17187,174 @@
    "review_state": "accepted",
    "fulfilment_checked_at": null,
    "period": "year",
-   "cadence": "our annual event",
-   "lead_time": "a month ahead",
+   "cadence": "IoT Fest is our annual event",
+   "lead_time": "apply a month ahead",
    "start_by": "2026-12-09",
-   "next_due_basis": "Estimated: one year after it was last recorded, on 9 Jan 2026; start a month ahead"
+   "next_due_basis": "Estimated: one year after it was last recorded, on 9 Jan 2026; start apply a month ahead",
+   "occurrences": null
   },
   {
-   "key": "R38",
+   "key": "R45",
    "kind": "recurring",
-   "description": "Renew club registration every August with the Dean's signature from Student Affairs",
+   "description": "Make the IoT basics workshop slides",
    "owed_by": null,
    "owed_to": null,
    "due_text": null,
    "due_date": null,
-   "next_due": "2027-08-01",
-   "approval_required": "Dean's signature",
-   "approver": "Dean",
+   "next_due": "2026-11-27",
+   "approval_required": null,
+   "approver": null,
    "status": "open",
    "access_level": "committee",
    "private_uploaders": [],
    "review_state": "accepted",
    "fulfilment_checked_at": null,
    "period": "year",
-   "cadence": "due every August",
-   "lead_time": null,
-   "start_by": null,
-   "next_due_basis": "Stated in the records: \"every August\""
+   "cadence": "about once a year (done in 2024 and 2025; no record says it repeats)",
+   "lead_time": "17 days (the longest it took before)",
+   "start_by": "2026-11-10",
+   "next_due_basis": "Inferred, not stated: done at about this time in 2024 and 2025 (24 Nov 2024 and 27 Nov 2025). Due a year after it was last done; start 17 days ahead, the longest it took from the first record to done.",
+   "occurrences": [
+    {
+     "days": 13,
+     "year": 2024,
+     "done_on": "2024-11-24",
+     "done_event": "whatsapp-committee-2024-25.txt#16",
+     "started_on": "2024-11-11",
+     "start_event": "whatsapp-committee-2024-25.txt#7"
+    },
+    {
+     "days": 17,
+     "year": 2025,
+     "done_on": "2025-11-27",
+     "done_event": "trello-board.json#4",
+     "started_on": "2025-11-10",
+     "start_event": "trello-board.json#1"
+    }
+   ]
   },
   {
-   "key": "C39",
+   "key": "R46",
+   "kind": "recurring",
+   "description": "Send the sponsorship proposal to Brightwave Labs",
+   "owed_by": null,
+   "owed_to": null,
+   "due_text": null,
+   "due_date": null,
+   "next_due": "2027-01-21",
+   "approval_required": null,
+   "approver": null,
+   "status": "open",
+   "access_level": "committee",
+   "private_uploaders": [],
+   "review_state": "accepted",
+   "fulfilment_checked_at": null,
+   "period": "year",
+   "cadence": "about once a year (done in 2025 and 2026; no record says it repeats)",
+   "lead_time": "11 days (the longest it took before)",
+   "start_by": "2027-01-10",
+   "next_due_basis": "Inferred, not stated: done at about this time in 2025 and 2026 (14 Jan 2025 and 21 Jan 2026). Due a year after it was last done; start 11 days ahead, the longest it took from the first record to done.",
+   "occurrences": [
+    {
+     "days": 11,
+     "year": 2025,
+     "done_on": "2025-01-14",
+     "done_event": "whatsapp-committee-2024-25.txt#69",
+     "started_on": "2025-01-03",
+     "start_event": "whatsapp-committee-2024-25.txt#51"
+    },
+    {
+     "days": 11,
+     "year": 2026,
+     "done_on": "2026-01-21",
+     "done_event": "whatsapp-committee.txt#344",
+     "started_on": "2026-01-10",
+     "start_event": "whatsapp-committee.txt#281"
+    }
+   ]
+  },
+  {
+   "key": "R47",
+   "kind": "recurring",
+   "description": "Return the borrowed ESP32 boards to Bala sir",
+   "owed_by": null,
+   "owed_to": null,
+   "due_text": null,
+   "due_date": null,
+   "next_due": "2027-02-27",
+   "approval_required": null,
+   "approver": null,
+   "status": "open",
+   "access_level": "committee",
+   "private_uploaders": [],
+   "review_state": "accepted",
+   "fulfilment_checked_at": null,
+   "period": "year",
+   "cadence": "about once a year (done in 2025 and 2026; no record says it repeats)",
+   "lead_time": "15 days (the longest it took before)",
+   "start_by": "2027-02-12",
+   "next_due_basis": "Inferred, not stated: done at about this time in 2025 and 2026 (24 Feb 2025 and 27 Feb 2026). Due a year after it was last done; start 15 days ahead, the longest it took from the first record to done.",
+   "occurrences": [
+    {
+     "days": 14,
+     "year": 2025,
+     "done_on": "2025-02-24",
+     "done_event": "whatsapp-committee-2024-25.txt#137",
+     "started_on": "2025-02-10",
+     "start_event": "whatsapp-committee-2024-25.txt#115"
+    },
+    {
+     "days": 15,
+     "year": 2026,
+     "done_on": "2026-02-27",
+     "done_event": "whatsapp-committee.txt#592",
+     "started_on": "2026-02-12",
+     "start_event": "whatsapp-committee.txt#495"
+    }
+   ]
+  },
+  {
+   "key": "R48",
+   "kind": "recurring",
+   "description": "Put up the recruitment posters in the first-year blocks",
+   "owed_by": null,
+   "owed_to": null,
+   "due_text": null,
+   "due_date": null,
+   "next_due": "2027-09-08",
+   "approval_required": null,
+   "approver": null,
+   "status": "open",
+   "access_level": "committee",
+   "private_uploaders": [],
+   "review_state": "accepted",
+   "fulfilment_checked_at": null,
+   "period": "year",
+   "cadence": "about once a year (done in 2025 and 2026; no record says it repeats)",
+   "lead_time": "19 days (the longest it took before)",
+   "start_by": "2027-08-20",
+   "next_due_basis": "Inferred, not stated: done at about this time in 2025 and 2026 (4 Sep 2025 and 8 Sep 2026). Due a year after it was last done; start 19 days ahead, the longest it took from the first record to done.",
+   "occurrences": [
+    {
+     "days": 17,
+     "year": 2025,
+     "done_on": "2025-09-04",
+     "done_event": "whatsapp-committee-2024-25.txt#254",
+     "started_on": "2025-08-18",
+     "start_event": "whatsapp-committee-2024-25.txt#243"
+    },
+    {
+     "days": 19,
+     "year": 2026,
+     "done_on": "2026-09-08",
+     "done_event": "trello-board.json#31",
+     "started_on": "2026-08-20",
+     "start_event": "trello-board.json#30"
+    }
+   ]
+  },
+  {
+   "key": "C49",
    "kind": "commitment",
    "description": "Write to the HoD about Karthik's attendance condonation",
    "owed_by": "Dr. Meena",
@@ -14952,1457 +17370,1724 @@
     "meena"
    ],
    "review_state": "accepted",
-   "fulfilment_checked_at": "2026-11-10T09:13:00.919765+00:00",
+   "fulfilment_checked_at": "2026-11-15T03:42:24.893375+00:00",
    "period": null,
    "cadence": null,
    "lead_time": null,
    "start_by": null,
-   "next_due_basis": null
+   "next_due_basis": null,
+   "occurrences": null
   }
  ],
  "evidence": [
   {
    "obligation": "C1",
+   "event": "whatsapp-committee-2024-25.txt#7",
+   "quote": "I'll make the IoT basics workshop slides by 25 November.",
+   "relation": "supports",
+   "inferred": false
+  },
+  {
+   "obligation": "C1",
+   "event": "whatsapp-committee-2024-25.txt#16",
+   "quote": "IoT basics workshop slides are done, shared them in the drive.",
+   "relation": "fulfils",
+   "inferred": false
+  },
+  {
+   "obligation": "C1",
+   "event": "whatsapp-committee-2024-25.txt#87",
+   "quote": "The workshop slides is in the shared drive, check it",
+   "relation": "fulfils",
+   "inferred": true
+  },
+  {
+   "obligation": "C1",
+   "event": "whatsapp-committee-2024-25.txt#104",
+   "quote": "The workshop slides looks good to me",
+   "relation": "fulfils",
+   "inferred": true
+  },
+  {
+   "obligation": "C2",
+   "event": "trello-board.json#14",
+   "quote": "Moved card \"Send sponsorship proposal to Brightwave Labs\" from \"To Do\" to \"Done\"",
+   "relation": "fulfils",
+   "inferred": false
+  },
+  {
+   "obligation": "C2",
+   "event": "whatsapp-committee-2024-25.txt#51",
+   "quote": "I'll send the sponsorship proposal to Brightwave Labs by 15 January.",
+   "relation": "supports",
+   "inferred": false
+  },
+  {
+   "obligation": "C2",
+   "event": "whatsapp-committee-2024-25.txt#69",
+   "quote": "Sent the sponsorship proposal to Brightwave Labs today.",
+   "relation": "fulfils",
+   "inferred": false
+  },
+  {
+   "obligation": "C2",
+   "event": "whatsapp-committee.txt#344",
+   "quote": "Sponsorship proposal sent to Brightwave Labs this morning.",
+   "relation": "fulfils",
+   "inferred": false
+  },
+  {
+   "obligation": "C2",
+   "event": "whatsapp-committee.txt#487",
+   "quote": "Brightwave Labs confirmed the sponsorship!",
+   "relation": "fulfils",
+   "inferred": true
+  },
+  {
+   "obligation": "C3",
+   "event": "whatsapp-committee-2024-25.txt#115",
+   "quote": "I'll return the ESP32 boards to Bala sir by 28 Feb.",
+   "relation": "supports",
+   "inferred": false
+  },
+  {
+   "obligation": "C3",
+   "event": "whatsapp-committee-2024-25.txt#137",
+   "quote": "Returned the ESP32 boards to Bala sir today",
+   "relation": "fulfils",
+   "inferred": false
+  },
+  {
+   "obligation": "C4",
+   "event": "whatsapp-committee-2024-25.txt#137",
+   "quote": "Returned the ESP32 boards to Bala sir today, he signed the register.",
+   "relation": "supports",
+   "inferred": false
+  },
+  {
+   "obligation": "C5",
+   "event": "whatsapp-committee-2024-25.txt#199",
+   "quote": "I'll send a sponsorship proposal to Zentro Systems for the summer hackathon by 15 June.",
+   "relation": "supports",
+   "inferred": false
+  },
+  {
+   "obligation": "C5",
+   "event": "whatsapp-committee-2024-25.txt#201",
+   "quote": "Sent the sponsorship proposal to Zentro Systems.",
+   "relation": "fulfils",
+   "inferred": false
+  },
+  {
+   "obligation": "C6",
+   "event": "whatsapp-committee-2024-25.txt#243",
+   "quote": "I'll put up the recruitment posters in the first-year blocks by 5 September.",
+   "relation": "supports",
+   "inferred": false
+  },
+  {
+   "obligation": "C6",
+   "event": "whatsapp-committee-2024-25.txt#254",
+   "quote": "Recruitment posters are up in all the first-year blocks.",
+   "relation": "fulfils",
+   "inferred": false
+  },
+  {
+   "obligation": "C7",
    "event": "trello-board.json#2",
    "quote": "Moved card \"Lab permission letter (Nov workshop)\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C1",
+   "obligation": "C7",
    "event": "whatsapp-committee.txt#22",
    "quote": "I'll get the lab permission letter signed by the HoD by 14 November.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C1",
+   "obligation": "C7",
    "event": "whatsapp-committee.txt#39",
    "quote": "HoD signed the permission letter today, lab is booked for the 29th.",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C2",
+   "obligation": "C8",
    "event": "trello-board.json#9",
    "quote": "Moved card \"Book the auditorium for IoT Fest\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C2",
+   "obligation": "C8",
    "event": "whatsapp-committee.txt#222",
    "quote": "I will book the auditorium by 10 January.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C2",
+   "obligation": "C8",
    "event": "whatsapp-committee.txt#271",
    "quote": "Auditorium booked for 14 Feb, the Dean's office approved it.",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C3",
+   "obligation": "C8",
+   "event": "whatsapp-volunteers.txt#423",
+   "quote": "we are at the auditorium",
+   "relation": "fulfils",
+   "inferred": true
+  },
+  {
+   "obligation": "C9",
    "event": "trello-board.json#15",
    "quote": "Moved card \"Lab permission letter (Jan semester)\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C3",
+   "obligation": "C9",
    "event": "whatsapp-committee.txt#239",
    "quote": "I'll get the lab permission letter signed by 31 January.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C3",
+   "obligation": "C9",
    "event": "whatsapp-committee.txt#360",
-   "quote": "Permission letter signed by the HoD, booking the lab now.",
+   "quote": "Permission letter signed by the HoD",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C4",
+   "obligation": "C10",
    "event": "trello-board.json#14",
    "quote": "Moved card \"Send sponsorship proposal to Brightwave Labs\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C4",
+   "obligation": "C10",
    "event": "whatsapp-committee.txt#281",
    "quote": "I'll send the sponsorship proposal to Brightwave Labs by 20 January.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C4",
+   "obligation": "C10",
    "event": "whatsapp-committee.txt#344",
    "quote": "Sponsorship proposal sent to Brightwave Labs this morning.",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C4",
+   "obligation": "C10",
    "event": "whatsapp-committee.txt#487",
    "quote": "Brightwave Labs confirmed the sponsorship!",
    "relation": "fulfils",
    "inferred": true
   },
   {
-   "obligation": "C5",
+   "obligation": "C11",
    "event": "trello-board.json#18",
    "quote": "Moved card \"Print fest posters\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C5",
+   "obligation": "C11",
    "event": "whatsapp-committee.txt#282",
    "quote": "I will have the fest posters printed by 3 Feb.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C5",
+   "obligation": "C11",
    "event": "whatsapp-committee.txt#438",
    "quote": "Posters printed, collecting tomorrow morning.",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C6",
+   "obligation": "C12",
    "event": "trello-board.json#19",
    "quote": "Moved card \"WiFi router in the fest hall\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C6",
+   "obligation": "C12",
    "event": "whatsapp-committee.txt#400",
    "quote": "I'll set up the WiFi router in the fest hall before 6 Feb.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C6",
+   "obligation": "C12",
    "event": "whatsapp-committee.txt#465",
-   "quote": "WiFi in the fest hall still does not work, the router is not connecting.",
+   "quote": "WiFi in the fest hall still does not work",
    "relation": "contradicts",
    "inferred": false
   },
   {
-   "obligation": "C7",
+   "obligation": "C13",
    "event": "trello-board.json#18",
    "quote": "Moved card \"Print fest posters\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": true
   },
   {
-   "obligation": "C7",
+   "obligation": "C13",
    "event": "whatsapp-committee.txt#438",
    "quote": "Posters printed, collecting tomorrow morning.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C8",
+   "obligation": "C14",
    "event": "whatsapp-committee.txt#495",
    "quote": "I'll return the borrowed ESP32 boards to Bala sir by Friday 27 Feb.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C8",
+   "obligation": "C14",
    "event": "whatsapp-committee.txt#592",
    "quote": "Returned all 8 boards, Bala sir signed the register.",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C9",
+   "obligation": "C15",
    "event": "trello-board.json#23",
    "quote": "Moved card \"Send certificates to workshop speakers\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C9",
+   "obligation": "C15",
    "event": "whatsapp-committee.txt#577",
    "quote": "I'll send the participation certificates to all workshop speakers by 15 March.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C9",
+   "obligation": "C15",
    "event": "whatsapp-committee.txt#664",
    "quote": "Speakers are still asking for their certificates, nobody has sent them yet.",
    "relation": "contradicts",
    "inferred": false
   },
   {
-   "obligation": "C10",
+   "obligation": "C16",
    "event": "trello-board.json#27",
    "quote": "Moved card \"Club registration renewal\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C10",
+   "obligation": "C16",
    "event": "whatsapp-committee.txt#882",
    "quote": "I'll submit the club registration renewal by 10 August.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C10",
+   "obligation": "C16",
    "event": "whatsapp-committee.txt#951",
    "quote": "Registration renewal submitted to Student Affairs today.",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C10",
+   "obligation": "C16",
    "event": "whatsapp-committee.txt#1019",
    "quote": "Dean signed the registration renewal, we are registered till next August.",
    "relation": "fulfils",
-   "inferred": true
+   "inferred": false
   },
   {
-   "obligation": "C11",
+   "obligation": "C17",
    "event": "trello-board.json#29",
    "quote": "Moved card \"Lab permission letter (Aug semester)\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C11",
+   "obligation": "C17",
    "event": "whatsapp-committee.txt#898",
    "quote": "I'll get the lab permission letter signed by 7 August for the new semester.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C11",
+   "obligation": "C17",
    "event": "whatsapp-committee.txt#969",
    "quote": "HoD signed the lab permission letter today, a week late sorry.",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C12",
+   "obligation": "C18",
    "event": "whatsapp-committee.txt#1019",
    "quote": "Dean signed the registration renewal, we are registered till next August.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C13",
+   "obligation": "C19",
    "event": "whatsapp-committee.txt#1167",
    "quote": "I'll get the lab permission letter signed by 31 October.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C14",
+   "obligation": "C20",
    "event": "whatsapp-committee.txt#1209",
    "quote": "I'll write the handover document by 15 November.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C15",
+   "obligation": "C21",
    "event": "minutes.md#2",
    "quote": "Divya to reimburse Mr. Ganesan once the bills arrive.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C15",
+   "obligation": "C21",
    "event": "whatsapp-committee.txt#728",
    "quote": "Reimbursed Mr. Ganesan the ₹2,400 for his travel today.",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C16",
+   "obligation": "C22",
    "event": "minutes.md#5",
    "quote": "Arun to write the handover document before the new committee takes over.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C17",
+   "obligation": "C23",
    "event": "trello-board.json#0",
    "quote": "Card: Lab permission letter (Nov workshop)",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C17",
+   "obligation": "C23",
    "event": "trello-board.json#2",
    "quote": "Moved card \"Lab permission letter (Nov workshop)\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C17",
+   "obligation": "C23",
    "event": "whatsapp-committee.txt#39",
-   "quote": "HoD signed the permission letter today, lab is booked for the 29th.",
+   "quote": "HoD signed the permission letter today",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C18",
+   "obligation": "C24",
    "event": "trello-board.json#6",
    "quote": "Card: Book the auditorium for IoT Fest",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C18",
+   "obligation": "C24",
    "event": "trello-board.json#9",
    "quote": "Moved card \"Book the auditorium for IoT Fest\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C18",
+   "obligation": "C24",
    "event": "whatsapp-committee.txt#271",
    "quote": "Auditorium booked for 14 Feb, the Dean's office approved it.",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C19",
+   "obligation": "C25",
    "event": "trello-board.json#7",
    "quote": "Card: Lab permission letter (Jan semester)",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C19",
+   "obligation": "C25",
    "event": "trello-board.json#15",
    "quote": "Moved card \"Lab permission letter (Jan semester)\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C19",
+   "obligation": "C25",
    "event": "whatsapp-committee.txt#360",
    "quote": "Permission letter signed by the HoD, booking the lab now.",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C20",
+   "obligation": "C26",
    "event": "trello-board.json#10",
    "quote": "Card: Send sponsorship proposal to Brightwave Labs",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C20",
+   "obligation": "C26",
    "event": "trello-board.json#14",
    "quote": "Moved card \"Send sponsorship proposal to Brightwave Labs\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C20",
+   "obligation": "C26",
    "event": "whatsapp-committee.txt#344",
    "quote": "Sponsorship proposal sent to Brightwave Labs this morning.",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C20",
+   "obligation": "C26",
    "event": "whatsapp-committee.txt#487",
    "quote": "Brightwave Labs confirmed the sponsorship!",
    "relation": "fulfils",
    "inferred": true
   },
   {
-   "obligation": "C21",
+   "obligation": "C27",
    "event": "trello-board.json#11",
    "quote": "Card: Print fest posters",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C21",
+   "obligation": "C27",
    "event": "trello-board.json#18",
    "quote": "Moved card \"Print fest posters\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C21",
+   "obligation": "C27",
    "event": "whatsapp-committee.txt#438",
    "quote": "Posters printed, collecting tomorrow morning.",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C22",
+   "obligation": "C28",
    "event": "trello-board.json#13",
    "quote": "Card: Banner design",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C22",
+   "obligation": "C28",
    "event": "trello-board.json#16",
    "quote": "Moved card \"Banner design\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C23",
+   "obligation": "C29",
    "event": "trello-board.json#17",
    "quote": "Card: WiFi router in the fest hall",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C23",
+   "obligation": "C29",
    "event": "trello-board.json#19",
    "quote": "Moved card \"WiFi router in the fest hall\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C23",
+   "obligation": "C29",
    "event": "whatsapp-committee.txt#465",
    "quote": "WiFi in the fest hall still does not work, the router is not connecting.",
    "relation": "contradicts",
    "inferred": false
   },
   {
-   "obligation": "C24",
+   "obligation": "C30",
    "event": "trello-board.json#20",
    "quote": "Card: Volunteer certificates",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C24",
+   "obligation": "C30",
    "event": "trello-board.json#24",
    "quote": "Volunteers keep asking about these.",
    "relation": "contradicts",
    "inferred": false
   },
   {
-   "obligation": "C24",
+   "obligation": "C30",
    "event": "whatsapp-volunteers.txt#619",
    "quote": "Still waiting for the volunteer certificates",
    "relation": "contradicts",
    "inferred": false
   },
   {
-   "obligation": "C25",
+   "obligation": "C31",
    "event": "trello-board.json#21",
    "quote": "Card: Send certificates to workshop speakers",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C25",
+   "obligation": "C31",
    "event": "trello-board.json#23",
    "quote": "Moved card \"Send certificates to workshop speakers\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C25",
+   "obligation": "C31",
    "event": "whatsapp-committee.txt#664",
    "quote": "Speakers are still asking for their certificates, nobody has sent them yet.",
    "relation": "contradicts",
    "inferred": false
   },
   {
-   "obligation": "C26",
+   "obligation": "C32",
    "event": "trello-board.json#25",
    "quote": "Card: Club registration renewal",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C26",
+   "obligation": "C32",
    "event": "trello-board.json#27",
    "quote": "Moved card \"Club registration renewal\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C26",
+   "obligation": "C32",
    "event": "whatsapp-committee.txt#951",
    "quote": "Registration renewal submitted to Student Affairs today.",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C26",
+   "obligation": "C32",
    "event": "whatsapp-committee.txt#1019",
    "quote": "Dean signed the registration renewal, we are registered till next August.",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C27",
+   "obligation": "C33",
    "event": "trello-board.json#26",
    "quote": "Card: Lab permission letter (Aug semester)",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C27",
+   "obligation": "C33",
    "event": "trello-board.json#29",
    "quote": "Moved card \"Lab permission letter (Aug semester)\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C27",
+   "obligation": "C33",
    "event": "whatsapp-committee.txt#969",
-   "quote": "HoD signed the lab permission letter today, a week late sorry.",
+   "quote": "HoD signed the lab permission letter today",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C28",
+   "obligation": "C34",
    "event": "trello-board.json#30",
    "quote": "Card: Recruit new members",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C28",
+   "obligation": "C34",
    "event": "trello-board.json#31",
    "quote": "Moved card \"Recruit new members\" from \"To Do\" to \"Done\"",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C29",
+   "obligation": "C35",
    "event": "trello-board.json#32",
    "quote": "Card: Lab permission letter (Oct)",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C30",
+   "obligation": "C36",
    "event": "trello-board.json#33",
    "quote": "Card: Handover document",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C31",
+   "obligation": "C37",
    "event": "whatsapp-volunteers.txt#188",
    "quote": "I'll bring the extension boards for the fest hall.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C31",
+   "obligation": "C37",
    "event": "whatsapp-volunteers.txt#461",
    "quote": "Extension boards are all set up in the hall.",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C32",
+   "obligation": "C38",
    "event": "whatsapp-volunteers.txt#189",
    "quote": "I'll handle the registration desk on the day.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C32",
+   "obligation": "C38",
+   "event": "whatsapp-volunteers.txt#417",
+   "quote": "Lakshmi where are you, we are at the parking",
+   "relation": "contradicts",
+   "inferred": false
+  },
+  {
+   "obligation": "C38",
+   "event": "whatsapp-volunteers.txt#432",
+   "quote": "Lakshmi where are you, we are at the main gate",
+   "relation": "contradicts",
+   "inferred": false
+  },
+  {
+   "obligation": "C38",
    "event": "whatsapp-volunteers.txt#462",
    "quote": "Registration desk is ready, forms are printed.",
    "relation": "fulfils",
    "inferred": true
   },
   {
-   "obligation": "C33",
+   "obligation": "C39",
    "event": "whatsapp-volunteers.txt#190",
    "quote": "I'll get the snacks for the volunteers.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C33",
+   "obligation": "C39",
    "event": "whatsapp-volunteers.txt#463",
    "quote": "Snacks are here, 40 packets.",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "C34",
+   "obligation": "C40",
    "event": "whatsapp-volunteers.txt#401",
    "quote": "I'll set up the demo kits before the fest.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C35",
+   "obligation": "C41",
    "event": "trello-board.json#24",
    "quote": "Volunteers keep asking about these.",
    "relation": "contradicts",
    "inferred": false
   },
   {
-   "obligation": "C35",
+   "obligation": "C41",
    "event": "whatsapp-volunteers.txt#459",
    "quote": "I will send the volunteer certificates by 28 February.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C35",
+   "obligation": "C41",
    "event": "whatsapp-volunteers.txt#619",
    "quote": "Still waiting for the volunteer certificates",
    "relation": "contradicts",
    "inferred": false
   },
   {
-   "obligation": "C39",
+   "obligation": "C49",
    "event": "WhatsApp Chat with Arun.txt#25",
    "quote": "I'll write to the HoD about Karthik's attendance condonation by 30 September.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "C39",
+   "obligation": "C49",
    "event": "WhatsApp Chat with Arun.txt#26",
-   "quote": "Letter about Karthik's attendance condonation sent to the HoD, he approved it.",
+   "quote": "Letter about Karthik's attendance condonation sent to the HoD",
    "relation": "fulfils",
    "inferred": false
   },
   {
-   "obligation": "R36",
+   "obligation": "R42",
    "event": "trello-board.json#0",
    "quote": "Needed before every lab booking (every semester). Apply two weeks ahead.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "R36",
+   "obligation": "R42",
+   "event": "whatsapp-committee-2024-25.txt#2",
+   "quote": "HoD signed the lab permission letter, the November workshop is on.",
+   "relation": "past_instance",
+   "inferred": false
+  },
+  {
+   "obligation": "R42",
    "event": "whatsapp-committee.txt#21",
    "quote": "the HoD's permission letter has to be approved before we book the lab, every semester",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "R36",
+   "obligation": "R42",
    "event": "whatsapp-committee.txt#39",
    "quote": "HoD signed the permission letter today, lab is booked for the 29th.",
    "relation": "past_instance",
    "inferred": false
   },
   {
-   "obligation": "R36",
+   "obligation": "R42",
    "event": "whatsapp-committee.txt#238",
    "quote": "It is every semester.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "R36",
+   "obligation": "R42",
    "event": "whatsapp-committee.txt#360",
    "quote": "Permission letter signed by the HoD, booking the lab now.",
    "relation": "past_instance",
    "inferred": false
   },
   {
-   "obligation": "R36",
+   "obligation": "R42",
    "event": "whatsapp-committee.txt#871",
-   "quote": "every semester the lab needs the HoD's permission letter first",
+   "quote": "Same rule, every semester the lab needs the HoD's permission letter first.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "R36",
+   "obligation": "R42",
    "event": "whatsapp-committee.txt#969",
    "quote": "HoD signed the lab permission letter today, a week late sorry.",
    "relation": "past_instance",
    "inferred": false
   },
   {
-   "obligation": "R36",
+   "obligation": "R42",
    "event": "whatsapp-committee.txt#1166",
    "quote": "Even semester lab bookings need the HoD's permission letter first, as always.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "R37",
-   "event": "trello-board.json#6",
-   "quote": "Dean's office approval needed, apply a month ahead.",
-   "relation": "supports",
-   "inferred": false
-  },
-  {
-   "obligation": "R37",
-   "event": "whatsapp-committee.txt#117",
-   "quote": "IoT Fest is our annual event. The auditorium needs the Dean's office approval, so apply a month ahead.",
-   "relation": "supports",
-   "inferred": false
-  },
-  {
-   "obligation": "R37",
-   "event": "whatsapp-committee.txt#271",
-   "quote": "Auditorium booked for 14 Feb, the Dean's office approved it.",
+   "obligation": "R43",
+   "event": "whatsapp-committee-2024-25.txt#237",
+   "quote": "Registration renewal submitted to Student Affairs today.",
    "relation": "past_instance",
    "inferred": false
   },
   {
-   "obligation": "R37",
-   "event": "whatsapp-committee.txt#1181",
-   "quote": "Dean's office approval, a month ahead, so apply by mid January.",
-   "relation": "supports",
+   "obligation": "R43",
+   "event": "whatsapp-committee-2024-25.txt#246",
+   "quote": "Dean finally signed the registration renewal, two weeks of chasing.",
+   "relation": "past_instance",
    "inferred": false
   },
   {
-   "obligation": "R38",
-   "event": "trello-board.json#25",
-   "quote": "Form plus fee receipt to Student Affairs. Dean's signature.",
-   "relation": "supports",
-   "inferred": false
-  },
-  {
-   "obligation": "R38",
+   "obligation": "R43",
    "event": "whatsapp-committee.txt#872",
    "quote": "Club registration renewal is due every August and needs the Dean's signature from Student Affairs.",
    "relation": "supports",
    "inferred": false
   },
   {
-   "obligation": "R38",
+   "obligation": "R43",
    "event": "whatsapp-committee.txt#951",
    "quote": "Registration renewal submitted to Student Affairs today.",
    "relation": "past_instance",
    "inferred": false
   },
   {
-   "obligation": "R38",
+   "obligation": "R43",
    "event": "whatsapp-committee.txt#1019",
    "quote": "Dean signed the registration renewal, we are registered till next August.",
    "relation": "past_instance",
    "inferred": false
+  },
+  {
+   "obligation": "R44",
+   "event": "trello-board.json#6",
+   "quote": "Dean's office approval needed, apply a month ahead.",
+   "relation": "supports",
+   "inferred": false
+  },
+  {
+   "obligation": "R44",
+   "event": "whatsapp-committee-2024-25.txt#60",
+   "quote": "Auditorium booked for the fest, the Dean's office approved it.",
+   "relation": "past_instance",
+   "inferred": false
+  },
+  {
+   "obligation": "R44",
+   "event": "whatsapp-committee.txt#117",
+   "quote": "IoT Fest is our annual event. The auditorium needs the Dean's office approval, so apply a month ahead.",
+   "relation": "supports",
+   "inferred": false
+  },
+  {
+   "obligation": "R44",
+   "event": "whatsapp-committee.txt#271",
+   "quote": "Auditorium booked for 14 Feb, the Dean's office approved it.",
+   "relation": "past_instance",
+   "inferred": false
+  },
+  {
+   "obligation": "R44",
+   "event": "whatsapp-committee.txt#1181",
+   "quote": "Next IoT Fest needs the auditorium again. Dean's office approval, a month ahead, so apply by mid January.",
+   "relation": "supports",
+   "inferred": false
+  },
+  {
+   "obligation": "R45",
+   "event": "trello-board.json#1",
+   "quote": "Card: Workshop slides",
+   "relation": "past_instance",
+   "inferred": true
+  },
+  {
+   "obligation": "R45",
+   "event": "trello-board.json#4",
+   "quote": "Moved card \"Workshop slides\" from \"Doing\" to \"Done\"",
+   "relation": "past_instance",
+   "inferred": true
+  },
+  {
+   "obligation": "R45",
+   "event": "whatsapp-committee-2024-25.txt#7",
+   "quote": "I'll make the IoT basics workshop slides by 25 November.",
+   "relation": "past_instance",
+   "inferred": true
+  },
+  {
+   "obligation": "R45",
+   "event": "whatsapp-committee-2024-25.txt#16",
+   "quote": "IoT basics workshop slides are done, shared them in the drive.",
+   "relation": "past_instance",
+   "inferred": true
+  },
+  {
+   "obligation": "R46",
+   "event": "whatsapp-committee-2024-25.txt#51",
+   "quote": "I'll send the sponsorship proposal to Brightwave Labs by 15 January.",
+   "relation": "past_instance",
+   "inferred": true
+  },
+  {
+   "obligation": "R46",
+   "event": "whatsapp-committee-2024-25.txt#69",
+   "quote": "Sent the sponsorship proposal to Brightwave Labs today.",
+   "relation": "past_instance",
+   "inferred": true
+  },
+  {
+   "obligation": "R46",
+   "event": "whatsapp-committee.txt#281",
+   "quote": "I'll send the sponsorship proposal to Brightwave Labs by 20 January.",
+   "relation": "past_instance",
+   "inferred": true
+  },
+  {
+   "obligation": "R46",
+   "event": "whatsapp-committee.txt#344",
+   "quote": "Sponsorship proposal sent to Brightwave Labs this morning.",
+   "relation": "past_instance",
+   "inferred": true
+  },
+  {
+   "obligation": "R47",
+   "event": "whatsapp-committee-2024-25.txt#115",
+   "quote": "I'll return the ESP32 boards to Bala sir by 28 Feb.",
+   "relation": "past_instance",
+   "inferred": true
+  },
+  {
+   "obligation": "R47",
+   "event": "whatsapp-committee-2024-25.txt#137",
+   "quote": "Returned the ESP32 boards to Bala sir today, he signed the register.",
+   "relation": "past_instance",
+   "inferred": true
+  },
+  {
+   "obligation": "R47",
+   "event": "whatsapp-committee.txt#495",
+   "quote": "I'll return the borrowed ESP32 boards to Bala sir by Friday 27 Feb.",
+   "relation": "past_instance",
+   "inferred": true
+  },
+  {
+   "obligation": "R47",
+   "event": "whatsapp-committee.txt#592",
+   "quote": "Returned all 8 boards, Bala sir signed the register.",
+   "relation": "past_instance",
+   "inferred": true
+  },
+  {
+   "obligation": "R48",
+   "event": "trello-board.json#30",
+   "quote": "Card: Recruit new members",
+   "relation": "past_instance",
+   "inferred": true
+  },
+  {
+   "obligation": "R48",
+   "event": "trello-board.json#31",
+   "quote": "Moved card \"Recruit new members\" from \"To Do\" to \"Done\"",
+   "relation": "past_instance",
+   "inferred": true
+  },
+  {
+   "obligation": "R48",
+   "event": "whatsapp-committee-2024-25.txt#243",
+   "quote": "I'll put up the recruitment posters in the first-year blocks by 5 September.",
+   "relation": "past_instance",
+   "inferred": true
+  },
+  {
+   "obligation": "R48",
+   "event": "whatsapp-committee-2024-25.txt#254",
+   "quote": "Recruitment posters are up in all the first-year blocks.",
+   "relation": "past_instance",
+   "inferred": true
   }
  ],
  "context": [
   {
-   "obligation": "C1",
+   "obligation": "C2",
+   "event": "minutes.md#1",
+   "kind": "dependency",
+   "text": "The fest budget of ₹45,000 includes sponsorship.",
+   "quote": "The fest budget is ₹45,000 including sponsorship."
+  },
+  {
+   "obligation": "C3",
+   "event": "whatsapp-committee-2024-25.txt#137",
+   "kind": "contact",
+   "text": "Bala sir signed the register when the boards were returned.",
+   "quote": "he signed the register"
+  },
+  {
+   "obligation": "C4",
+   "event": "whatsapp-committee-2024-25.txt#137",
+   "kind": "contact",
+   "text": "Bala sir received the ESP32 boards and signed the register.",
+   "quote": "Returned the ESP32 boards to Bala sir today, he signed the register."
+  },
+  {
+   "obligation": "C5",
+   "event": "whatsapp-committee-2024-25.txt#199",
+   "kind": "contact",
+   "text": "Zentro Systems is the organisation the sponsorship proposal is for, for the summer hackathon.",
+   "quote": "I'll send a sponsorship proposal to Zentro Systems for the summer hackathon"
+  },
+  {
+   "obligation": "C7",
+   "event": "whatsapp-committee.txt#21",
+   "kind": "risk",
+   "text": "The HoD rejected the club last year when the letter was missing.",
+   "quote": "Last year they rejected us without it."
+  },
+  {
+   "obligation": "C7",
    "event": "minutes.md#0",
    "kind": "decision",
    "text": "A signed HoD permission letter is required before every lab booking, every semester.",
    "quote": "A signed HoD permission letter is required before every lab booking, every semester."
   },
   {
-   "obligation": "C1",
+   "obligation": "C7",
    "event": "minutes.md#0",
    "kind": "contact",
-   "text": "Lab bookings go through the HoD's office.",
-   "quote": "the lab is booked through the HoD's office"
+   "text": "The lab is booked through the HoD's office.",
+   "quote": "the lab is booked through the HoD's office."
   },
   {
-   "obligation": "C1",
-   "event": "whatsapp-committee.txt#21",
-   "kind": "risk",
-   "text": "Last year the HoD rejected the club's lab request when the letter was missing.",
-   "quote": "Last year they rejected us without it."
-  },
-  {
-   "obligation": "C1",
-   "event": "whatsapp-committee.txt#21",
-   "kind": "dependency",
-   "text": "The HoD's permission letter has to be approved before the lab is booked.",
-   "quote": "the HoD's permission letter has to be approved before we book the lab"
-  },
-  {
-   "obligation": "C1",
-   "event": "trello-board.json#0",
-   "kind": "dependency",
-   "text": "The application should be made two weeks ahead of the lab booking.",
-   "quote": "Apply two weeks ahead."
-  },
-  {
-   "obligation": "C2",
-   "event": "trello-board.json#6",
-   "kind": "dependency",
-   "text": "The Dean's office must approve the auditorium booking, and it should be applied for a month ahead.",
-   "quote": "Dean's office approval needed, apply a month ahead."
-  },
-  {
-   "obligation": "C2",
+   "obligation": "C8",
    "event": "minutes.md#1",
    "kind": "decision",
    "text": "The committee decided that the auditorium booking needs Dean's office approval, requested a month ahead.",
    "quote": "Auditorium booking for IoT Fest needs the Dean's office approval, requested a month ahead."
   },
   {
-   "obligation": "C3",
-   "event": "minutes.md#0",
-   "kind": "decision",
-   "text": "The HoD's signed permission letter is required before every lab booking, every semester.",
-   "quote": "A signed HoD permission letter is required before every lab booking, every semester."
-  },
-  {
-   "obligation": "C3",
-   "event": "minutes.md#0",
-   "kind": "contact",
-   "text": "Lab bookings go through the HoD's office.",
-   "quote": "the lab is booked through the HoD's office"
-  },
-  {
-   "obligation": "C3",
-   "event": "whatsapp-committee.txt#21",
-   "kind": "risk",
-   "text": "The HoD rejected the club's lab booking last year when the letter was missing.",
-   "quote": "Last year they rejected us without it."
-  },
-  {
-   "obligation": "C3",
-   "event": "whatsapp-committee.txt#238",
-   "kind": "dependency",
-   "text": "The HoD's permission letter must come before the lab is booked each semester.",
-   "quote": "New semester, so the HoD's permission letter again before we book the lab."
-  },
-  {
-   "obligation": "C4",
-   "event": "minutes.md#1",
-   "kind": "decision",
-   "text": "The fest budget of ₹45,000 includes sponsorship.",
-   "quote": "The fest budget is ₹45,000 including sponsorship."
-  },
-  {
-   "obligation": "C5",
-   "event": "trello-board.json#11",
-   "kind": "decision",
-   "text": "The posters are A3 size, 40 copies.",
-   "quote": "A3, 40 copies."
-  },
-  {
-   "obligation": "C5",
-   "event": "whatsapp-committee.txt#297",
-   "kind": "dependency",
-   "text": "The poster text needs the date and venue.",
-   "quote": "the poster text needs the date and venue"
-  },
-  {
-   "obligation": "C7",
-   "event": "trello-board.json#11",
-   "kind": "decision",
-   "text": "The fest poster print run was set at 40 copies in A3 size.",
-   "quote": "A3, 40 copies."
-  },
-  {
    "obligation": "C8",
-   "event": "whatsapp-committee.txt#495",
-   "kind": "contact",
-   "text": "Bala sir is the person the borrowed ESP32 boards are owed to.",
-   "quote": "return the borrowed ESP32 boards to Bala sir by Friday 27 Feb."
-  },
-  {
-   "obligation": "C8",
-   "event": "whatsapp-committee.txt#592",
-   "kind": "contact",
-   "text": "Bala sir signed the register when the boards were returned.",
-   "quote": "Bala sir signed the register."
-  },
-  {
-   "obligation": "C10",
-   "event": "minutes.md#4",
-   "kind": "decision",
-   "text": "The club registration is renewed every August and needs the Dean's signature through Student Affairs.",
-   "quote": "Club registration is renewed every August. It needs the Dean's signature through Student Affairs."
-  },
-  {
-   "obligation": "C10",
-   "event": "minutes.md#4",
-   "kind": "decision",
-   "text": "The renewal fee is ₹1,500, paid from the club account.",
-   "quote": "The registration renewal fee is ₹1,500, paid from the club account."
-  },
-  {
-   "obligation": "C10",
-   "event": "whatsapp-committee.txt#872",
-   "kind": "risk",
-   "text": "Last August, Priya had to chase the renewal for two weeks.",
-   "quote": "Last August Priya had to chase it for two weeks."
-  },
-  {
-   "obligation": "C11",
-   "event": "minutes.md#4",
-   "kind": "decision",
-   "text": "Every lab booking needs a signed HoD permission letter, every semester.",
-   "quote": "A signed HoD permission letter is required before every lab booking, every semester."
-  },
-  {
-   "obligation": "C11",
-   "event": "minutes.md#0",
-   "kind": "contact",
-   "text": "Lab bookings go through the HoD's office.",
-   "quote": "the lab is booked through the HoD's office."
-  },
-  {
-   "obligation": "C11",
-   "event": "whatsapp-committee.txt#21",
-   "kind": "risk",
-   "text": "The HoD rejected a lab booking last year when the letter was missing.",
-   "quote": "Last year they rejected us without it."
-  },
-  {
-   "obligation": "C11",
-   "event": "whatsapp-committee.txt#969",
-   "kind": "risk",
-   "text": "The letter was signed a week after its due date.",
-   "quote": "a week late sorry"
-  },
-  {
-   "obligation": "C12",
-   "event": "minutes.md#4",
-   "kind": "decision",
-   "text": "The club registration is renewed every August and needs the Dean's signature through Student Affairs.",
-   "quote": "Club registration is renewed every August. It needs the Dean's signature through Student Affairs."
-  },
-  {
-   "obligation": "C12",
-   "event": "minutes.md#4",
-   "kind": "decision",
-   "text": "The renewal fee is ₹1,500 and is paid from the club account.",
-   "quote": "The registration renewal fee is ₹1,500, paid from the club account."
-  },
-  {
-   "obligation": "C12",
-   "event": "whatsapp-committee.txt#872",
-   "kind": "risk",
-   "text": "Last August, Priya had to chase the renewal for two weeks.",
-   "quote": "Last August Priya had to chase it for two weeks."
-  },
-  {
-   "obligation": "C12",
-   "event": "whatsapp-committee.txt#872",
-   "kind": "contact",
-   "text": "Student Affairs handles the Dean's signature for the renewal.",
-   "quote": "needs the Dean's signature from Student Affairs."
-  },
-  {
-   "obligation": "C13",
-   "event": "minutes.md#0",
-   "kind": "decision",
-   "text": "The committee decided a signed HoD permission letter is needed before every lab booking.",
-   "quote": "A signed HoD permission letter is required before every lab booking, every semester."
-  },
-  {
-   "obligation": "C13",
-   "event": "whatsapp-committee.txt#21",
-   "kind": "risk",
-   "text": "The club was rejected last year when the permission letter was missing.",
-   "quote": "Last year they rejected us without it."
-  },
-  {
-   "obligation": "C13",
-   "event": "whatsapp-committee.txt#1166",
-   "kind": "dependency",
-   "text": "Lab bookings for the even semester need the HoD's permission letter first.",
-   "quote": "Even semester lab bookings need the HoD's permission letter first"
-  },
-  {
-   "obligation": "C14",
-   "event": "minutes.md#5",
-   "kind": "decision",
-   "text": "The committee decided Arun writes the handover document before the new committee takes over.",
-   "quote": "Arun to write the handover document before the new committee takes over."
-  },
-  {
-   "obligation": "C14",
-   "event": "trello-board.json#33",
-   "kind": "decision",
-   "text": "The handover document card is described as covering everything the next committee needs.",
-   "quote": "Everything the next committee needs."
-  },
-  {
-   "obligation": "C15",
-   "event": "minutes.md#2",
-   "kind": "decision",
-   "text": "The committee decided the reimbursement would be paid after Mr. Ganesan submits his bills.",
-   "quote": "Speaker travel of ₹2,400 to Mr. Ganesan will be reimbursed after he submits bills."
-  },
-  {
-   "obligation": "C15",
-   "event": "minutes.md#2",
-   "kind": "dependency",
-   "text": "Mr. Ganesan had to submit his bills before the reimbursement could be paid.",
-   "quote": "after he submits bills."
-  },
-  {
-   "obligation": "C15",
-   "event": "minutes.md#2",
-   "kind": "contact",
-   "text": "Divya was assigned in the minutes to make the reimbursement to Mr. Ganesan.",
-   "quote": "Divya to reimburse Mr. Ganesan once the bills arrive."
-  },
-  {
-   "obligation": "C16",
-   "event": "minutes.md#5",
-   "kind": "decision",
-   "text": "The committee decided that Arun writes the handover document before the new committee takes over.",
-   "quote": "Arun to write the handover document before the new committee takes over."
-  },
-  {
-   "obligation": "C16",
-   "event": "whatsapp-committee.txt#1209",
-   "kind": "decision",
-   "text": "Arun said he would write the handover document by 15 November.",
-   "quote": "I'll write the handover document by 15 November."
-  },
-  {
-   "obligation": "C17",
-   "event": "minutes.md#0",
-   "kind": "decision",
-   "text": "Every lab booking needs a signed HoD permission letter, every semester.",
-   "quote": "A signed HoD permission letter is required before every lab booking, every semester."
-  },
-  {
-   "obligation": "C17",
-   "event": "minutes.md#0",
-   "kind": "contact",
-   "text": "Lab bookings go through the HoD's office.",
-   "quote": "the lab is booked through the HoD's office"
-  },
-  {
-   "obligation": "C17",
-   "event": "whatsapp-committee.txt#21",
-   "kind": "risk",
-   "text": "A lab booking was rejected last year when the letter was missing.",
-   "quote": "Last year they rejected us without it."
-  },
-  {
-   "obligation": "C17",
-   "event": "trello-board.json#0",
-   "kind": "dependency",
-   "text": "The application should be made two weeks before the lab booking.",
-   "quote": "Apply two weeks ahead."
-  },
-  {
-   "obligation": "C18",
-   "event": "whatsapp-committee.txt#117",
-   "kind": "dependency",
-   "text": "The auditorium booking needs the Dean's office approval first.",
-   "quote": "The auditorium needs the Dean's office approval"
-  },
-  {
-   "obligation": "C18",
-   "event": "minutes.md#1",
-   "kind": "decision",
-   "text": "The committee decided the auditorium booking needs Dean's office approval, requested a month ahead.",
-   "quote": "Auditorium booking for IoT Fest needs the Dean's office approval, requested a month ahead."
-  },
-  {
-   "obligation": "C18",
    "event": "whatsapp-committee.txt#271",
    "kind": "contact",
    "text": "The Dean's office approved the auditorium booking for 14 Feb.",
    "quote": "the Dean's office approved it"
   },
   {
-   "obligation": "C19",
+   "obligation": "C9",
    "event": "minutes.md#0",
    "kind": "decision",
-   "text": "The committee decided a signed HoD permission letter is needed before every lab booking, every semester.",
+   "text": "The committee decided a signed HoD permission letter is required before every lab booking, every semester.",
    "quote": "A signed HoD permission letter is required before every lab booking, every semester."
   },
   {
-   "obligation": "C19",
+   "obligation": "C9",
    "event": "minutes.md#0",
    "kind": "contact",
-   "text": "The IoT lab is booked through the HoD's office.",
+   "text": "The lab is booked through the HoD's office.",
    "quote": "the lab is booked through the HoD's office"
   },
   {
-   "obligation": "C19",
+   "obligation": "C9",
    "event": "whatsapp-committee.txt#21",
    "kind": "risk",
-   "text": "Last year the HoD's office rejected the club's lab request because the permission letter was missing.",
+   "text": "The HoD rejected a lab booking last year when the permission letter was missing.",
    "quote": "Last year they rejected us without it."
   },
   {
-   "obligation": "C19",
+   "obligation": "C9",
    "event": "whatsapp-committee.txt#238",
    "kind": "dependency",
    "text": "The HoD's permission letter must be obtained before the lab can be booked.",
-   "quote": "the HoD's permission letter again before we book the lab"
+   "quote": "New semester, so the HoD's permission letter again before we book the lab."
   },
   {
-   "obligation": "C20",
+   "obligation": "C10",
    "event": "minutes.md#1",
-   "kind": "decision",
-   "text": "The fest budget of ₹45,000 includes sponsorship.",
+   "kind": "dependency",
+   "text": "The fest budget of ₹45,000 includes sponsorship money.",
    "quote": "The fest budget is ₹45,000 including sponsorship."
   },
   {
-   "obligation": "C21",
+   "obligation": "C10",
+   "event": "trello-board.json#10",
+   "kind": "decision",
+   "text": "The proposal used deck version v3.",
+   "quote": "Proposal deck v3."
+  },
+  {
+   "obligation": "C11",
+   "event": "trello-board.json#11",
+   "kind": "decision",
+   "text": "The poster print job is A3 size, 40 copies.",
+   "quote": "A3, 40 copies."
+  },
+  {
+   "obligation": "C11",
    "event": "whatsapp-committee.txt#297",
    "kind": "dependency",
-   "text": "The poster text needed the fest date and venue.",
-   "quote": "the poster text needs the date and venue."
+   "text": "The poster text needs the date and venue before printing.",
+   "quote": "the poster text needs the date and venue"
   },
   {
-   "obligation": "C21",
-   "event": "minutes.md#1",
+   "obligation": "C13",
+   "event": "trello-board.json#11",
    "kind": "decision",
-   "text": "The committee set IoT Fest for 14 Feb 2026.",
-   "quote": "IoT Fest will be on 14 Feb 2026, as last year."
+   "text": "The fest poster print run was set at 40 copies in A3 size.",
+   "quote": "A3, 40 copies."
   },
   {
-   "obligation": "C22",
-   "event": "trello-board.json#13",
+   "obligation": "C14",
+   "event": "whatsapp-committee.txt#592",
    "kind": "contact",
-   "text": "Meghna created and owns the Banner design card for the main stage.",
-   "quote": "Card: Banner design"
+   "text": "Bala sir signed the register when the boards were returned.",
+   "quote": "Bala sir signed the register"
   },
   {
-   "obligation": "C22",
-   "event": "whatsapp-committee.txt#280",
-   "kind": "risk",
-   "text": "Before the card existed, members were asking in chat who had the banner design.",
-   "quote": "Anyone has the banner design?"
-  },
-  {
-   "obligation": "C24",
-   "event": "whatsapp-volunteers.txt#619",
-   "kind": "risk",
-   "text": "The college asked for the certificates for NSS hours.",
-   "quote": "college asked for them for the NSS hours"
-  },
-  {
-   "obligation": "C24",
-   "event": "trello-board.json#24",
-   "kind": "risk",
-   "text": "Volunteers have repeatedly asked about the certificates.",
-   "quote": "Volunteers keep asking about these."
-  },
-  {
-   "obligation": "C26",
+   "obligation": "C16",
    "event": "minutes.md#4",
    "kind": "decision",
-   "text": "The club registration is renewed every August.",
+   "text": "Club registration is renewed every August.",
    "quote": "Club registration is renewed every August."
   },
   {
-   "obligation": "C26",
+   "obligation": "C16",
    "event": "minutes.md#4",
    "kind": "dependency",
-   "text": "The renewal needs the Dean's signature, obtained through Student Affairs.",
+   "text": "The renewal needs the Dean's signature through Student Affairs.",
    "quote": "It needs the Dean's signature through Student Affairs."
   },
   {
-   "obligation": "C26",
+   "obligation": "C16",
    "event": "minutes.md#4",
    "kind": "decision",
    "text": "The renewal fee is ₹1,500, paid from the club account.",
    "quote": "The registration renewal fee is ₹1,500, paid from the club account."
   },
   {
-   "obligation": "C26",
+   "obligation": "C16",
    "event": "whatsapp-committee.txt#872",
    "kind": "risk",
    "text": "Last year Priya had to chase the renewal for two weeks.",
    "quote": "Last August Priya had to chase it for two weeks."
   },
   {
-   "obligation": "C27",
+   "obligation": "C17",
    "event": "minutes.md#4",
    "kind": "decision",
-   "text": "The committee decided a signed HoD permission letter is needed before every lab booking, every semester.",
+   "text": "A signed HoD permission letter is required before every lab booking, every semester.",
    "quote": "A signed HoD permission letter is required before every lab booking, every semester."
   },
   {
-   "obligation": "C27",
+   "obligation": "C17",
    "event": "minutes.md#0",
    "kind": "contact",
-   "text": "The lab is booked through the HoD's office.",
+   "text": "Lab bookings are made through the HoD's office.",
    "quote": "the lab is booked through the HoD's office"
   },
   {
-   "obligation": "C27",
+   "obligation": "C17",
    "event": "whatsapp-committee.txt#21",
    "kind": "risk",
-   "text": "Last year the HoD rejected the club's lab request because the letter was missing.",
+   "text": "The HoD rejected the club last year when the letter was missing.",
    "quote": "Last year they rejected us without it."
   },
   {
-   "obligation": "C27",
-   "event": "trello-board.json#26",
-   "kind": "dependency",
-   "text": "The lab booking needs the HoD signature first.",
-   "quote": "HoD signature before lab booking."
-  },
-  {
-   "obligation": "C29",
-   "event": "whatsapp-committee.txt#1166",
-   "kind": "dependency",
-   "text": "The lab booking cannot go ahead until the HoD's permission letter is signed.",
-   "quote": "Even semester lab bookings need the HoD's permission letter first"
-  },
-  {
-   "obligation": "C29",
-   "event": "minutes.md#0",
-   "kind": "decision",
-   "text": "The club decided every lab booking needs a signed HoD permission letter.",
-   "quote": "A signed HoD permission letter is required before every lab booking, every semester."
-  },
-  {
-   "obligation": "C29",
-   "event": "minutes.md#0",
-   "kind": "contact",
-   "text": "The lab is booked through the HoD's office.",
-   "quote": "the lab is booked through the HoD's office"
-  },
-  {
-   "obligation": "C29",
-   "event": "whatsapp-committee.txt#21",
-   "kind": "risk",
-   "text": "Last year a lab request was rejected because the letter was missing.",
-   "quote": "Last year they rejected us without it."
-  },
-  {
-   "obligation": "C30",
-   "event": "minutes.md#5",
-   "kind": "decision",
-   "text": "The committee decided that Arun writes the handover document before the new committee takes over.",
-   "quote": "Arun to write the handover document before the new committee takes over."
-  },
-  {
-   "obligation": "C35",
-   "event": "whatsapp-volunteers.txt#619",
-   "kind": "risk",
-   "text": "The college has asked for the certificates for NSS hours.",
-   "quote": "college asked for them for the NSS hours"
-  },
-  {
-   "obligation": "C35",
-   "event": "trello-board.json#24",
-   "kind": "risk",
-   "text": "Volunteers have repeatedly asked about the certificates.",
-   "quote": "Volunteers keep asking about these."
-  },
-  {
-   "obligation": "R36",
-   "event": "whatsapp-committee.txt#21",
-   "kind": "decision",
-   "text": "The HoD's signed permission letter must be approved before any lab booking, every semester.",
-   "quote": "the HoD's permission letter has to be approved before we book the lab, every semester"
-  },
-  {
-   "obligation": "R36",
-   "event": "whatsapp-committee.txt#21",
-   "kind": "risk",
-   "text": "Last year the HoD rejected the club's request because the permission letter was missing.",
-   "quote": "Last year they rejected us without it."
-  },
-  {
-   "obligation": "R36",
-   "event": "trello-board.json#0",
-   "kind": "dependency",
-   "text": "The permission letter should be applied for two weeks before the lab booking.",
-   "quote": "Apply two weeks ahead."
-  },
-  {
-   "obligation": "R36",
-   "event": "whatsapp-committee.txt#872",
-   "kind": "contact",
-   "text": "Club registration renewal needs the Dean's signature through Student Affairs, and chasing it took two weeks last August.",
-   "quote": "needs the Dean's signature from Student Affairs. Last August Priya had to chase it for two weeks."
-  },
-  {
-   "obligation": "R37",
-   "event": "whatsapp-committee.txt#117",
-   "kind": "dependency",
-   "text": "The auditorium booking needs Dean's office approval, requested a month ahead.",
-   "quote": "The auditorium needs the Dean's office approval, so apply a month ahead."
-  },
-  {
-   "obligation": "R37",
-   "event": "trello-board.json#6",
-   "kind": "decision",
-   "text": "Dean's office approval is needed for the booking and should be applied for a month ahead.",
-   "quote": "Dean's office approval needed, apply a month ahead."
-  },
-  {
-   "obligation": "R37",
-   "event": "whatsapp-committee.txt#271",
-   "kind": "decision",
-   "text": "The previous auditorium booking for 14 Feb was approved by the Dean's office.",
-   "quote": "Auditorium booked for 14 Feb, the Dean's office approved it."
-  },
-  {
-   "obligation": "R37",
-   "event": "minutes.md#1",
-   "kind": "decision",
-   "text": "The committee confirmed that the booking needs Dean's office approval, requested a month ahead.",
-   "quote": "Auditorium booking for IoT Fest needs the Dean's office approval, requested a month ahead."
-  },
-  {
-   "obligation": "R37",
-   "event": "whatsapp-committee.txt#1181",
-   "kind": "decision",
-   "text": "For the next fest, the auditorium application should be made by mid January.",
-   "quote": "Dean's office approval, a month ahead, so apply by mid January."
-  },
-  {
-   "obligation": "R38",
+   "obligation": "C18",
    "event": "minutes.md#4",
    "kind": "decision",
-   "text": "The club registration is renewed every August and needs the Dean's signature through Student Affairs.",
+   "text": "Club registration is renewed every August and needs the Dean's signature through Student Affairs.",
    "quote": "Club registration is renewed every August. It needs the Dean's signature through Student Affairs."
   },
   {
-   "obligation": "R38",
+   "obligation": "C18",
    "event": "whatsapp-committee.txt#872",
-   "kind": "risk",
-   "text": "Last August, Priya had to chase the renewal for two weeks.",
-   "quote": "Last August Priya had to chase it for two weeks."
+   "kind": "contact",
+   "text": "The Dean's signature is obtained through Student Affairs.",
+   "quote": "needs the Dean's signature from Student Affairs."
   },
   {
-   "obligation": "R38",
-   "event": "trello-board.json#25",
-   "kind": "dependency",
-   "text": "The form and fee receipt must go to Student Affairs with the renewal.",
-   "quote": "Form plus fee receipt to Student Affairs."
-  },
-  {
-   "obligation": "R38",
+   "obligation": "C18",
    "event": "minutes.md#4",
    "kind": "dependency",
    "text": "The registration renewal fee is ₹1,500, paid from the club account.",
    "quote": "The registration renewal fee is ₹1,500, paid from the club account."
   },
   {
-   "obligation": "R36",
-   "event": "minutes.md#0",
-   "kind": "contact",
-   "text": "The lab is booked through the HoD's office, so that office is the contact for lab bookings.",
-   "quote": "the lab is booked through the HoD's office"
+   "obligation": "C19",
+   "event": "trello-board.json#0",
+   "kind": "dependency",
+   "text": "The letter should be applied for two weeks ahead.",
+   "quote": "Apply two weeks ahead."
   },
   {
-   "obligation": "R36",
+   "obligation": "C19",
    "event": "minutes.md#0",
+   "kind": "contact",
+   "text": "The lab is booked through the HoD's office.",
+   "quote": "the lab is booked through the HoD's office."
+  },
+  {
+   "obligation": "C19",
+   "event": "whatsapp-committee.txt#21",
+   "kind": "risk",
+   "text": "The HoD rejected the club last year when the letter was missing.",
+   "quote": "Last year they rejected us without it."
+  },
+  {
+   "obligation": "C19",
+   "event": "minutes.md#4",
    "kind": "decision",
-   "text": "The committee decided a signed HoD letter must precede every lab booking each semester.",
+   "text": "A signed HoD permission letter is required before every lab booking, every semester.",
    "quote": "A signed HoD permission letter is required before every lab booking, every semester."
   },
   {
-   "obligation": "C39",
-   "event": "WhatsApp Chat with Arun.txt#24",
-   "kind": "risk",
-   "text": "Karthik's medical leave was shared in confidence and must be kept private.",
-   "quote": "Karthik told me about his medical leave in confidence. Please keep it between us."
+   "obligation": "C19",
+   "event": "whatsapp-committee.txt#1166",
+   "kind": "dependency",
+   "text": "Even semester lab bookings need the HoD's permission letter first.",
+   "quote": "Even semester lab bookings need the HoD's permission letter first, as always."
   },
   {
-   "obligation": "C39",
+   "obligation": "C20",
+   "event": "minutes.md#5",
+   "kind": "decision",
+   "text": "The meeting set the timing: before the new committee takes over.",
+   "quote": "Arun to write the handover document before the new committee takes over."
+  },
+  {
+   "obligation": "C21",
+   "event": "minutes.md#2",
+   "kind": "contact",
+   "text": "Divya was assigned in the minutes to make the reimbursement to Mr. Ganesan.",
+   "quote": "Divya to reimburse Mr. Ganesan once the bills arrive."
+  },
+  {
+   "obligation": "C21",
+   "event": "minutes.md#2",
+   "kind": "decision",
+   "text": "The committee decided the reimbursement would be paid after Mr. Ganesan submits his bills.",
+   "quote": "Speaker travel of ₹2,400 to Mr. Ganesan will be reimbursed after he submits bills."
+  },
+  {
+   "obligation": "C21",
+   "event": "minutes.md#2",
+   "kind": "dependency",
+   "text": "Mr. Ganesan had to submit his bills before the reimbursement could be paid.",
+   "quote": "after he submits bills."
+  },
+  {
+   "obligation": "C22",
+   "event": "trello-board.json#33",
+   "kind": "decision",
+   "text": "The handover card says the document should cover everything the next committee needs.",
+   "quote": "Everything the next committee needs."
+  },
+  {
+   "obligation": "C22",
+   "event": "whatsapp-committee.txt#1209",
+   "kind": "decision",
+   "text": "Arun set 15 November as his deadline for the handover document.",
+   "quote": "I'll write the handover document by 15 November."
+  },
+  {
+   "obligation": "C23",
+   "event": "minutes.md#0",
+   "kind": "contact",
+   "text": "Lab bookings go through the HoD's office.",
+   "quote": "the lab is booked through the HoD's office"
+  },
+  {
+   "obligation": "C23",
+   "event": "trello-board.json#0",
+   "kind": "dependency",
+   "text": "The letter is needed before any lab booking, and should be applied for two weeks ahead.",
+   "quote": "Needed before every lab booking (every semester). Apply two weeks ahead."
+  },
+  {
+   "obligation": "C23",
+   "event": "minutes.md#0",
+   "kind": "decision",
+   "text": "A signed HoD permission letter is required before every lab booking.",
+   "quote": "A signed HoD permission letter is required before every lab booking, every semester."
+  },
+  {
+   "obligation": "C23",
+   "event": "whatsapp-committee.txt#21",
+   "kind": "risk",
+   "text": "The HoD rejected a lab booking last year when the letter was missing.",
+   "quote": "Last year they rejected us without it."
+  },
+  {
+   "obligation": "C24",
+   "event": "trello-board.json#6",
+   "kind": "dependency",
+   "text": "Dean's office approval is needed before the booking, and the request should go in a month ahead.",
+   "quote": "Dean's office approval needed, apply a month ahead."
+  },
+  {
+   "obligation": "C24",
+   "event": "minutes.md#1",
+   "kind": "decision",
+   "text": "The booking needs the Dean's office approval, requested a month ahead.",
+   "quote": "Auditorium booking for IoT Fest needs the Dean's office approval, requested a month ahead."
+  },
+  {
+   "obligation": "C25",
+   "event": "minutes.md#0",
+   "kind": "decision",
+   "text": "The committee decided a signed HoD permission letter is needed before every lab booking.",
+   "quote": "A signed HoD permission letter is required before every lab booking, every semester."
+  },
+  {
+   "obligation": "C25",
+   "event": "whatsapp-committee.txt#238",
+   "kind": "dependency",
+   "text": "The lab cannot be booked until the HoD's permission letter is signed.",
+   "quote": "the HoD's permission letter again before we book the lab"
+  },
+  {
+   "obligation": "C25",
+   "event": "whatsapp-committee-2024-25.txt#2",
+   "kind": "contact",
+   "text": "The HoD signs the lab permission letter.",
+   "quote": "HoD signed the lab permission letter"
+  },
+  {
+   "obligation": "C25",
+   "event": "whatsapp-committee.txt#21",
+   "kind": "risk",
+   "text": "A lab request was rejected last year when the permission letter was missing.",
+   "quote": "Last year they rejected us without it."
+  },
+  {
+   "obligation": "C27",
+   "event": "whatsapp-committee.txt#297",
+   "kind": "dependency",
+   "text": "The poster text needed the fest date and venue.",
+   "quote": "the poster text needs the date and venue."
+  },
+  {
+   "obligation": "C27",
+   "event": "minutes.md#1",
+   "kind": "decision",
+   "text": "The committee set IoT Fest for 14 Feb 2026.",
+   "quote": "IoT Fest will be on 14 Feb 2026, as last year."
+  },
+  {
+   "obligation": "C28",
+   "event": "trello-board.json#13",
+   "kind": "contact",
+   "text": "Meghna created the card for this task.",
+   "quote": "Card: Banner design"
+  },
+  {
+   "obligation": "C30",
+   "event": "whatsapp-volunteers.txt#619",
+   "kind": "risk",
+   "text": "The college asked for the certificates for NSS hours.",
+   "quote": "college asked for them for the NSS hours"
+  },
+  {
+   "obligation": "C30",
+   "event": "trello-board.json#24",
+   "kind": "risk",
+   "text": "Volunteers have repeatedly asked about the certificates.",
+   "quote": "Volunteers keep asking about these."
+  },
+  {
+   "obligation": "C31",
+   "event": "whatsapp-committee.txt#577",
+   "kind": "contact",
+   "text": "Arun made this promise to the workshop speakers.",
+   "quote": "I'll send the participation certificates to all workshop speakers by 15 March."
+  },
+  {
+   "obligation": "C32",
+   "event": "minutes.md#4",
+   "kind": "decision",
+   "text": "Renewal is needed every August and requires the Dean's signature through Student Affairs.",
+   "quote": "Club registration is renewed every August. It needs the Dean's signature through Student Affairs."
+  },
+  {
+   "obligation": "C32",
+   "event": "whatsapp-committee.txt#872",
+   "kind": "risk",
+   "text": "Last year's renewal took two weeks of chasing to get signed.",
+   "quote": "Last August Priya had to chase it for two weeks."
+  },
+  {
+   "obligation": "C32",
+   "event": "minutes.md#4",
+   "kind": "decision",
+   "text": "The renewal fee is ₹1,500, paid from the club account.",
+   "quote": "The registration renewal fee is ₹1,500, paid from the club account."
+  },
+  {
+   "obligation": "C33",
+   "event": "whatsapp-committee.txt#969",
+   "kind": "risk",
+   "text": "The letter was signed a week after its due date.",
+   "quote": "a week late sorry"
+  },
+  {
+   "obligation": "C33",
+   "event": "minutes.md#4",
+   "kind": "decision",
+   "text": "A signed HoD permission letter is required before every lab booking, every semester.",
+   "quote": "A signed HoD permission letter is required before every lab booking, every semester."
+  },
+  {
+   "obligation": "C33",
+   "event": "whatsapp-committee.txt#21",
+   "kind": "risk",
+   "text": "The club was rejected for a lab booking last year when the HoD's letter was missing.",
+   "quote": "Last year they rejected us without it."
+  },
+  {
+   "obligation": "C34",
+   "event": "trello-board.json#30",
+   "kind": "contact",
+   "text": "Kavya is the owner of this card, which covers posters in first-year blocks.",
+   "quote": "Posters in first-year blocks."
+  },
+  {
+   "obligation": "C35",
+   "event": "minutes.md#0",
+   "kind": "decision",
+   "text": "A signed HoD permission letter is required before every lab booking, every semester.",
+   "quote": "A signed HoD permission letter is required before every lab booking, every semester."
+  },
+  {
+   "obligation": "C35",
+   "event": "minutes.md#0",
+   "kind": "contact",
+   "text": "The lab is booked through the HoD's office.",
+   "quote": "the lab is booked through the HoD's office."
+  },
+  {
+   "obligation": "C35",
+   "event": "whatsapp-committee.txt#21",
+   "kind": "risk",
+   "text": "The club was rejected last year when the letter was missing.",
+   "quote": "Last year they rejected us without it."
+  },
+  {
+   "obligation": "C35",
+   "event": "whatsapp-committee.txt#1166",
+   "kind": "dependency",
+   "text": "Even semester lab bookings need the HoD's permission letter first.",
+   "quote": "Even semester lab bookings need the HoD's permission letter first"
+  },
+  {
+   "obligation": "C36",
+   "event": "trello-board.json#33",
+   "kind": "contact",
+   "text": "Arun owns the handover document card, which covers everything the next committee needs.",
+   "quote": "Everything the next committee needs."
+  },
+  {
+   "obligation": "C36",
+   "event": "minutes.md#5",
+   "kind": "decision",
+   "text": "The committee decided Arun writes the handover document before the new committee takes over.",
+   "quote": "Arun to write the handover document before the new committee takes over."
+  },
+  {
+   "obligation": "C41",
+   "event": "whatsapp-volunteers.txt#619",
+   "kind": "risk",
+   "text": "The college asked for the certificates because they are needed for NSS hours.",
+   "quote": "college asked for them for the NSS hours"
+  },
+  {
+   "obligation": "R42",
+   "event": "minutes.md#0",
+   "kind": "contact",
+   "text": "Lab bookings for this purpose go through the HoD's office.",
+   "quote": "the lab is booked through the HoD's office"
+  },
+  {
+   "obligation": "R42",
+   "event": "whatsapp-committee.txt#21",
+   "kind": "risk",
+   "text": "Last year the HoD rejected a request submitted without the letter.",
+   "quote": "Last year they rejected us without it."
+  },
+  {
+   "obligation": "R42",
+   "event": "trello-board.json#0",
+   "kind": "dependency",
+   "text": "The application should go in two weeks before the lab booking.",
+   "quote": "Apply two weeks ahead."
+  },
+  {
+   "obligation": "R43",
+   "event": "minutes.md#4",
+   "kind": "decision",
+   "text": "The renewal is made every August and needs the Dean's signature through Student Affairs.",
+   "quote": "It needs the Dean's signature through Student Affairs."
+  },
+  {
+   "obligation": "R43",
+   "event": "minutes.md#4",
+   "kind": "dependency",
+   "text": "The renewal fee of ₹1,500 is paid from the club account.",
+   "quote": "The registration renewal fee is ₹1,500, paid from the club account."
+  },
+  {
+   "obligation": "R43",
+   "event": "trello-board.json#25",
+   "kind": "dependency",
+   "text": "The form and the fee receipt both go to Student Affairs.",
+   "quote": "Form plus fee receipt to Student Affairs."
+  },
+  {
+   "obligation": "R43",
+   "event": "whatsapp-committee-2024-25.txt#237",
+   "kind": "contact",
+   "text": "Student Affairs is the office that receives the registration renewal.",
+   "quote": "Registration renewal submitted to Student Affairs today."
+  },
+  {
+   "obligation": "R44",
+   "event": "whatsapp-committee.txt#117",
+   "kind": "dependency",
+   "text": "The auditorium needs Dean's office approval, so apply a month ahead.",
+   "quote": "The auditorium needs the Dean's office approval, so apply a month ahead."
+  },
+  {
+   "obligation": "R44",
+   "event": "minutes.md#1",
+   "kind": "decision",
+   "text": "The committee decided the auditorium booking needs Dean's office approval, requested a month ahead.",
+   "quote": "Auditorium booking for IoT Fest needs the Dean's office approval, requested a month ahead."
+  },
+  {
+   "obligation": "R44",
+   "event": "whatsapp-committee.txt#271",
+   "kind": "contact",
+   "text": "The Dean's office approved the 14 Feb auditorium booking last year.",
+   "quote": "Auditorium booked for 14 Feb, the Dean's office approved it."
+  },
+  {
+   "obligation": "R44",
+   "event": "whatsapp-committee.txt#1181",
+   "kind": "risk",
+   "text": "Next year's auditorium request should be applied for by mid January to meet the month-ahead requirement.",
+   "quote": "Dean's office approval, a month ahead, so apply by mid January."
+  },
+  {
+   "obligation": "C7",
+   "event": "minutes.md#0",
+   "kind": "contact",
+   "text": "Lab bookings for the IoT lab go through the HoD's office.",
+   "quote": "the lab is booked through the HoD's office"
+  },
+  {
+   "obligation": "C7",
+   "event": "trello-board.json#0",
+   "kind": "dependency",
+   "text": "The letter should be applied for two weeks before the lab booking.",
+   "quote": "Apply two weeks ahead."
+  },
+  {
+   "obligation": "R42",
+   "event": "minutes.md#0",
+   "kind": "decision",
+   "text": "The committee decided that a signed HoD permission letter is required before every lab booking, every semester.",
+   "quote": "A signed HoD permission letter is required before every lab booking, every semester."
+  },
+  {
+   "obligation": "R42",
+   "event": "whatsapp-committee.txt#1166",
+   "kind": "dependency",
+   "text": "Even semester lab bookings need the HoD's permission letter first.",
+   "quote": "Even semester lab bookings need the HoD's permission letter first, as always."
+  },
+  {
+   "obligation": "C49",
    "event": "WhatsApp Chat with Arun.txt#26",
    "kind": "decision",
-   "text": "The HoD approved the condonation letter.",
+   "text": "The HoD approved the attendance condonation letter.",
    "quote": "he approved it"
+  },
+  {
+   "obligation": "C49",
+   "event": "WhatsApp Chat with Arun.txt#24",
+   "kind": "risk",
+   "text": "Karthik shared details of his medical leave in confidence, so they must be kept private.",
+   "quote": "Karthik told me about his medical leave in confidence"
   }
  ],
  "links": [
   {
-   "a": "C14",
-   "b": "C16",
+   "a": "C3",
+   "b": "C4",
    "verdict": "same",
    "method": "rule",
    "score": 1
   },
   {
-   "a": "C24",
-   "b": "C35",
-   "verdict": "same",
-   "method": "model",
-   "score": 0.667
-  },
-  {
    "a": "C20",
-   "b": "C4",
+   "b": "C22",
+   "verdict": "same",
+   "method": "rule",
+   "score": 1
+  },
+  {
+   "a": "C41",
+   "b": "C30",
    "verdict": "same",
    "method": "model",
    "score": 0.667
   },
   {
-   "a": "C19",
-   "b": "C3",
+   "a": "C26",
+   "b": "C10",
+   "verdict": "same",
+   "method": "model",
+   "score": 0.667
+  },
+  {
+   "a": "C25",
+   "b": "C9",
    "verdict": "same",
    "method": "model",
    "score": 0.6
   },
   {
-   "a": "C21",
-   "b": "C5",
+   "a": "C27",
+   "b": "C11",
    "verdict": "same",
    "method": "model",
    "score": 0.5
   },
   {
-   "a": "C17",
-   "b": "C3",
+   "a": "C13",
+   "b": "C11",
+   "verdict": "possible",
+   "method": "model",
+   "score": 0.514
+  },
+  {
+   "a": "C24",
+   "b": "C8",
    "verdict": "same",
    "method": "model",
    "score": 0.5
   },
   {
-   "a": "C11",
-   "b": "C27",
+   "a": "C35",
+   "b": "C19",
    "verdict": "same",
    "method": "model",
-   "score": 0.5
-  },
-  {
-   "a": "C18",
-   "b": "C2",
-   "verdict": "same",
-   "method": "model",
-   "score": 0.5
+   "score": 0.439
   },
   {
    "a": "C23",
-   "b": "C6",
+   "b": "C7",
    "verdict": "same",
    "method": "model",
    "score": 0.429
   },
   {
-   "a": "C1",
-   "b": "C17",
+   "a": "C36",
+   "b": "C20",
    "verdict": "same",
+   "method": "model",
+   "score": 0.4
+  },
+  {
+   "a": "C12",
+   "b": "C29",
+   "verdict": "possible",
    "method": "model",
    "score": 0.429
   },
   {
-   "a": "C14",
-   "b": "C30",
+   "a": "C36",
+   "b": "C22",
    "verdict": "same",
    "method": "model",
    "score": 0.4
   },
   {
-   "a": "C16",
-   "b": "C30",
-   "verdict": "same",
-   "method": "model",
-   "score": 0.4
-  },
-  {
-   "a": "C9",
-   "b": "C25",
+   "a": "C15",
+   "b": "C31",
    "verdict": "same",
    "method": "model",
    "score": 0.265
@@ -16410,28 +19095,34 @@
  ],
  "docket": [
   {
-   "obligation": "C6",
+   "obligation": "C12",
    "claimA": "trello-board.json#19",
    "claimB": "whatsapp-committee.txt#465",
    "summary": "Trello, 5 Feb 2026: says it was done. WhatsApp, 7 Feb 2026: says it was not."
   },
   {
-   "obligation": "C9",
+   "obligation": "C15",
    "claimA": "trello-board.json#23",
    "claimB": "whatsapp-committee.txt#664",
    "summary": "Trello, 16 Mar 2026: says it was done. WhatsApp, 18 Mar 2026: says it was not."
   },
   {
-   "obligation": "C23",
+   "obligation": "C29",
    "claimA": "trello-board.json#19",
    "claimB": "whatsapp-committee.txt#465",
    "summary": "Trello, 5 Feb 2026: says it was done. WhatsApp, 7 Feb 2026: says it was not."
   },
   {
-   "obligation": "C25",
+   "obligation": "C31",
    "claimA": "trello-board.json#23",
    "claimB": "whatsapp-committee.txt#664",
    "summary": "Trello, 16 Mar 2026: says it was done. WhatsApp, 18 Mar 2026: says it was not."
+  },
+  {
+   "obligation": "C38",
+   "claimA": "whatsapp-volunteers.txt#462",
+   "claimB": "whatsapp-volunteers.txt#432",
+   "summary": "WhatsApp, 14 Feb 2026: says it was done. WhatsApp, 11 Feb 2026: says it was not."
   }
  ],
  "aliases": [
@@ -16504,17 +19195,24 @@
     "ma'am"
    ],
    "kind": "person"
+  },
+  {
+   "canonical": "Nikhil",
+   "variants": [
+    "Nik"
+   ],
+   "kind": "person"
   }
  ],
  "sealed": [
   {
-   "obligation": "C15",
+   "obligation": "C21",
    "holder_role": "treasurer",
    "topic_label": "A finance matter",
    "approvedBy": "meena"
   },
   {
-   "obligation": "C39",
+   "obligation": "C49",
    "holder_role": "advisor",
    "topic_label": "A private matter, held by the advisor",
    "approvedBy": "meena"

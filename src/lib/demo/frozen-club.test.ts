@@ -35,10 +35,29 @@ describe("the frozen year club (demo copies)", () => {
 
   it("every item rests on at least one quote of its own, and every link, docket entry and seal names a real item", () => {
     const keys = new Set(club.obligations.map((o) => o.key));
-    for (const o of club.obligations) expect(club.evidence.some((e) => e.obligation === o.key && e.relation === "supports"), o.key).toBe(true);
+    for (const o of club.obligations.filter((x) => !x.occurrences)) expect(club.evidence.some((e) => e.obligation === o.key && e.relation === "supports"), o.key).toBe(true);
     for (const l of club.links) expect([keys.has(l.a), keys.has(l.b)]).toEqual([true, true]);
     for (const d of club.docket) expect(keys.has(d.obligation)).toBe(true);
     for (const s of club.sealed) expect(keys.has(s.obligation)).toBe(true);
+  });
+
+  it("a duty found from repetition rests only on inferred quotes of its occurrences, a year apart, and is due on an anniversary", () => {
+    const inferred = club.obligations.filter((o) => o.occurrences);
+    expect(inferred.length).toBeGreaterThanOrEqual(4);
+    for (const o of inferred) {
+      const ev = club.evidence.filter((e) => e.obligation === o.key);
+      expect(ev.every((e) => e.relation === "past_instance" && e.inferred), o.key).toBe(true);
+      const cited = new Set(ev.map((e) => e.event));
+      const occ = o.occurrences!;
+      expect(occ.length, o.key).toBeGreaterThanOrEqual(2);
+      for (const x of occ) {
+        expect(cited.has(x.done_event), `${o.key} ${x.done_event}`).toBe(true);
+        if (x.start_event) expect(cited.has(x.start_event), `${o.key} ${x.start_event}`).toBe(true);
+      }
+      for (let i = 1; i < occ.length; i++) expect(Number(occ[i].done_on.slice(0, 4)) - Number(occ[i - 1].done_on.slice(0, 4)), o.key).toBeGreaterThanOrEqual(1);
+      expect(o.next_due!.slice(5), o.key).toBe(occ.at(-1)!.done_on.slice(5));
+      expect([o.kind, o.period, o.approver], o.key).toEqual(["recurring", "year", null]);
+    }
   });
 
   it("an item is at least as restricted as every message it cites (provenance), and a private item names its uploader", () => {

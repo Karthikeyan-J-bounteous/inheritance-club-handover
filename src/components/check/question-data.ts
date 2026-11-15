@@ -13,7 +13,7 @@ export async function loadQuestions(supabase: Db, workspaceId: string): Promise<
   const [items, docket, answers] = await Promise.all([
     supabase
       .from("obligations")
-      .select("id, kind, description, status, access_level, review_state, approval_required, approver, next_due, lead_time")
+      .select("id, kind, description, status, access_level, review_state, approval_required, approver, next_due, lead_time, occurrences")
       .eq("workspace_id", workspaceId)
       .order("created_at", { ascending: true }),
     supabase.from("docket_entries").select("id, obligation_id, ruling, summary").eq("workspace_id", workspaceId).order("created_at", { ascending: true }),

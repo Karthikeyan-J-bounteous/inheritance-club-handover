@@ -19,7 +19,7 @@ export const metadata: Metadata = { title: "Build the ledger · Inheritance" };
 // Step 2 only. Conflicts and gaps are step 3 (/check); every message is /messages.
 const TABS = [
   { key: "commitments", label: "Promises", hint: "Things the committee promised to people" },
-  { key: "recurring", label: "Yearly duties", hint: "Duties that come round every cycle, with their approvals" },
+  { key: "recurring", label: "Yearly duties", hint: "Duties that come round every cycle, with their approvals, and ones found because they repeat" },
 ] as const;
 type TabKey = (typeof TABS)[number]["key"];
 

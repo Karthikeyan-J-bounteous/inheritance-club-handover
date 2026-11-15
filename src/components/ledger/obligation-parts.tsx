@@ -11,6 +11,7 @@ type SourceEvent = { ts: string | null; author: string | null; sources: { filena
 
 export type EvidenceRow = {
   id: string;
+  event_id: string;
   quote: string;
   relation: "supports" | "fulfils" | "contradicts" | "past_instance";
   verified: boolean;
@@ -115,7 +116,17 @@ export function ContextList({ items }: { items: ContextRow[] }) {
   );
 }
 
-export const EVIDENCE_SELECT = "evidence(id, quote, relation, verified, inferred, events(ts, author, sources(filename, type)))";
+export const EVIDENCE_SELECT = "evidence(id, event_id, quote, relation, verified, inferred, events(ts, author, sources(filename, type)))";
+
+/** The quotes of an item's evidence by message, for the occurrences of a duty found from repetition. */
+export function quotesByEvent(evidence: readonly EvidenceRow[]): Map<string, { quote: string; author: string | null; ts: string | null; where: string | null; href: string }> {
+  return new Map(
+    evidence.map((e) => [
+      e.event_id,
+      { quote: e.quote, author: e.events?.author ?? null, ts: e.events?.ts ?? null, where: e.events?.sources ? `${TYPE_LABELS[e.events.sources.type]} · ${e.events.sources.filename}` : null, href: `/ledger/evidence/${e.id}` },
+    ]),
+  );
+}
 export const CONTEXT_SELECT = "context_items(id, kind, text, quote, verified, access_level, events(ts, author, sources(filename, type)))";
 
 export type LinkRow = LinkVerdict;

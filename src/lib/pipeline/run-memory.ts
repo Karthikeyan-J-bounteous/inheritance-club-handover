@@ -12,6 +12,7 @@ import { EXTRACTION_SYSTEM, ExtractionSchema, buildExtractionPrompt, chunkEvents
 import { DUTY_CONTEXT_SYSTEM, DutyContextSchema, FOLLOWUP_SYSTEM, FollowupSchema, buildFollowupPrompt, postProcessFollowup, type KeptContext, type KeptEvidence } from "./fulfilment.ts";
 import { MATCH_SYSTEM, MatchSchema, batchPairs, buildMatchPrompt, planMatches, postProcessMatches, type Alias, type MatchItem } from "./match.ts";
 import { buildIdf, relatedEvents } from "./related.ts";
+import { findRepeatedDuties, statedText, type RepeatedDuty } from "./repeats.ts";
 import { followupStatus, type FollowupStatus, type StatusEvidence } from "./status.ts";
 import { DUTIES_TASK, DUTY_CONTEXT_TASK, EXTRACT_TASK, FOLLOWUP_TASK, MATCH_TASK } from "./tasks.ts";
 import { canBorrow, trustState, type TrustEvidence, type TrustState, type Visibility } from "./trust.ts";
@@ -22,9 +23,12 @@ type Settled = { id: string; level: AccessLevel; trust: TrustState };
 export type MemoryCommitment = Settled & { candidate: Candidate; evidence: KeptEvidence[]; context: KeptContext[]; status: FollowupStatus };
 export type MemoryDuty = Settled & { duty: KeptDuty; schedule: Schedule; context: KeptContext[] };
 export type MemoryLink = { a: string; b: string; verdict: "same" | "possible"; method: "rule" | "model" };
+/** A duty found from repetition (stage 7, code only), as add_inferred_duty() stores it. */
+export type MemoryInferred = Settled & { repeat: RepeatedDuty };
 export type MemoryResult = {
   commitments: MemoryCommitment[];
   duties: MemoryDuty[];
+  inferred: MemoryInferred[];
   links: MemoryLink[];
   dropped: Record<string, number>;
   usage: Usage;
@@ -48,7 +52,7 @@ const trustEvidence = (e: PipelineEvent, relation: TrustEvidence["relation"], in
 });
 
 export async function runInMemory(events: PipelineEvent[], deps: GenerateDeps & { today: string; aliases?: readonly Alias[] }): Promise<MemoryResult> {
-  const result: MemoryResult = { commitments: [], duties: [], links: [], dropped: {}, usage: { inputTokens: 0, outputTokens: 0 }, calls: 0 };
+  const result: MemoryResult = { commitments: [], duties: [], inferred: [], links: [], dropped: {}, usage: { inputTokens: 0, outputTokens: 0 }, calls: 0 };
   const count = (d: Partial<Record<string, number>>) => {
     for (const [k, n] of Object.entries(d)) result.dropped[k] = (result.dropped[k] ?? 0) + (n ?? 0);
   };
@@ -202,5 +206,22 @@ export async function runInMemory(events: PipelineEvent[], deps: GenerateDeps & 
     c.status = followupStatus(ev as StatusEvidence[]);
   }
   for (const d of result.duties) d.trust = trustState(effective(d.id));
+
+  // 6. Duties nobody wrote down: code only, over every message, skipping what a stated duty covers.
+  const stated = result.duties.map((d) => ({
+    text: statedText({ description: d.duty.description, approval_required: d.duty.approval, approver: d.duty.approver, quotes: d.duty.quotes.map((q) => q.quote) }),
+    eventIds: d.duty.quotes.map((q) => q.event.id),
+  }));
+  const repeats = findRepeatedDuties(events, stated, deps.today);
+  count(repeats.dropped);
+  for (const r of repeats.duties) {
+    const cited = r.occurrences.flatMap((o) => [o.done, ...(o.start ? [o.start] : [])]);
+    result.inferred.push({
+      id: `i${result.inferred.length + 1}`,
+      level: visibilityOf(cited.map((q) => q.event)).level,
+      trust: trustState(cited.map((q) => trustEvidence(q.event, "past_instance", true))),
+      repeat: r,
+    });
+  }
   return result;
 }

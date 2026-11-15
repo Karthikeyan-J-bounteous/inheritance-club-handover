@@ -23,7 +23,8 @@ import {
 import { MATCH_SYSTEM, MatchSchema, batchPairs, buildMatchPrompt, pairKey, planMatches, postProcessMatches, type MatchItem, type MatchPair } from "./match.ts";
 import { buildIdf, relatedEvents } from "./related.ts";
 import { emptyProgress, type RunProgress, type StepResult } from "./progress.ts";
-import { DUTIES_TASK, DUTY_CONTEXT_TASK, EXTRACT_TASK, FOLLOWUP_TASK, MATCH_TASK, PLAN_FOLLOWUPS_TASK, PLAN_MATCHES_TASK, STAGES, type JobKind } from "./tasks.ts";
+import { findRepeatedDuties, statedText } from "./repeats.ts";
+import { DUTIES_TASK, DUTY_CONTEXT_TASK, EXTRACT_TASK, FOLLOWUP_TASK, INFER_DUTIES_TASK, MATCH_TASK, PLAN_FOLLOWUPS_TASK, PLAN_MATCHES_TASK, STAGES, type JobKind } from "./tasks.ts";
 
 type Db = SupabaseClient<Database>;
 
@@ -109,15 +110,15 @@ const job = (workspaceId: string, runId: string, userId: string, kind: JobKind, 
 /**
  * Queue a run: commitments (one job per chunk), recurring duties (one job per batch of
  * candidate messages), a planning job that queues the follow-up checks once the first two
- * stages are done, and a planning job that matches items once they have been checked.
- * Payloads hold ids only, never text.
+ * stages are done, a planning job that matches items once they have been checked, and a last
+ * job (code only) that finds duties nobody wrote down. Payloads hold ids only, never text.
  */
 export async function planRun(db: Db, workspaceId: string, userId: string): Promise<{ runId: string; total: number }> {
   const events = await loadReadableEvents(db, workspaceId);
   if (events.length === 0) throw new PlanError("There are no imported messages you can read yet. Import files first.");
   const chunks = chunkEvents(events);
   const batches = batchDutyEvents(dutyCandidates(events));
-  const steps = chunks.length + batches.length + 2;
+  const steps = chunks.length + batches.length + 3;
   if (steps > MAX_STEPS_PER_RUN) throw new PlanError(`That is too much to read in one run (${steps} steps, limit ${MAX_STEPS_PER_RUN}).`);
   const runId = crypto.randomUUID();
   const rows = [
@@ -125,6 +126,7 @@ export async function planRun(db: Db, workspaceId: string, userId: string): Prom
     ...batches.map((b, i) => job(workspaceId, runId, userId, DUTIES_TASK, i + 1, batches.length, { event_ids: b.map((e) => e.id) })),
     job(workspaceId, runId, userId, PLAN_FOLLOWUPS_TASK, 1, 1),
     job(workspaceId, runId, userId, PLAN_MATCHES_TASK, 1, 1),
+    job(workspaceId, runId, userId, INFER_DUTIES_TASK, 1, 1),
   ];
   await insertJobs(db, rows);
   return { runId, total: rows.length };
@@ -243,7 +245,14 @@ function targetOf(o: ObligationRow): FollowupTarget {
 
 /** Queue one follow-up check per obligation the caller may read, with its related messages. */
 async function planFollowupsStep({ db, workspaceId, runId, userId, step }: StepContext) {
-  const { data, error } = await db.from("obligations").select(OBLIGATION_COLUMNS).eq("workspace_id", workspaceId).neq("review_state", "rejected").order("created_at");
+  // Inferred duties rest on their occurrences only: no follow-up or context check is asked for.
+  const { data, error } = await db
+    .from("obligations")
+    .select(OBLIGATION_COLUMNS)
+    .eq("workspace_id", workspaceId)
+    .neq("review_state", "rejected")
+    .is("occurrences", null)
+    .order("created_at");
   if (error) throw new Error(`Could not read obligations: ${error.message}`);
   const events = await loadReadableEvents(db, workspaceId);
   const readable = new Set(events.map((e) => e.id));
@@ -386,6 +395,41 @@ async function matchStep({ db, workspaceId, payload, deps, step }: StepContext) 
   if (step.rejected) step.dropped.rejected_by_database = step.rejected;
 }
 
+/**
+ * Duties nobody wrote down (code only, no model): tasks done at about the same time in two or
+ * more years, among the messages the caller may read, that no stated duty already covers.
+ * add_inferred_duty() repeats the checks and never adds one twice.
+ */
+async function inferDutiesStep({ db, workspaceId, deps, step }: StepContext) {
+  const events = await loadReadableEvents(db, workspaceId);
+  const { data, error } = await db
+    .from("obligations")
+    .select("description, approval_required, approver, evidence(event_id, quote, inferred)")
+    .eq("workspace_id", workspaceId)
+    .eq("kind", "recurring")
+    .neq("review_state", "rejected")
+    .is("occurrences", null);
+  if (error) throw new Error(`Could not read duties: ${error.message}`);
+  const stated = (data ?? []).map((d) => {
+    const firm = (d.evidence ?? []).filter((e) => !e.inferred);
+    return { text: statedText({ ...d, quotes: firm.map((e) => e.quote) }), eventIds: firm.map((e) => e.event_id) };
+  });
+  const today = deps.today ?? istDayKey(new Date().toISOString());
+  const { duties, dropped } = findRepeatedDuties(events, stated, today);
+  step.candidates = duties.length;
+  step.dropped = dropped as Record<string, number>;
+  for (const d of duties) {
+    const { data: r, error: e } = await db.rpc("add_inferred_duty", {
+      p_workspace: workspaceId, p_description: d.description, p_next_due: d.nextDue,
+      p_occurrences: d.occurrences.map((o) => ({ done_event: o.done.event.id, done_quote: o.done.quote, start_event: o.start?.event.id ?? null, start_quote: o.start?.quote ?? null })),
+    });
+    if (e) step.rejected++;
+    else if (r?.[0]?.created) step.created++;
+    else step.duplicates++;
+  }
+  if (step.rejected) step.dropped.rejected_by_database = step.rejected;
+}
+
 const STEPS: Record<JobKind, (c: StepContext) => Promise<void>> = {
   [EXTRACT_TASK]: extractStep,
   [DUTIES_TASK]: dutiesStep,
@@ -393,6 +437,7 @@ const STEPS: Record<JobKind, (c: StepContext) => Promise<void>> = {
   [FOLLOWUP_TASK]: followupStep,
   [PLAN_MATCHES_TASK]: planMatchesStep,
   [MATCH_TASK]: matchStep,
+  [INFER_DUTIES_TASK]: inferDutiesStep,
 };
 
 /**

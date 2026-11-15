@@ -50,7 +50,11 @@ function typo(text: string, rng: Rng): string {
 function fillerText(world: World, chat: Chat, rng: Rng): string {
   const f = world.filler;
   const tpl = rng.pick(f.templates[chat.template]);
-  const who = world.people.find((p) => p.name === rng.pick(chat.members));
+  // `find` draws once per person it walks, so the list it walks must not change for chats already
+  // generated: alumni are added only for a chat that has an alumnus in it.
+  const alumni = new Set(world.alumni.map((p) => p.name));
+  const people = chat.members.some((m) => alumni.has(m)) ? [...world.people, ...world.alumni] : world.people;
+  const who = people.find((p) => p.name === rng.pick(chat.members));
   return tpl
     .replace(/\{who\}/g, who ? rng.pick(who.nicknames.length ? who.nicknames : [who.name]) : "all")
     .replace(/\{thing\}/g, () => rng.pick(f.things))
@@ -73,7 +77,7 @@ function chatLines(world: World, chat: Chat): Line[] {
   const lines: Line[] = [];
   const start = stampKey(parseStamp(chat.startsAt));
   const from = chat.activeFrom ?? world.period.from;
-  for (const day of days(from, world.period.to)) {
+  for (const day of days(from, chat.activeTo ?? world.period.to)) {
     const month = `${day.y}-${pad(day.mo)}`;
     const rate = chat.perDay[month] ?? chat.perDay.default;
     // Poisson-ish: the rate's integer part, plus one more with the fractional probability.

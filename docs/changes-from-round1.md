@@ -202,3 +202,14 @@ Committed in the Round 2 report (section 10) as improvement 3.
 - **The acknowledgement shows on the handover,** in a new "Notes to people outside the club" section, for the outgoing lead and the incoming lead (who sees which notes name her as the contact), and in the review History, as coming from the signed link.
 - **Guidance:** once a version is approved, the home page sends the outgoing lead to write the notes before handing on to the incoming lead, and offers a note beside the gap questions and the review.
 - Every draft, edit, approval, discard and acknowledgement writes an audit row with before and after, at the note's level.
+
+## Round 3, Phase 17: duties nobody wrote down (improvement 1)
+
+Committed in the Round 2 report (section 10) as improvement 1.
+
+- **Duties found from repetition alone.** Before, a recurring duty was found only when a record stated the rule ("every semester"). Now code, not a model, also finds a task that was done at about the same time of year in two or more past years, though no record calls it a duty: the same rare words, done dates a whole number of years apart give or take a month, one access level. Tasks a record already states as duties are not added twice.
+- **Each such duty is labelled Inferred and lists its occurrences:** for every year, the first record that it was under way and the record that it was done, each a verified quote with a link to its message. It is never shown as stated: "Found from repetition", "About once a year (inferred, not stated)", trust Inferred (the trust rule now says Inferred for an item that rests only on inferred records).
+- **A start-by date from past lead times.** The next due date is a year after it was last done; the start-by date is that minus the longest it took before, from first record to done. Both are computed by code and checked by the database, which works them out again from the messages' own times.
+- **On the incoming lead's calendar.** The handover calendar shows them in their month, with "Start now" or "Overdue" as for any duty, and says what the label means. In the year demo club, the IoT basics workshop slides (done in late November in 2024 and 2025) are due on 27 Nov 2026 and should be started by 10 Nov 2026, the handover day: a task the outgoing team never mentioned now appears with a start date.
+- **The year demo club has a second past year:** the previous committee's group chat (2024-25), with four planted unstated duties, three repeats of stated ones and a look-alike, and their ground truth. The demo club was rebuilt with it through the app's own pipeline.
+- **The ledger lists them apart,** under "Duties nobody wrote down", so the reviewer checks them before accepting. A rejected one is not found again by later builds.

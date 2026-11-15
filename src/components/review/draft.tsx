@@ -8,7 +8,9 @@ import type { Role } from "@/lib/review/readiness";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { editItem, reviewItem, setLinkVerdict } from "@/app/review/actions";
 import { loadLinkData } from "@/components/ledger/link-data";
-import { CONTEXT_SELECT, ContextList, EVIDENCE_SELECT, EvidenceList, type ContextRow, type EvidenceRow } from "@/components/ledger/obligation-parts";
+import { CONTEXT_SELECT, ContextList, EVIDENCE_SELECT, EvidenceList, quotesByEvent, type ContextRow, type EvidenceRow } from "@/components/ledger/obligation-parts";
+import { Occurrences } from "@/components/ledger/occurrences";
+import { INFERRED_BADGE, INFERRED_CADENCE, parseOccurrences } from "@/lib/repeats-view";
 import { REVIEW_LABELS, STATUS_LABELS, TRUST_LABELS, statusLabel } from "@/components/ledger/commitments";
 import { DiffView } from "./diff-view";
 import { EditForm, ReasonForm } from "./forms";
@@ -46,15 +48,16 @@ type Row = {
   access_level: AccessLevel;
   evidence: EvidenceRow[];
   context_items: ContextRow[];
+  occurrences: unknown;
 };
 
 const SELECT =
-  "id, kind, description, owed_by, owed_to, due_text, due_date, cadence, approval_required, approver, lead_time, next_due, start_by, status, trust_state, review_state, reviewed_status, reviewed_trust, fulfilment_checked_at, access_level, " +
+  "id, kind, description, owed_by, owed_to, due_text, due_date, cadence, approval_required, approver, lead_time, next_due, start_by, status, trust_state, review_state, reviewed_status, reviewed_trust, fulfilment_checked_at, access_level, occurrences, " +
   `${EVIDENCE_SELECT}, ${CONTEXT_SELECT}`;
 
 function facts(o: Row): string {
   if (o.kind === "commitment") return `${o.owed_by ?? "Someone"} owes ${o.owed_to ?? "someone"}${o.due_text ? `, ${o.due_text}` : ""}`;
-  const parts = [o.owed_by ? `Owed by ${o.owed_by}` : null, o.cadence, o.approval_required ? `needs ${o.approval_required}${o.approver ? ` from ${o.approver}` : ""}` : null, o.next_due ? `next due ${o.next_due}` : null];
+  const parts = [o.owed_by ? `Owed by ${o.owed_by}` : null, parseOccurrences(o.occurrences) ? INFERRED_CADENCE : o.cadence, o.approval_required ? `needs ${o.approval_required}${o.approver ? ` from ${o.approver}` : ""}` : null, o.next_due ? `next due ${o.next_due}` : null];
   return parts.filter(Boolean).join(" · ") || "No details stated";
 }
 
@@ -92,6 +95,7 @@ function Links({ item, links, byId }: { item: Row; links: { a: string; b: string
 
 function ItemCard({ o, links, byId }: { o: Row; links: { a: string; b: string; verdict: "same" | "possible" | "distinct" }[]; byId: Map<string, Row> }) {
   const changed = needsRereview(o);
+  const occ = parseOccurrences(o.occurrences);
   const move = rereviewChange(o);
   const state = o.review_state;
   const buttons =
@@ -110,6 +114,7 @@ function ItemCard({ o, links, byId }: { o: Row; links: { a: string; b: string; v
         <p className="font-medium">{capitalise(o.description)}</p>
         <span className="flex flex-wrap gap-1">
           <Badge variant={state === "accepted" || state === "edited" ? "default" : state === "rejected" ? "destructive" : "outline"}>{REVIEW_LABELS[state]}</Badge>
+          {occ && <Badge variant="outline">{INFERRED_BADGE}</Badge>}
           {o.kind === "commitment" && <Badge variant="outline">{statusLabel(o.status, o.fulfilment_checked_at)}</Badge>}
           <Badge variant={o.trust_state === "contradicted" || o.trust_state === "gap" ? "destructive" : "secondary"}>Trust: {TRUST_LABELS[o.trust_state]}</Badge>
           <Badge variant={o.access_level === "everyone" ? "outline" : "secondary"}>{ACCESS_LABELS[o.access_level]}</Badge>
@@ -123,7 +128,7 @@ function ItemCard({ o, links, byId }: { o: Row; links: { a: string; b: string; v
           {move.trust && ` Trust was ${label(move.trust.was, TRUST_LABELS)}, now ${label(move.trust.now, TRUST_LABELS)}.`} Check the quotes, then accept it again or reject it. Nothing can be marked ready or approved until you do.
         </p>
       )}
-      <EvidenceList evidence={o.evidence} kind={o.kind} />
+      {occ ? <Occurrences occurrences={occ} quotes={quotesByEvent(o.evidence)} /> : <EvidenceList evidence={o.evidence} kind={o.kind} />}
       <ContextList items={o.context_items} />
       <Links item={o} links={links} byId={byId} />
       <div className="mt-3 flex flex-col gap-3 border-t pt-3">

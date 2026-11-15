@@ -6,6 +6,7 @@
 
 import { levelRank, type AccessLevel } from "../access.ts";
 import type { MemoryResult } from "../pipeline/run-memory.ts";
+import { contentTokens } from "../pipeline/text.ts";
 import { normaliseForQuote } from "../pipeline/verify.ts";
 import type { Truth } from "../synth/truth.ts";
 import { eventFor, type Scenario } from "./scenario.ts";
@@ -36,6 +37,20 @@ export type DutyRow = {
   level: AccessLevel | null;
   nextDue: string | null;
 };
+export type InferredRow = {
+  id: string;
+  found: boolean;
+  itemId: string | null;
+  description: string | null;
+  /** Planted occurrences whose done record the item cites. */
+  occurrencesFound: number;
+  occurrences: number;
+  expectedNextDue: string;
+  nextDue: string | null;
+  expectedStartBy: string | null;
+  startBy: string | null;
+  trust: string | null;
+};
 export type ExtraRow = { itemId: string; kind: "decoy" | "restatement" | "unplanned"; quote: string; level: AccessLevel; status: string };
 export type Leak = { itemId: string; level: AccessLevel; field: string; restricted: { level: AccessLevel; text: string } };
 export type LinkRow = { a: string; b: string; verdict: string; method: string; wrong: boolean; label: string };
@@ -51,6 +66,8 @@ export type Scorecard = {
   precision: number;
   contradictions: { total: number; detected: number; rows: { id: string; commitment: string; detected: boolean }[] };
   duties: { total: number; found: number; approverOk: number; approverScored: number; trustOk: number; copies: number; unplanned: number; rows: DutyRow[]; extraRows: string[] };
+  /** Duties found from repetition (code only): planted ones, restated ones (already stated duties), others, and decoys cited. */
+  inferred: { total: number; found: number; datesOk: number; trustOk: number; restated: number; unplanned: number; decoyHits: number; rows: InferredRow[]; extraRows: string[] };
   links: { same: number; possible: number; wrong: number; rows: LinkRow[] };
   /** Restricted text stored on an item (or note) readable at a lower level. Must be empty. */
   leaks: Leak[];
@@ -114,6 +131,30 @@ export function scoreRun(res: MemoryResult, scenario: Pick<Scenario, "name" | "t
   const copies = extraDuties.filter((d) => truth.recurring.some((r) => quotesDuty(d, r)));
   const dutyTruthOf = (itemId: string) => dutyRows.find((r) => r.itemId === itemId)?.id;
 
+  // Duties found from repetition: a planted one is found when an item cites at least two of its done records.
+  const doneOf = (i: MemoryResult["inferred"][number]) => i.repeat.occurrences.map((o) => o.done);
+  const matchedInferred = new Set<string>();
+  const inferredRows: InferredRow[] = truth.inferred.map((t) => {
+    const hits = (i: MemoryResult["inferred"][number]) => t.occurrences.filter((o) => doneOf(i).some((d) => isQuote(d.event.id, d.quote, o.done))).length;
+    const got = res.inferred.filter((i) => !matchedInferred.has(i.id)).sort((a, b) => hits(b) - hits(a))[0];
+    const ok = got && hits(got) >= 2 ? got : undefined;
+    if (ok) matchedInferred.add(ok.id);
+    return {
+      id: t.id, found: Boolean(ok), itemId: ok?.id ?? null, description: ok?.repeat.description ?? null,
+      occurrencesFound: ok ? hits(ok) : 0, occurrences: t.occurrences.length,
+      expectedNextDue: t.expectedNextDue, nextDue: ok?.repeat.nextDue ?? null, expectedStartBy: t.expectedStartBy, startBy: ok?.repeat.startBy ?? null, trust: ok?.trust ?? null,
+    };
+  });
+  const restatedWords = truth.recurring
+    .filter((r) => truth.restatedRecurring.includes(r.id))
+    .map((r) => contentTokens([r.duty, r.approval, r.approver, ...r.quotes.map((q) => q.text)].filter(Boolean).join(" ")));
+  const extraInferred = res.inferred.filter((i) => !matchedInferred.has(i.id));
+  const isRestated = (i: MemoryResult["inferred"][number]) => {
+    const words = contentTokens([i.repeat.description, ...doneOf(i).map((d) => d.quote)].join(" "));
+    return restatedWords.some((w) => [...words].filter((x) => w.has(x)).length >= 2);
+  };
+  const decoyHits = res.inferred.filter((i) => i.repeat.occurrences.some((o) => [o.done, ...(o.start ? [o.start] : [])].some((q) => truth.inferredDecoys.some((d) => isQuote(q.event.id, q.quote, d))))).length;
+
   // Links.
   const linkedTo = (id: string) => res.links.filter((l) => l.a === id || l.b === id).map((l) => (l.a === id ? l.b : l.a));
   const label = (id: string) => {
@@ -164,6 +205,13 @@ export function scoreRun(res: MemoryResult, scenario: Pick<Scenario, "name" | "t
       copies: copies.length, unplanned: extraDuties.length - copies.length, rows: dutyRows,
       extraRows: extraDuties.map((d) => `${copies.includes(d) ? "copy" : "unplanned"}: "${d.duty.description}" (${d.duty.period}, level ${d.level}, ${d.duty.quotes.length} quote(s), trust ${d.trust})`),
     },
+    inferred: {
+      total: inferredRows.length, found: inferredRows.filter((r) => r.found).length,
+      datesOk: inferredRows.filter((r) => r.found && r.nextDue === r.expectedNextDue && r.startBy === r.expectedStartBy).length,
+      trustOk: inferredRows.filter((r) => r.found && r.trust === "inferred").length,
+      restated: extraInferred.filter(isRestated).length, unplanned: extraInferred.filter((i) => !isRestated(i)).length, decoyHits, rows: inferredRows,
+      extraRows: extraInferred.map((i) => `${isRestated(i) ? "restated" : "unplanned"}: "${i.repeat.description}" (${i.repeat.occurrences.map((o) => o.doneDay).join(", ")}, level ${i.level}, trust ${i.trust})`),
+    },
     links: { same: res.links.filter((l) => l.verdict === "same").length, possible: res.links.filter((l) => l.verdict === "possible").length, wrong: linkRows.filter((l) => l.wrong).length, rows: linkRows },
     leaks: findLeaks(res, truth),
     dropped: res.dropped,
@@ -203,6 +251,10 @@ export function findLeaks(res: MemoryResult, truth: Truth): Leak[] {
       check(d.id, levelOf(x.event), "context quote", x.quote);
     }
   }
+  for (const i of res.inferred) {
+    check(i.id, i.level, "description", i.repeat.description);
+    for (const o of i.repeat.occurrences) for (const q of [o.done, ...(o.start ? [o.start] : [])]) check(i.id, i.level, "occurrence quote", q.quote);
+  }
   return leaks;
 }
 
@@ -229,6 +281,14 @@ export function formatScorecard(card: Scorecard): string {
     );
   }
   for (const x of card.duties.extraRows) out.push(`  extra duty, ${x}`);
+  out.push("", "Duties found from repetition (code only)");
+  for (const r of card.inferred.rows) {
+    const dates = r.found && (r.nextDue !== r.expectedNextDue || r.startBy !== r.expectedStartBy) ? "   <-- dates" : "";
+    out.push(
+      `${r.found ? "FOUND " : "MISSED"} ${r.id}: ${r.found ? `"${r.description}" | ${r.occurrencesFound}/${r.occurrences} occurrences | next due ${r.nextDue} (expected ${r.expectedNextDue}), start by ${r.startBy ?? "-"} (expected ${r.expectedStartBy ?? "-"})${dates} | trust ${r.trust}` : ""}`,
+    );
+  }
+  for (const x of card.inferred.extraRows) out.push(`  extra inferred duty, ${x}`);
   out.push("", "Links between items");
   for (const l of card.links.rows) out.push(`  ${l.verdict} (${l.method}): ${l.label}${l.wrong ? "   <-- WRONG" : ""}`);
   if (card.links.rows.length === 0) out.push("  none");
@@ -248,6 +308,7 @@ export function summary(card: Scorecard): string {
     `Status correct: ${pct(c.statusOk, c.found)} found. Trust correct: ${pct(c.trustOk, c.trustScored)} scored. Level correct: ${pct(c.accessOk, c.accessScored)}. Follow-up evidence found: ${pct(c.evidenceFound, c.evidenceTotal)}.`,
     `Contradictions detected: ${pct(card.contradictions.detected, card.contradictions.total)}.`,
     `Recurring duties found: ${pct(d.found, d.total)}, approver right: ${pct(d.approverOk, d.approverScored)}, trust right: ${pct(d.trustOk, d.total)}. Extra duties: ${d.copies} copies, ${d.unplanned} unplanned.`,
+    `Duties found from repetition: ${pct(card.inferred.found, card.inferred.total)}, dates right: ${pct(card.inferred.datesOk, card.inferred.found)}, labelled Inferred: ${pct(card.inferred.trustOk, card.inferred.found)}. Extra: ${card.inferred.restated} already stated, ${card.inferred.unplanned} unplanned, ${card.inferred.decoyHits} citing a decoy.`,
     `Links: ${card.links.same} same, ${card.links.possible} possible, ${card.links.wrong} wrong. Leaks: ${card.leaks.length}.`,
     `Left out by checks: ${JSON.stringify(card.dropped)}`,
   ].join("\n");

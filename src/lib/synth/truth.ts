@@ -48,6 +48,28 @@ export const TruthSchema = z.object({
       quotes: z.array(Quote).min(1),
     }),
   ),
+  /**
+   * Duties no record states, found by code from repetition (Phase 17): one occurrence per year,
+   * each the first record that the task was done and the first that it was under way. Dates are
+   * IST calendar days for the scenario's build day.
+   */
+  inferred: z
+    .array(
+      z.object({
+        id: z.string(),
+        duty: z.string(),
+        expectedNextDue: z.string(),
+        expectedStartBy: z.string().nullable(),
+        leadDays: z.number().int().nullable(),
+        note: z.string().optional(),
+        occurrences: z.array(z.object({ year: z.number().int(), done: Quote, start: Quote.nullable().default(null) })).min(2),
+      }),
+    )
+    .default([]),
+  /** Stated duties whose past instances also repeat: repetition must not add them a second time. */
+  restatedRecurring: z.array(z.string()).default([]),
+  /** Records that repeat a task but not at the same time of year: no inferred duty may cite them. */
+  inferredDecoys: z.array(Quote).default([]),
   decoys: z.array(Quote),
   contradictions: z.array(z.object({ id: z.string(), commitment: z.string(), claimA: Quote, claimB: Quote })),
   restricted: z.array(z.object({ level: Access, text: z.string() })),
@@ -65,6 +87,10 @@ export function allQuotes(t: Truth): { where: string; quote: z.infer<typeof Quot
     ...t.commitments.flatMap((c) => [{ where: `${c.id} promise`, quote: c.quote }, ...c.alternates.map((q, i) => ({ where: `${c.id} alternate ${i + 1}`, quote: q })), ...c.evidence.map((e, i) => ({ where: `${c.id} evidence ${i + 1}`, quote: e }))]),
     ...t.recurring.flatMap((r) => r.quotes.map((q, i) => ({ where: `${r.id} quote ${i + 1}`, quote: q }))),
     ...t.decoys.map((q, i) => ({ where: `decoy ${i + 1}`, quote: q })),
+    ...t.inferred.flatMap((d) =>
+      d.occurrences.flatMap((o) => [{ where: `${d.id} ${o.year} done`, quote: o.done }, ...(o.start ? [{ where: `${d.id} ${o.year} start`, quote: o.start }] : [])]),
+    ),
+    ...t.inferredDecoys.map((q, i) => ({ where: `inferred decoy ${i + 1}`, quote: q })),
     ...t.contradictions.flatMap((x) => [{ where: `${x.id} claim A`, quote: x.claimA }, { where: `${x.id} claim B`, quote: x.claimB }]),
   ];
 }
@@ -82,6 +108,8 @@ export function checkTruth(t: Truth, files: FileTexts): string[] {
   }
   const ids = new Set(t.commitments.map((c) => c.id));
   for (const x of t.contradictions) if (!ids.has(x.commitment)) problems.push(`${x.id}: unknown commitment ${x.commitment}`);
+  const duties = new Set(t.recurring.map((r) => r.id));
+  for (const r of t.restatedRecurring) if (!duties.has(r)) problems.push(`restatedRecurring: unknown duty ${r}`);
   const rank = (l: string) => ACCESS_LEVELS.indexOf(l as (typeof ACCESS_LEVELS)[number]);
   // ACCESS_LEVELS runs from open to closed, so a lower rank is more open.
   for (const r of t.restricted) {
