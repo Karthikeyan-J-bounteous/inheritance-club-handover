@@ -36,6 +36,8 @@ import { EmptyState } from "@/components/feedback/empty-state";
 import { asNote, NOTE_SELECT, withoutApprovedNote, type NoteAck } from "@/components/notes/note-data";
 import { noteCandidates } from "@/lib/notes/notes";
 import { HandoverNotes } from "./handover-notes";
+import { Occurrences } from "@/components/ledger/occurrences";
+import { INFERRED_BADGE, INFERRED_CADENCE } from "@/lib/repeats-view";
 
 const TIMING: Record<string, string> = { overdue: "Overdue", start_now: "Start now", upcoming: "Upcoming", undated: "No date recorded" };
 const STATED_WORDS: Record<string, string> = { fulfils: "Says it was done", contradicts: "Says it was not done", supports: "Added to the item", past_instance: "A past time it happened" };
@@ -115,6 +117,7 @@ function Card({ item, ctx, facts, timing }: { item: HandoverItem; ctx: Ctx; fact
         <span className="flex flex-wrap gap-1">
           {timing && <Badge variant={timing === "overdue" ? "destructive" : timing === "start_now" ? "secondary" : "outline"}>{TIMING[timing]}</Badge>}
           {doneByLead && <Badge variant="secondary">Done, per the outgoing lead</Badge>}
+          {item.occurrences && <Badge variant="outline">{INFERRED_BADGE}</Badge>}
           {item.kind === "commitment" && item.status && item.status in STATUS_LABELS && <Badge variant="outline">{statusLabel(item.status as keyof typeof STATUS_LABELS, null)}</Badge>}
           <Trust item={item} />
         </span>
@@ -150,6 +153,13 @@ function Card({ item, ctx, facts, timing }: { item: HandoverItem; ctx: Ctx; fact
           </p>
         </div>
       ))}
+      {item.occurrences && (
+        <Occurrences
+          compact
+          occurrences={item.occurrences}
+          quotes={new Map(ev.map((e) => [e.event_id, { quote: e.quote, author: ctx.sources.get(e.event_id)?.author ?? null, ts: ctx.sources.get(e.event_id)?.ts ?? null }]))}
+        />
+      )}
       {stated.length > 0 && (
         <div className="mt-2 rounded-lg bg-accent/60 p-2" data-testid="lead-statement">
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">The outgoing lead told us, when asked about a gap in the records</p>
@@ -220,7 +230,7 @@ const commitmentFacts = (i: HandoverItem) => `${i.owedBy ?? "Someone"} owes ${i.
 function dutyFacts(i: HandoverItem): string {
   const parts = [
     i.owedBy ? `Owed by ${i.owedBy}` : null,
-    i.cadence,
+    i.occurrences ? INFERRED_CADENCE : i.cadence,
     i.approval ? `needs ${i.approval}${i.approver ? ` from ${i.approver}` : ""}` : null,
     i.nextDue ? `next due ${formatIstDate(`${i.nextDue}T00:00:00+05:30`)}` : null,
     i.startBy ? `start by ${formatIstDate(`${i.startBy}T00:00:00+05:30`)}` : null,
@@ -353,7 +363,15 @@ export async function HandoverView({ workspaceId, role, userId, today }: { works
       )}
 
       <section aria-labelledby="calendar-h" className="flex flex-col gap-3">
-        <h2 id="calendar-h" className="text-xl font-semibold">Calendar of recurring duties</h2>
+        <div>
+          <h2 id="calendar-h" className="text-xl font-semibold">Calendar of recurring duties</h2>
+          {calendar.some((e) => e.item.occurrences) && (
+            <p className="text-sm text-muted-foreground" data-testid="calendar-inferred-note">
+              Duties marked “{INFERRED_BADGE}” are in no record as duties: each was done at about the same time in past years, so it is probably due again. Their start-by date
+              is the longest it took before.
+            </p>
+          )}
+        </div>
         {calendar.length === 0 ? (
           <p className="text-sm text-muted-foreground">No recurring duties are handed over.</p>
         ) : (

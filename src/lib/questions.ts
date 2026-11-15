@@ -44,6 +44,12 @@ export type QuestionItem = {
   approver: string | null;
   next_due: string | null;
   lead_time: string | null;
+  /**
+   * obligations.occurrences: set only for a duty found from repetition (Phase 17). No record
+   * states such a duty, so asking who approves it would take its existence for granted; it asks
+   * nothing (the reviewer accepts or rejects it instead).
+   */
+  occurrences?: unknown;
 };
 export type QuestionConflict = { id: string; obligation_id: string | null; ruling: string | null; summary: string };
 export type QuestionAnswer = {
@@ -130,7 +136,7 @@ export function gapQuestions(items: readonly QuestionItem[], conflicts: readonly
     if (item.review_state === "rejected") continue;
     if (item.kind === "commitment") push("followup", item);
     for (const c of conflicts) if (c.obligation_id === item.id) push("conflict", item, c);
-    if (item.kind === "recurring") {
+    if (item.kind === "recurring" && !item.occurrences) {
       push("approver", item);
       push("date", item);
     }

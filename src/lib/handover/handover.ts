@@ -1,6 +1,8 @@
 // Pure helpers for /handover. They see only rows already filtered by row-level security
 // (version_items as the viewer's role may read them), so nothing here can reveal more.
 
+import { parseOccurrences, type OccurrenceView } from "../repeats-view.ts";
+
 export type HandoverItem = {
   id: string;
   kind: "commitment" | "recurring";
@@ -16,6 +18,8 @@ export type HandoverItem = {
   approver: string | null;
   status: string | null;
   trust: string | null;
+  /** A duty found from repetition (Phase 17): the years it was done. Null for every other item. */
+  occurrences?: OccurrenceView[] | null;
 };
 
 const s = (v: unknown): string | null => (typeof v === "string" && v.trim() !== "" ? v : null);
@@ -39,6 +43,7 @@ export function toHandoverItem(id: string, item: { obligation?: Record<string, u
     approver: s(o.approver),
     status: s(o.status),
     trust: s(o.trust_state),
+    occurrences: parseOccurrences(o.occurrences),
   };
 }
 

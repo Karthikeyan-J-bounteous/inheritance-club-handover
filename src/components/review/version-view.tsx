@@ -11,15 +11,17 @@ import { DiffView } from "./diff-view";
 import { loadVersionRows } from "./version-data";
 import { ErrorState } from "@/components/feedback/error-state";
 import { loadQuoteSources } from "@/components/check/stated";
+import { Occurrences } from "@/components/ledger/occurrences";
+import { INFERRED_BADGE, INFERRED_CADENCE, parseOccurrences } from "@/lib/repeats-view";
 
 const RELATION: Record<string, string> = { supports: "The promise or duty", fulfils: "Says it was done", contradicts: "Says it was not done", past_instance: "A past time it happened" };
 const KIND = { decision: "Decision", contact: "Contact", risk: "Risk", dependency: "Depends on" } as const;
 
 type Ob = Record<string, string | null>;
 
-function facts(o: Ob): string {
+function facts(o: Ob, inferred: boolean): string {
   if (o.kind === "commitment") return `${o.owed_by ?? "Someone"} owes ${o.owed_to ?? "someone"}${o.due_text ? `, ${o.due_text}` : ""}`;
-  const parts = [o.owed_by ? `Owed by ${o.owed_by}` : null, o.cadence, o.approval_required ? `needs ${o.approval_required}${o.approver ? ` from ${o.approver}` : ""}` : null, o.next_due ? `next due ${o.next_due}` : null];
+  const parts = [o.owed_by ? `Owed by ${o.owed_by}` : null, inferred ? INFERRED_CADENCE : o.cadence, o.approval_required ? `needs ${o.approval_required}${o.approver ? ` from ${o.approver}` : ""}` : null, o.next_due ? `next due ${o.next_due}` : null];
   return parts.filter(Boolean).join(" · ") || "No details stated";
 }
 
@@ -62,18 +64,25 @@ export async function VersionView({ workspaceId, number }: { workspaceId: string
             const o = r.item.obligation as Ob;
             const kind = o.kind === "recurring" ? "recurring" : "commitment";
             const trust = o.trust_state as keyof typeof TRUST_LABELS;
+            const occ = parseOccurrences((r.item.obligation as Record<string, unknown>).occurrences);
             return (
               <li key={r.obligation_id} className="rounded-md border p-3 text-sm" data-testid="version-item">
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <p className="font-medium">{capitalise(o.description ?? "")}</p>
                   <span className="flex flex-wrap gap-1">
+                    {occ && <Badge variant="outline">{INFERRED_BADGE}</Badge>}
                     {kind === "commitment" && o.status && <Badge variant="outline">{statusLabel(o.status as keyof typeof STATUS_LABELS, o.fulfilment_checked_at ?? null)}</Badge>}
                     {trust in TRUST_LABELS && <Badge variant={trust === "contradicted" || trust === "gap" ? "destructive" : "secondary"}>Trust: {TRUST_LABELS[trust]}</Badge>}
                     <Badge variant={o.access_level === "everyone" ? "outline" : "secondary"}>{ACCESS_LABELS[(o.access_level ?? "everyone") as AccessLevel]}</Badge>
                   </span>
                 </div>
-                <p className="mt-1 text-muted-foreground">{facts(o)}</p>
-                {r.item.evidence.length === 0 ? (
+                <p className="mt-1 text-muted-foreground">{facts(o, occ !== null)}</p>
+                {occ ? (
+                  <Occurrences
+                    occurrences={occ}
+                    quotes={new Map(r.item.evidence.map((e) => [e.event_id, { quote: e.quote, author: quoted.sources.get(e.event_id)?.author ?? null, ts: quoted.sources.get(e.event_id)?.ts ?? null }]))}
+                  />
+                ) : r.item.evidence.length === 0 ? (
                   <p className="mt-2">No evidence kept.</p>
                 ) : (
                   <ul className="mt-2 flex flex-col gap-2" aria-label="Evidence">

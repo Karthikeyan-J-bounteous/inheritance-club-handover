@@ -4,7 +4,9 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { REVIEW_LABELS, TRUST_HELP, TRUST_LABELS } from "./commitments";
 import { capitalise, groupLinked } from "@/lib/ledger-view";
 import { loadLinkData } from "./link-data";
-import { AlsoRecorded, CONTEXT_SELECT, ContextList, DocketLink, EVIDENCE_SELECT, EvidenceList, PossibleMatches, RecordedElsewhere, type CardFact, type ContextRow, type EvidenceRow } from "./obligation-parts";
+import { AlsoRecorded, CONTEXT_SELECT, ContextList, DocketLink, EVIDENCE_SELECT, EvidenceList, PossibleMatches, quotesByEvent, RecordedElsewhere, type CardFact, type ContextRow, type EvidenceRow } from "./obligation-parts";
+import { Occurrences } from "./occurrences";
+import { INFERRED_BADGE, INFERRED_CADENCE, parseOccurrences, type OccurrenceView } from "@/lib/repeats-view";
 import { EmptyState } from "@/components/feedback/empty-state";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -36,6 +38,7 @@ type Row = {
   access_level: AccessLevel;
   evidence: EvidenceRow[];
   context_items: ContextRow[];
+  occurrences: unknown;
 };
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -54,20 +57,29 @@ function Fact({ label, children }: { label: string; children: React.ReactNode })
   );
 }
 
+/** Who did it each year, from the records that it was done ("Nikhil (2025), Arun (2026)"). */
+function doneBy(occ: readonly OccurrenceView[], evidence: readonly EvidenceRow[]): string | null {
+  const who = occ.map((x) => ({ year: x.year, author: evidence.find((e) => e.event_id === x.doneEvent)?.events?.author ?? null })).filter((x) => x.author);
+  return who.length ? who.map((x) => `${x.author} (${x.year})`).join(", ") : null;
+}
+
+const estimated = (basis: string | null) => Boolean(basis && (basis.startsWith("Estimated") || basis.startsWith("Inferred")));
+
 /** The facts a duty's card shows, as text, for comparing a folded record with its card. */
 function dutyFacts(o: Row): CardFact[] {
+  const occ = parseOccurrences(o.occurrences);
   return [
-    { label: "How often", value: `${o.period ? PERIOD_LABELS[o.period] : "Repeats"}${o.cadence ? ` (“${o.cadence}”)` : ""}` },
+    { label: "How often", value: occ ? INFERRED_CADENCE : `${o.period ? PERIOD_LABELS[o.period] : "Repeats"}${o.cadence ? ` (“${o.cadence}”)` : ""}` },
     {
       label: "Approval needed",
       value: o.approval_required || o.approver ? `${o.approval_required ?? "Approval"}${o.approver ? `, from ${o.approver}` : ""}` : "None mentioned",
     },
     { label: "Start ahead", value: o.lead_time ?? "Not stated in the records" },
-    { label: "Usually done by", value: o.owed_by ?? "Not stated in the records" },
+    { label: "Usually done by", value: o.owed_by ?? (occ && doneBy(occ, o.evidence)) ?? "Not stated in the records" },
     {
       label: "Next due",
       value: o.next_due
-        ? `${o.next_due_basis?.startsWith("Estimated") ? "About " : ""}${day(o.next_due)}${o.start_by ? `; start by ${day(o.start_by)}` : ""}`
+        ? `${estimated(o.next_due_basis) ? "About " : ""}${day(o.next_due)}${o.start_by ? `; start by ${day(o.start_by)}` : ""}`
         : "Not derivable from the records",
     },
   ];
@@ -81,7 +93,7 @@ export async function Recurring({ workspaceId }: { workspaceId: string }) {
   const { data, error } = await supabase
     .from("obligations")
     .select(
-      `id, description, owed_by, period, cadence, approval_required, approver, lead_time, next_due, start_by, next_due_basis, trust_state, review_state, access_level, ${EVIDENCE_SELECT}, ${CONTEXT_SELECT}`,
+      `id, description, owed_by, period, cadence, approval_required, approver, lead_time, next_due, start_by, next_due_basis, trust_state, review_state, access_level, occurrences, ${EVIDENCE_SELECT}, ${CONTEXT_SELECT}`,
     )
     .eq("workspace_id", workspaceId)
     .eq("kind", "recurring")
@@ -100,16 +112,19 @@ export async function Recurring({ workspaceId }: { workspaceId: string }) {
   if (linkError) return <ErrorState title="Could not load how items are linked">Nothing was changed. Try again in a minute, or reload the page.</ErrorState>;
   const byId = new Map(rows.map((o) => [o.id, o]));
   const groups = groupLinked(rows.map((o) => o.id), links);
+  const isInferred = (id: string) => parseOccurrences(byId.get(id)!.occurrences) !== null;
+  const stated = groups.filter((g) => !isInferred(g.primary));
+  const inferred = groups.filter((g) => isInferred(g.primary));
 
-  return (
-    <ul className="flex flex-col gap-3" aria-label="Recurring duties" data-testid="recurring">
-      {groups.map((g) => {
+  const card = (g: (typeof groups)[number]) => {
         const o = byId.get(g.primary)!;
+        const occ = parseOccurrences(o.occurrences);
         return (
         <li key={o.id} id={`item-${o.id}`} className="scroll-mt-4 rounded-md border p-3 text-sm">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <p className="font-medium">{capitalise(o.description)}</p>
             <span className="flex flex-wrap gap-1">
+              {occ && <Badge variant="outline">{INFERRED_BADGE}</Badge>}
               <Badge variant={o.trust_state === "contradicted" || o.trust_state === "gap" ? "destructive" : "secondary"}>Trust: {TRUST_LABELS[o.trust_state]}</Badge>
               <Badge variant="outline">{REVIEW_LABELS[o.review_state]}</Badge>
               <Badge variant={o.access_level === "everyone" ? "outline" : "secondary"}>{ACCESS_LABELS[o.access_level]}</Badge>
@@ -117,8 +132,14 @@ export async function Recurring({ workspaceId }: { workspaceId: string }) {
           </div>
           <dl className="mt-2 grid gap-2 sm:grid-cols-2">
             <Fact label="How often">
-              {o.period ? PERIOD_LABELS[o.period] : "Repeats"}
-              {o.cadence ? <span className="text-muted-foreground"> (“{o.cadence}”)</span> : null}
+              {occ ? (
+                INFERRED_CADENCE
+              ) : (
+                <>
+                  {o.period ? PERIOD_LABELS[o.period] : "Repeats"}
+                  {o.cadence ? <span className="text-muted-foreground"> (“{o.cadence}”)</span> : null}
+                </>
+              )}
             </Fact>
             <Fact label="Approval needed">
               {o.approval_required || o.approver ? (
@@ -131,11 +152,11 @@ export async function Recurring({ workspaceId }: { workspaceId: string }) {
               )}
             </Fact>
             <Fact label="Start ahead">{o.lead_time ?? NOT_STATED}</Fact>
-            <Fact label="Usually done by">{o.owed_by ?? NOT_STATED}</Fact>
+            <Fact label="Usually done by">{o.owed_by ?? (occ && doneBy(occ, o.evidence)) ?? NOT_STATED}</Fact>
             <Fact label="Next due">
               {o.next_due ? (
                 <>
-                  {o.next_due_basis?.startsWith("Estimated") ? "About " : ""}
+                  {estimated(o.next_due_basis) ? "About " : ""}
                   {day(o.next_due)}
                   {o.start_by ? `; start by ${day(o.start_by)}` : ""}
                   {o.next_due_basis && <span className="block text-xs text-muted-foreground">{o.next_due_basis}</span>}
@@ -147,7 +168,7 @@ export async function Recurring({ workspaceId }: { workspaceId: string }) {
           </dl>
           {o.trust_state === "contradicted" && <p className="mt-2 text-xs text-muted-foreground">{TRUST_HELP.contradicted}</p>}
           <DocketLink entryIds={o.trust_state === "contradicted" ? docketByItem.get(o.id) : undefined} />
-          <EvidenceList evidence={o.evidence} kind="recurring" />
+          {occ ? <Occurrences occurrences={occ} quotes={quotesByEvent(o.evidence)} /> : <EvidenceList evidence={o.evidence} kind="recurring" />}
           <AlsoRecorded
             records={g.also.map((id) => {
               const r = byId.get(id)!;
@@ -164,7 +185,31 @@ export async function Recurring({ workspaceId }: { workspaceId: string }) {
           <ContextList items={o.context_items} />
         </li>
         );
-      })}
-    </ul>
+  };
+
+  return (
+    <div className="flex flex-col gap-6">
+      {stated.length > 0 ? (
+        <ul className="flex flex-col gap-3" aria-label="Recurring duties" data-testid="recurring">
+          {stated.map(card)}
+        </ul>
+      ) : (
+        <p className="text-sm text-muted-foreground" data-testid="recurring">No record states a recurring duty.</p>
+      )}
+      {inferred.length > 0 && (
+        <section aria-labelledby="inferred-duties-h" className="flex flex-col gap-2" data-testid="inferred-duties">
+          <h3 id="inferred-duties-h" className="text-base font-semibold">
+            Duties nobody wrote down ({inferred.length})
+          </h3>
+          <p className="text-sm text-muted-foreground">
+            Code found these because each was done at about the same time of year in two or more past years. No record calls them duties, so they are labelled Inferred. Check
+            the dates and quotes before you accept them.
+          </p>
+          <ul className="flex flex-col gap-3" aria-label="Duties found from repetition">
+            {inferred.map(card)}
+          </ul>
+        </section>
+      )}
+    </div>
   );
 }
