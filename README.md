@@ -17,7 +17,7 @@ Built solo for the CodersInPune Hackathon (Round 3 finale, November 2026).
 
 ## Try it (5 minutes, no setup)
 
-Open **<https://inheritance-club-handover.vercel.app>** and press **Sign in**.
+Open **<https://inheritance.karthikeyanj.com>** and press **Sign in**.
 
 1. Press **Explore a built handover**. In about half a minute you get your own private copy of a year of a synthetic IoT club (about 2,250 messages in six files at four access levels: this year's chats, Trello board, minutes and a private chat, plus last year's committee chat), with its ledger already built by Claude and version 1 approved. Nothing you do affects anyone else.
 2. The home page tells you your next step and gives you one button for it. You start as **Arun**, the outgoing lead.

@@ -12,7 +12,7 @@ Paste-ready answers for the Round 3 submission form (CodersInPune, closes 16 Nov
 
 ## Final working project link
 
-https://inheritance-club-handover.vercel.app
+https://inheritance.karthikeyanj.com
 
 How to use it alone: press **Sign in**, then **Explore a built handover**. In about half a minute you get your own private copy of a synthetic IoT club (2,255 messages in six files) with its ledger built and version 1 approved. No password is needed. The home page shows your next step; "Switch person" (top right) moves between Arun (outgoing lead), Dr. Meena (faculty advisor), Kavya (incoming lead) and Divya (treasurer). The shared demo accounts and their password are also shown on the sign-in page. All data is synthetic.
 

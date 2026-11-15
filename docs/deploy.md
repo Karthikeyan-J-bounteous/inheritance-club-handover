@@ -80,5 +80,5 @@ Round 3 merges **and deploys** every phase. After the user merges the phase's pu
 3. If the phase changed the seed or the shared demo club: `pnpm seed:hosted` (resets the shared accounts' club; visitors' copies are untouched).
 4. If the phase changed a prompt or the saved model answers (`data/demo/llm-cache.json`): `pnpm cache:warm`.
 5. Redeploy `main` in the Vercel dashboard (Deployments → the latest `main` commit → Redeploy, or Create Deployment). Deploys are not automatic for this project.
-6. Check `https://inheritance-club-handover.vercel.app/api/health`: `"db": "ok"` and `commit` equal to `git rev-parse --short HEAD`.
+6. Check `https://inheritance.karthikeyanj.com/api/health`: `"db": "ok"` and `commit` equal to `git rev-parse --short HEAD`.
 7. In a private window: sign in → **Explore a built handover** → open the pages the phase changed, as the roles it affects.

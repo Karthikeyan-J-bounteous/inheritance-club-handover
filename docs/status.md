@@ -105,7 +105,7 @@ Round 3 closes **16 Nov 2026, 11:59 pm, no late window**. Aim to submit by about
 
 ## Environment facts
 
-- **Live app:** `https://inheritance-club-handover.vercel.app`. Hosted Supabase project ref: `gmlsskizjxhtoxnwhywj` (link it on a new machine; see [dev-setup.md](dev-setup.md)). Vercel deploys are manual.
+- **Live app:** `https://inheritance.karthikeyanj.com` (also reachable at `https://inheritance-club-handover.vercel.app`; both serve the same deployment). Hosted Supabase project ref: `gmlsskizjxhtoxnwhywj` (link it on a new machine; see [dev-setup.md](dev-setup.md)). Vercel deploys are manual.
 - **Local stack:** `pnpm db:start` (Docker must be running), then `pnpm db:reset && pnpm seed`. `.env.local` holds local Supabase keys, `DEMO_USER_PASSWORD`, `ANTHROPIC_API_KEY` and the model names; `.env.hosted.local` holds hosted values for `pnpm seed:hosted` and `pnpm cache:warm`. Never print or commit either file's values.
 - **npm registry:** the project `.npmrc` pins public npm. On the user's work Mac the global `~/.npmrc` points at an expired company mirror; never touch it. For corepack and `pnpm dlx`, prefix commands with `COREPACK_NPM_REGISTRY=https://registry.npmjs.org` (and `npm_config_registry` if needed), for that shell only.
 - **TLS:** the user's work network re-signs HTTPS. Node needs `--use-system-ca`, which is already in `pnpm dev`, `eval:*` and `demo:freeze`. Never disable certificate checks.
