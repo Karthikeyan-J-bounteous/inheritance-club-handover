@@ -176,17 +176,27 @@ export async function insertFrozenClub(admin: Db, club: FrozenClub, t: FrozenTar
   }
 
   // The trust rule has opened the docket entries; give them the summaries of the build.
-  for (const d of club.docket) {
-    check("docket summary", await admin.from("docket_entries").update({ summary: d.summary })
-      .eq("obligation_id", ob(d.obligation)).eq("claim_a_event", ev(d.claimA)).eq("claim_b_event", ev(d.claimB)));
-  }
+  // Every call here is a round trip, and on the hosted app each one crosses an ocean (Vercel's
+  // function to the database), so the copy is built from as few calls as possible: independent
+  // updates run together, and items sharing a baseline are updated in one statement.
+  const summaries = await Promise.all(club.docket.map((d) =>
+    admin.from("docket_entries").update({ summary: d.summary })
+      .eq("obligation_id", ob(d.obligation)).eq("claim_a_event", ev(d.claimA)).eq("claim_b_event", ev(d.claimB))));
+  for (const r of summaries) check("docket summary", r);
 
   // Record what each accepted item was accepted with (evidence has settled trust), so a later
-  // change to its status or trust is flagged for re-review.
+  // change to its status or trust is flagged for re-review. One update per distinct pair.
   const accepted = check("accepted items", await admin.from("obligations").select("id, status, trust_state").eq("workspace_id", ws).eq("review_state", "accepted"));
+  const baselines = new Map<string, { status: Enums["obligation_status"]; trust: Enums["trust_state"]; ids: string[] }>();
   for (const o of accepted ?? []) {
-    check("reviewed baseline", await admin.from("obligations").update({ reviewed_status: o.status, reviewed_trust: o.trust_state }).eq("id", o.id));
+    const key = `${o.status}|${o.trust_state}`;
+    const group = baselines.get(key) ?? { status: o.status, trust: o.trust_state, ids: [] };
+    group.ids.push(o.id);
+    baselines.set(key, group);
   }
+  const marked = await Promise.all([...baselines.values()].map((g) =>
+    admin.from("obligations").update({ reviewed_status: g.status, reviewed_trust: g.trust }).in("id", g.ids)));
+  for (const r of marked) check("reviewed baseline", r);
 
   if (club.sealed.length) {
     check("sealed_items", await admin.from("sealed_items").insert(club.sealed.map((s) => ({

@@ -59,6 +59,7 @@ Then **redeploy**. The login page is prerendered at build time, so the password 
 
 ## 5. Check
 
+- **The function region matches the database.** `vercel.json` pins `syd1` because the Supabase project is in `ap-southeast-2`. `curl -sI https://<app>/api/health | grep x-vercel-id` should end `::syd1::<id>`. If you create the Supabase project elsewhere, change `regions` to the nearest Vercel region (Vercel's list maps `ap-south-1` to `bom1`, `ap-southeast-1` to `sin1`, `us-east-1` to `iad1`); Hobby allows one.
 - `https://<app>/api/health` returns `"db": "ok"`.
 - Sign in as Kavya and then Dr. Meena. The "Obligations" count changes from 3 to 6.
 - On the sign-in page, press **Explore a built handover**. You land as Arun in your own copy, with a "Your demo club" badge in the header. Switch to Kavya from the menu and open Handover.

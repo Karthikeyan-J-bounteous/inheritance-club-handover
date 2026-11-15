@@ -37,7 +37,7 @@ What is knowingly unfinished, and what the model still gets wrong on the synthet
 
 - A reply belongs to one acknowledgement; when the incoming lead answers an item again, older replies are not shown on the handover page (they remain in the audit log).
 - The built club's dates were computed for 10 Nov 2026 (`built.today`). "Overdue" and "Start now" are computed live, so they drift as time passes; next-due dates do not roll forward until the ledger is rebuilt.
-- Building a year copy on the hosted database has not been timed (locally a few seconds). If it nears 60 seconds, batch the evidence and context inserts further or move the sign-off out of the request.
+- Building a year copy on the hosted database was timed on 15 Nov 2026: 47 s, because the functions ran in Washington and the database is in Sydney (90 sequential calls). Fixed in Phase 18 (54 calls, functions in `syd1`); the new time on the live app is in [status.md](status.md).
 - `pnpm cache:warm` is a manual step; a new deployment against a fresh database needs it again.
 - No accessibility audit yet.
 
