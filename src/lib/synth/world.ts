@@ -11,6 +11,7 @@ const Access = z.enum(ACCESS_LEVELS);
 /** The demo account that uploads a file (matters for private files: only its uploader and the advisor read them). */
 const Uploader = z.enum(["arun", "meena", "kavya", "divya"]);
 
+const Person = z.object({ name: z.string(), role: z.string(), nicknames: z.array(z.string()).default([]) });
 const Beat = z.object({ at: Stamp, by: z.string(), say: z.string().min(1) });
 const SystemLine = z.object({ at: Stamp, text: z.string(), by: z.string().optional() });
 
@@ -27,6 +28,8 @@ const Chat = z.object({
   startsAt: Stamp,
   /** Filler stops before this day (inclusive start). Unset: from `period.from`. */
   activeFrom: Day.optional(),
+  /** Filler stops after this day (inclusive). Unset: until `period.to`. For an earlier year's chat. */
+  activeTo: Day.optional(),
   members: z.array(z.string()).min(2),
   /** Average filler messages per day: `default`, overridden by "YYYY-MM" keys. */
   perDay: z.object({ default: z.number().min(0) }).catchall(z.number().min(0)),
@@ -60,7 +63,12 @@ export const WorldSchema = z.object({
   seed: z.number().int(),
   club: z.string(),
   period: z.object({ from: Day, to: Day }),
-  people: z.array(z.object({ name: z.string(), role: z.string(), nicknames: z.array(z.string()).default([]) })),
+  people: z.array(Person),
+  /**
+   * People from an earlier year's committee, kept apart from `people` because the filler picks
+   * a name by walking `people` (adding to it would change every chat already generated).
+   */
+  alumni: z.array(Person).default([]),
   filler: z.object({
     typoRate: z.number().min(0).max(1),
     mediaRate: z.number().min(0).max(1),
@@ -102,7 +110,7 @@ export type Trello = NonNullable<World["trello"]>;
 /** Parse and check a world file; also checks that every named person and list exists. */
 export function loadWorld(yamlText: string): World {
   const world = WorldSchema.parse(parse(yamlText));
-  const people = new Set(world.people.map((p) => p.name));
+  const people = new Set([...world.people, ...world.alumni].map((p) => p.name));
   const lists = new Set(world.trello?.lists ?? []);
   const problems: string[] = [];
   const person = (n: string, where: string) => {

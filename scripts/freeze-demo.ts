@@ -113,7 +113,7 @@ must("memberships", await admin.from("memberships").insert([
 // Aliases: the world's people and their nicknames, so matching knows "Aru" is Arun.
 const worldPath = `data/scenarios/${scenarioName}/world.yaml`;
 const aliases: FrozenClub["aliases"] = existsSync(worldPath)
-  ? loadWorld(readFileSync(worldPath, "utf8")).people
+  ? ((w) => [...w.people, ...w.alumni])(loadWorld(readFileSync(worldPath, "utf8")))
       .map((p) => ({ canonical: p.name, variants: p.nicknames.filter((n) => n !== p.name), kind: "person" as const }))
       .filter((a) => a.variants.length > 0)
   : [];
