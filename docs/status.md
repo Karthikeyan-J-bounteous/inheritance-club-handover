@@ -1,11 +1,11 @@
 # Build status
 
-Read this first when resuming work, on any machine. Last updated: 2026-11-14, Phase 16 (counterparty handoff notes, Round 3 improvement 3) built on `build/phase-16`, awaiting review and merge. Phases 14 and 15 are merged.
+Read this first when resuming work, on any machine. Last updated: 2026-11-15, Phase 17 (inferred recurring duties, Round 3 improvement 1) built on `build/phase-17`, which was branched from `build/phase-16` (not yet merged when Phase 17 started). Phases 14 and 15 are merged.
 
 Other docs:
 - [dev-setup.md](dev-setup.md): setting up a new computer (tools, secrets, local database, hosted project).
 - [architecture.md](architecture.md): migrations, `src/lib`, routes and tests.
-- [decisions.md](decisions.md): why things are built this way (Phases 5 to 16).
+- [decisions.md](decisions.md): why things are built this way (Phases 5 to 17).
 - [gotchas.md](gotchas.md): things that broke once; read before touching the database, pipeline, demo copies or tests.
 - [known-gaps.md](known-gaps.md): what is knowingly unfinished, and what the model still gets wrong.
 - [deploy.md](deploy.md): hosted Supabase and Vercel, and the after-every-phase checklist.
@@ -22,10 +22,22 @@ Round 2 (Phases 0 to 13, plus the guided tour) is merged and was submitted; the 
 | 14 | Round 3: remove both walkthroughs; UI/UX overhaul so the app guides itself | merged (deploy: see outstanding tasks) |
 | 15 | Round 3, improvement 2: gap questions for the outgoing lead | merged (deploy: see outstanding tasks) |
 | 16 | Round 3, improvement 3: counterparty handoff notes | built, awaiting merge and deploy |
-| 17 | Round 3, improvement 1: inferred recurring duties | next |
-| 18 | Round 3: hardening, end-to-end sweeps, README, final report PDF | later |
+| 17 | Round 3, improvement 1: inferred recurring duties | built on top of 16, awaiting merge and deploy |
+| 18 | Round 3: hardening, end-to-end sweeps, README, final report PDF | next |
 
-Tests on `build/phase-16`: 683 unit plus RLS (`pnpm test`; Phase 15 had 646), 67 Playwright (new: `counterparty-notes.spec.ts`), all passing; lint, typecheck and production build clean.
+Tests on `build/phase-17`: 715 unit plus RLS (`pnpm test`; Phase 16 had 683), 68 Playwright (new: `inferred-duties.spec.ts`), all passing; lint, typecheck and production build clean.
+
+### Phase 17 (built, awaiting merge)
+
+Inferred recurring duties, Round 3 improvement 1, delivered to its minimum: in a year copy, the ledger's Yearly duties tab lists four "Duties nobody wrote down", each labelled Inferred with the years it was done (first record and done record, each a verified quote); Kavya's handover calendar has them in their months, and the IoT basics workshop slides (due 27 Nov 2026, start by 10 Nov 2026) show "Start now" (covered end to end by `e2e/inferred-duties.spec.ts`).
+
+- **Detection is code, not a model** (`src/lib/pipeline/repeats.ts`): a task reported done at about the same time of year in two or more years (a whole number of years apart, give or take 31 days, the same rare words, one access level), that no stated duty covers. Lead time is the longest past start-to-done gap; the next due date is a year after it was last done.
+- **Stored by `add_inferred_duty()`** (migration 0024), which repeats the checks and computes the dates and wording itself. Each record is cited as inferred `past_instance` evidence, and the trust rule now says Inferred for an item that rests only on inferred records. A later build never adds it twice, even after a rejection.
+- **Pipeline stage 7** (`infer_duties`), after matching, one job, no model call. The build panel reports it.
+- **The year club has a second past year:** `data/scenarios/year/whatsapp-committee-2024-25.txt` (the previous committee's chat), with four planted unstated duties (I1 to I4), three repeats of stated duties and a look-alike, in `ground_truth.yaml`. The five existing files are unchanged.
+- **The demo club was re-frozen** with it (one paid run, approved: Haiku 5.5, 185 calls, 129 cached, about $0.040). Scorecard: 4/4 inferred duties with the right dates and label, none extra; 24/24 commitments, 23/24 statuses, 0 decoys, 0 leaks. New model errors are in [known-gaps.md](known-gaps.md#what-the-model-got-wrong-phase-17-build-database-path-15-nov-2026) (notably C15 is now a false conflict).
+- **UI:** "Found from repetition" badge, "About once a year (inferred, not stated)", who did it each year, and the occurrences in place of the quote list, on the ledger, the review card, approved versions and the handover calendar. No gap question is asked about them.
+- Decisions and open points: [decisions.md](decisions.md#phase-17-decisions-inferred-duties-round-3-improvement-1), [known-gaps.md](known-gaps.md#known-gaps-phase-17).
 
 ### Phase 16 (built, awaiting merge)
 
@@ -68,7 +80,9 @@ Not done in Phase 14, by choice: a dark mode, and a Lighthouse or axe run (the p
 
 ## Outstanding user tasks
 
-1. Review and merge `build/phase-16`, then deploy (checklist in [deploy.md](deploy.md#after-every-phase)). **This phase adds migration 0023: run `pnpm db:push` before redeploying**, or `/handover` and the home page fail on the hosted app (the new code reads `counterparty_notes`). If Phase 15 was not deployed yet, the push also applies 0021 and 0022, and this deploy covers both. No seed or prompt change, so no `seed:hosted` or `cache:warm`; no new environment variable (the link key comes from `SUPABASE_SECRET_KEY`, already set). After deploying, in a private window: Explore a built handover → Notes to people outside the club → draft, save, approve, open the link in another private window, acknowledge, then check the handover.
+1. Merge `build/phase-16` first, then `build/phase-17` (it contains 16's commits), and deploy once (checklist in [deploy.md](deploy.md#after-every-phase)). **Phase 17 adds migration 0024: run `pnpm db:push` before redeploying**, or the ledger, review and handover fail on the hosted app (they read `obligations.occurrences`). No new environment variable. Optional: `pnpm cache:warm` loads the new saved answers (182) so a rebuild of the year club on the hosted app costs nothing. After deploying, in a private window: Explore a built handover → Build the ledger → Yearly duties → "Duties nobody wrote down (4)"; then switch to Kavya → Hand over → November 2026 shows the workshop slides with "Start now".
+   Phase 16's own notes, still applying:
+   Review and merge `build/phase-16`, then deploy (checklist in [deploy.md](deploy.md#after-every-phase)). **This phase adds migration 0023: run `pnpm db:push` before redeploying**, or `/handover` and the home page fail on the hosted app (the new code reads `counterparty_notes`). If Phase 15 was not deployed yet, the push also applies 0021 and 0022, and this deploy covers both. No seed or prompt change, so no `seed:hosted` or `cache:warm`; no new environment variable (the link key comes from `SUPABASE_SECRET_KEY`, already set). After deploying, in a private window: Explore a built handover → Notes to people outside the club → draft, save, approve, open the link in another private window, acknowledge, then check the handover.
 2. Before the first Round 3 deploy, confirm the hosted database is current: `/api/health` should report the latest `main` commit, and `pnpm db:push` should report migrations 0018 to 0020 as already applied. If `pnpm cache:warm` was never run against the hosted database, run it (building from the sample files then costs nothing).
 3. The Round 1 user interviews were not done. The docs say so. Do not add interview answers unless real people gave them.
 
