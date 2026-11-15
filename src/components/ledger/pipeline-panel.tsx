@@ -36,6 +36,8 @@ const DROP_LABELS: Record<string, string> = {
   match_over_limit: "possible duplicates beyond this run's limit, not compared",
   unknown_pair: "a match verdict for a pair that was not asked about",
   no_verdict: "pairs the model gave no verdict on (left unlinked)",
+  repeat_already_stated: "repeated tasks the records already state as duties (not added twice)",
+  repeat_quote_not_found: "repeated tasks with no quotable sentence",
 };
 
 const STATUS_WORDS: [string, string][] = [
@@ -159,6 +161,8 @@ export function PipelinePanel({
   const planned = (progress?.stages.plan_followups.done ?? 0) > 0;
   const m = progress?.stages.match_items;
   const matchPlanned = (progress?.stages.plan_matches.done ?? 0) > 0;
+  const r = progress?.stages.infer_duties;
+  const repeatsDone = (r?.done ?? 0) > 0;
   const busy = state === "preparing" || state === "running";
   const eta = state === "running" && progress && runStartedAt ? timeLeft(finished, progress.total, now - runStartedAt) : null;
   const hasLedger = built.promises + built.duties > 0;
@@ -186,7 +190,8 @@ export function PipelinePanel({
         <summary className="w-fit cursor-pointer font-medium text-foreground">How it works</summary>
         <p className="mt-2">
           It works in small steps using {provider === "anthropic" ? "Anthropic's Claude API" : "a test model"} ({model}): it finds promises and recurring duties with their approvals, checks each
-          item for later follow-up and useful context, and links items recorded twice. A fixed rule, not a model, sets each item’s trust, and an item with no follow-up is marked “No evidence kept”.
+          item for later follow-up and useful context, and links items recorded twice. Then code alone looks for tasks done at about the same time in two or more years that no record
+          calls a duty, and adds them as Inferred. A fixed rule, not a model, sets each item’s trust, and an item with no follow-up is marked “No evidence kept”.
         </p>
       </details>
       {canRun ? (
@@ -254,7 +259,9 @@ export function PipelinePanel({
                   ? `Reading part ${Math.min(finished + 1, c?.total ?? 1)} of ${c?.total ?? 1} for promises and yearly duties…`
                   : !matchPlanned
                     ? "Checking each item for follow-up…"
-                    : "Linking items recorded twice…"}
+                    : (m?.pending ?? 0) > 0
+                      ? "Linking items recorded twice…"
+                      : "Looking for tasks done at the same time every year…"}
                 <span className="text-xs">{eta ? `${eta}. ` : ""}Keep this tab open until it finishes.</span>
               </p>
             )}
@@ -304,6 +311,19 @@ export function PipelinePanel({
                   <strong>{plural(progress.matching.same, "item")} linked</strong> to another record of the same obligation
                   {progress.matching.possible ? `, ${plural(progress.matching.possible, "possible match", "possible matches")} to review` : ""}
                   {m && m.total > 0 ? ` (${m.done} of ${plural(m.total, "comparison")} by the model)` : ""}. Trust and the docket are then settled by the trust rule.
+                </>
+              )}
+            </li>
+            <li>
+              Duties nobody wrote down (code, no model):{" "}
+              {!repeatsDone ? (
+                "waits for matching."
+              ) : r!.candidates === 0 ? (
+                "no task was done at about the same time in two different years."
+              ) : (
+                <>
+                  <strong>{plural(r!.created, "new inferred duty", "new inferred duties")}</strong>
+                  {r!.duplicates ? `, ${r!.duplicates} already found` : ""}, each done at about the same time in two or more years. They are labelled Inferred.
                 </>
               )}
             </li>

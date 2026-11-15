@@ -49,7 +49,7 @@ describe("scoreRun", () => {
       ...over,
     };
   };
-  const empty = (): MemoryResult => ({ commitments: [], duties: [], links: [], dropped: {}, usage: { inputTokens: 0, outputTokens: 0 }, calls: 0 });
+  const empty = (): MemoryResult => ({ commitments: [], duties: [], inferred: [], links: [], dropped: {}, usage: { inputTokens: 0, outputTokens: 0 }, calls: 0 });
 
   it("an empty run finds nothing, keeps nothing, and leaks nothing", () => {
     const card = scoreRun(empty(), s);
@@ -111,10 +111,10 @@ describe("scoreRun", () => {
 // The offline fake over every scenario. These are floors for the fake (a rule-based stand-in),
 // not quality claims: the real model is scored by `pnpm eval:pipeline -- --yes`. The invariants
 // (no decoys, no wrong links, no leaks, no mixed levels in prompts that write text) hold for any model.
-const FLOORS: Record<string, { found: number; status: number; duties: number; contradictions: number }> = {
-  mini: { found: 5, status: 5, duties: 2, contradictions: 1 },
-  photo: { found: 9, status: 9, duties: 4, contradictions: 1 },
-  year: { found: 19, status: 15, duties: 3, contradictions: 1 },
+const FLOORS: Record<string, { found: number; status: number; duties: number; contradictions: number; inferred: number }> = {
+  mini: { found: 5, status: 5, duties: 2, contradictions: 1, inferred: 0 },
+  photo: { found: 9, status: 9, duties: 4, contradictions: 1, inferred: 0 },
+  year: { found: 19, status: 15, duties: 3, contradictions: 1, inferred: 0 },
 };
 
 for (const name of Object.keys(FLOORS)) {
@@ -141,6 +141,15 @@ for (const name of Object.keys(FLOORS)) {
       expect(card.commitments.statusOk).toBeGreaterThanOrEqual(f.status);
       expect(card.duties.found).toBeGreaterThanOrEqual(f.duties);
       expect(card.contradictions.detected).toBeGreaterThanOrEqual(f.contradictions);
+      expect(card.inferred.found, formatScorecard(card)).toBeGreaterThanOrEqual(f.inferred);
+    });
+
+    // Repetition is found by code, so these hold whatever the model did.
+    it("finds duties from repetition only where they are planted, with the right dates, labelled Inferred", () => {
+      expect(card.inferred.unplanned, formatScorecard(card)).toBe(0);
+      expect(card.inferred.decoyHits).toBe(0);
+      expect(card.inferred.datesOk).toBe(card.inferred.found);
+      expect(card.inferred.trustOk).toBe(card.inferred.found);
     });
 
     it("puts every planted item with an expected level at that level", () => {

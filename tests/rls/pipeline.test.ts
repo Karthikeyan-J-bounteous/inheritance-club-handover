@@ -72,6 +72,8 @@ describe.skipIf(!hasEnv)("the staged pipeline under RLS (fake model)", () => {
     expect(p.stages.plan_followups.done).toBe(1);
     expect(p.stages.check_followup.total).toBeGreaterThanOrEqual(7);
     expect(p.followup.statuses.contradicted).toBeGreaterThanOrEqual(1);
+    // The last stage, code only, ran: the mini club repeats nothing a year apart.
+    expect(p.stages.infer_duties).toMatchObject({ total: 1, done: 1, created: 0 });
 
     const { data } = await as.arun.from("jobs").select("kind, payload, finished_at").eq("payload->>run_id", runId).order("finished_at");
     const stages = (data ?? []).map((j) => (j.payload as { stage: number }).stage);
@@ -199,7 +201,7 @@ describe.skipIf(!hasEnv)("the staged pipeline under RLS (fake model)", () => {
     expect(p.stages.extract_commitments.created).toBe(0);
     expect(p.stages.find_duties.created).toBe(0);
     expect(p.followup.evidence + p.followup.context).toBe(0);
-    expect(p.cachedSteps).toBe(p.total - 2); // every model step; the two planning steps call no model
+    expect(p.cachedSteps).toBe(p.total - 3); // every model step; the two planning steps and the repetition step call no model
     expect(p.matching).toEqual({ same: 0, possible: 0 });
     expect(provider.calls.length).toBe(callsBefore);
     expect((await as.meena.from("audit_log").select("id", { count: "exact", head: true })).count).toBe(auditBefore);

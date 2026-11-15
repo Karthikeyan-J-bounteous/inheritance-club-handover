@@ -1,7 +1,7 @@
 // Shapes of a run's step results and progress. Pure, so the browser can import it.
 
 import type { Usage } from "../llm/types.ts";
-import { DUTIES_TASK, EXTRACT_TASK, FOLLOWUP_TASK, MATCH_TASK, PLAN_FOLLOWUPS_TASK, PLAN_MATCHES_TASK, type JobKind } from "./tasks.ts";
+import { DUTIES_TASK, EXTRACT_TASK, FOLLOWUP_TASK, INFER_DUTIES_TASK, MATCH_TASK, PLAN_FOLLOWUPS_TASK, PLAN_MATCHES_TASK, type JobKind } from "./tasks.ts";
 
 export type StepResult = {
   kind: JobKind;
@@ -53,7 +53,7 @@ export function emptyProgress(): RunProgress {
     total: 0, done: 0, failed: 0, pending: 0,
     stages: {
       [EXTRACT_TASK]: emptyStage(), [DUTIES_TASK]: emptyStage(), [PLAN_FOLLOWUPS_TASK]: emptyStage(), [FOLLOWUP_TASK]: emptyStage(),
-      [PLAN_MATCHES_TASK]: emptyStage(), [MATCH_TASK]: emptyStage(),
+      [PLAN_MATCHES_TASK]: emptyStage(), [MATCH_TASK]: emptyStage(), [INFER_DUTIES_TASK]: emptyStage(),
     },
     dropped: {}, followup: { evidence: 0, context: 0, statuses: {} }, matching: { same: 0, possible: 0 }, cachedSteps: 0, usage: { inputTokens: 0, outputTokens: 0 },
   };
