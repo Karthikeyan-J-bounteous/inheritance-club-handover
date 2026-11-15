@@ -1,4 +1,8 @@
+import { readFileSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
+
+const YEAR = JSON.parse(readFileSync("src/lib/demo/year-club.json", "utf8")) as { obligations: { access_level: string }[] };
+const ARUN_READS = YEAR.obligations.filter((o) => o.access_level !== "private").length;
 
 // A visitor's own demo club, with four accounts of its own: the built year club (the frozen
 // real-model ledger) or an empty one. What happens in a copy stays in it; the shared accounts
@@ -30,8 +34,8 @@ test.describe("demo club per visitor", () => {
     await loadCopy(page);
     await expect(page.getByRole("button", { name: /Signed in as Arun, Outgoing lead/ })).toBeVisible();
     await expect(badge(page)).toBeVisible();
-    // The year club: 39 items, one of them from the advisor's private chat, which Arun cannot read.
-    await expect(page.getByTestId("count-obligations")).toHaveText("38");
+    // The year club's items, less those from the advisor's private chat, which Arun cannot read.
+    await expect(page.getByTestId("count-obligations")).toHaveText(String(ARUN_READS));
 
     // The incoming lead of this copy answers an item.
     await switchTo(page, /Kavya/);
