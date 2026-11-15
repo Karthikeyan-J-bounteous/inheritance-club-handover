@@ -98,3 +98,11 @@ The year club rebuilt with the 2024-25 chat. Scorecard: 24/24 commitments, 23/24
 - **Year C15** ("Registration desk is ready, forms are printed.") is still only Likely done.
 - **Year R4** (hold the annual IoT Fest, no approval) is still missed; it shares its message with R2.
 - **Photo:** "Sent the lab licence request to the IT cell." is still extracted as a promise (a report). The P6 item (camera and keys) is now right: status and trust 9/9.
+
+## Known gaps (Phase 18)
+
+- Repeated acknowledgements, replies and placeholders are kept once by the server actions; a client calling the API directly twice still stores two rows (the pages show one acknowledgement per item; a duplicate reply or placeholder would show twice).
+- Acknowledgements by the incoming lead are not in the review History (they are on the handover page); only replies, notes and review actions are.
+- A counterparty note can list two promises with the same name from different years (the year club's 2025 and 2026 sponsorship proposals) with due dates written without a year ("by 15 January", "by 20 January"), so they read like a duplicate. The due text is shown as the record wrote it.
+- The build resumes after a refresh only for runs started in the last 30 minutes by the same person.
+- Once, `next dev` on port 3200 went into a reload loop ("Compiled" after every request), so a form never submitted; the cause was not found. `next build && next start` worked, and the e2e dev server (port 3100) did not show it. Not seen on the deployed app.

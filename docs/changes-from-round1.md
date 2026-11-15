@@ -213,3 +213,13 @@ Committed in the Round 2 report (section 10) as improvement 1.
 - **On the incoming lead's calendar.** The handover calendar shows them in their month, with "Start now" or "Overdue" as for any duty, and says what the label means. In the year demo club, the IoT basics workshop slides (done in late November in 2024 and 2025) are due on 27 Nov 2026 and should be started by 10 Nov 2026, the handover day: a task the outgoing team never mentioned now appears with a start date.
 - **The year demo club has a second past year:** the previous committee's group chat (2024-25), with four planted unstated duties, three repeats of stated ones and a look-alike, and their ground truth. The demo club was rebuilt with it through the app's own pipeline.
 - **The ledger lists them apart,** under "Duties nobody wrote down", so the reviewer checks them before accepting. A rejected one is not found again by later builds.
+
+## Round 3, Phase 18: hardening and documentation
+
+Not a new feature: the round's brief asked that the product hold up without its builder (bad input, empty states, a refresh, the same action twice) and that someone else can run it from the README.
+
+- **What a judge might do, tested:** every page opened signed out; odd addresses (malformed ids, unknown or zero version numbers, a messages page past the end, forged note links, unknown tabs, odd search text); a refresh on every page and in the middle of building; the same button pressed twice. New end-to-end tests cover each (`e2e/robustness.spec.ts`).
+- **What it found and fixed:** pressing Approve twice made an identical second version (now refused by the database: a version identical to the last is not approved again, though a new ruling still is); a repeated acknowledgement, reply or placeholder was stored twice; drafting a note twice showed an error; a messages page past the end showed an error; a refresh while building left the build stopped halfway (it now carries on by itself).
+- **The sign-in page** said the built club had about 2,000 messages in five files; it has 2,255 in six since Phase 17.
+- **README** rewritten for someone who has never seen the project: what it is, a five-minute path through the live app and the three improvements, the feature list, and a numbered clone-and-run that needs no API key (`pnpm cache:local`).
+- **The Round 3 product document** (`docs/report/round3.html`, rendered with `pnpm report`) and the submission form answers (`docs/submission.md`).
