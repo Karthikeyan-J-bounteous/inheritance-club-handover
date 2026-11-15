@@ -65,7 +65,7 @@ function LoadForm({ fresh = false }: { fresh?: boolean }) {
         <p className="text-base font-semibold">Explore a finished handover</p>
         <p className="text-xs font-medium text-primary">Best for a quick look</p>
         <p className="text-muted-foreground">
-          A year of an IoT club&apos;s records (about 2,000 messages in five files at four access
+          Two years of an IoT club&apos;s records (about 2,250 messages in six files at four access
           levels), the ledger built from them, version 1 approved, and a few items still to review.
         </p>
         <PendingButton variant={fresh ? "outline" : "default"} pendingLabel="Building your demo club…">
