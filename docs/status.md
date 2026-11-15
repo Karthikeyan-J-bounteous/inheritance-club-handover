@@ -93,6 +93,8 @@ Not done in Phase 14, by choice: a dark mode, and a Lighthouse or axe run (the p
 
 Round 3 closes **16 Nov 2026, 11:59 pm, no late window**. Aim to submit by about 8 pm.
 
+0. **Redeploy once more: the demo copy hung on the live app** (found 15 Nov 2026 after Phase 18 was deployed: it took 47 s of the 60 s limit, so judges would see an endless spinner). Merge the fix commit `fix(demo): a built copy loads in seconds…`, redeploy `main`, then check: `curl -sI https://inheritance.karthikeyanj.com/api/health | grep x-vercel-id` ends `::syd1::…` (not `::iad1::`), and "Explore a built handover" lands on the home page in a few seconds. If it still says `iad1`, set Vercel → Project → Settings → Functions → Function Regions to Sydney (`syd1`) too. No migration, no seed, no new variable. Cause and fix: [decisions.md](decisions.md#demo-copy-loading-forever-on-the-live-app-15-nov-2026-after-the-phase-18-deploy).
+
 1. **Merge `build/phase-18` and deploy once** (checklist in [deploy.md](deploy.md#after-every-phase)). Phases 16 and 17 are merged but, as far as this file knows, not deployed: if so, this one deploy covers all three.
    - `pnpm db:push` **before** redeploying. It applies whichever of 0021 to 0025 the hosted database lacks (0023 and 0024 are needed by the Phase 16 and 17 code; 0025 is Phase 18's). Without it the handover, ledger and review pages fail on the hosted app.
    - `pnpm cache:warm` (if not run since Phase 17): loads the 182 saved answers so building from the sample files on the hosted app costs nothing.
