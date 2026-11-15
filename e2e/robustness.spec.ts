@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { reseedDemo } from "./reseed.ts";
 
 // Phase 18: what a judge does without being asked. Odd URLs, pages opened signed out, a refresh
 // in the middle of things, and the same button pressed twice. Nothing may crash, hang or be
@@ -121,6 +122,31 @@ test.describe("robustness", () => {
       await item.getByRole("button", { name: "Accept" }).click();
       await expect(item.getByTestId("ack-state")).toContainText("Accepted");
       await expect(item.getByRole("alert")).toHaveCount(0);
+    });
+  });
+
+  test.describe("a refresh in the middle of building", () => {
+    test.skip(!local, "builds the ledger: runs against a local stack only");
+    test.beforeAll(async () => {
+      await reseedDemo();
+    });
+
+    test("the build carries on after the page is reloaded, instead of stopping halfway", async ({ page }) => {
+      test.setTimeout(150_000);
+      await signInAs(page, "Arun");
+      await page.goto("/ledger");
+      // Slow each step down, as a big club would, so there is time to reload in the middle.
+      await page.route("**/api/jobs/run-next", async (route) => {
+        await new Promise((r) => setTimeout(r, 700));
+        await route.continue();
+      });
+      await page.getByRole("button", { name: /Build the ledger/ }).click();
+      await expect(page.getByTestId("pipeline-progress")).toContainText(/Reading part \d+ of \d+/, { timeout: 30_000 });
+      await page.reload();
+      // Picked up again by itself: progress shows without pressing anything, and it finishes.
+      await expect(page.getByTestId("pipeline-progress")).toBeVisible({ timeout: 15_000 });
+      await expect(page.getByTestId("pipeline-progress")).toContainText("finished", { timeout: 120_000 });
+      await expect(page.getByTestId("pipeline-progress").getByRole("link", { name: "Next: check the records" })).toBeVisible();
     });
   });
 });
