@@ -13,6 +13,7 @@ const base: JourneyFacts = {
   unruledConflicts: 0,
   gaps: 0,
   openQuestions: 0,
+  notes: { toWrite: 0, approved: 0, acknowledged: 0 },
 };
 const v1 = { number: 1, createdAt: "2026-11-10T10:00:00Z", itemCount: 4 };
 const f = (over: Partial<JourneyFacts>): JourneyFacts => ({ ...base, ...over });
@@ -76,6 +77,36 @@ describe("gap questions (outgoing lead)", () => {
     const marked = { isCurrent: true, markedAt: "2026-11-10T09:00:00Z" };
     expect(journey(f({ files: 3, items: 9, accepted: 9, signoff: marked, openQuestions: 2 })).switchTo?.key).toBe("meena");
     expect(journey(f({ files: 3, items: 9, toReview: 2, accepted: 7, openQuestions: 0 })).title).toBe("Review 2 items");
+  });
+});
+
+describe("notes to people outside the club (outgoing lead)", () => {
+  const marked = { isCurrent: true, markedAt: "2026-11-10T09:00:00Z" };
+  const after = { files: 3, items: 9, accepted: 9, version: v1, answered: 1, signoff: marked };
+  it("after approval, tells the people outside the club before handing on to Kavya", () => {
+    const j = journey(f({ ...after, notes: { toWrite: 5, approved: 0, acknowledged: 0 } }));
+    expect(j.title).toBe("Tell the people outside the club");
+    expect(j.body).toContain("5 people or offices");
+    expect(j.cta).toEqual({ label: "Write the notes", href: "/handover/notes" });
+  });
+  it("once one is approved, hands on to Kavya and keeps the rest as a side link", () => {
+    const j = journey(f({ ...after, notes: { toWrite: 4, approved: 1, acknowledged: 0 } }));
+    expect(j.switchTo?.key).toBe("kavya");
+    expect(j.also).toEqual([
+      { label: "Write notes to 4 more people or offices outside the club", href: "/handover/notes" },
+      { label: "1 note not acknowledged yet", href: "/handover/notes" },
+    ]);
+    expect(journey(f({ ...after, notes: { toWrite: 0, approved: 1, acknowledged: 1 } })).also).toEqual([]);
+  });
+  it("offers a note beside the questions and the review once a version exists, and not before", () => {
+    const notes = { toWrite: 3, approved: 0, acknowledged: 0 };
+    const offer = { label: "Write a note to someone outside the club", href: "/handover/notes" };
+    expect(journey(f({ files: 3, items: 9, toReview: 6, accepted: 3, version: v1, openQuestions: 2, notes })).also).toContainEqual(offer);
+    expect(journey(f({ files: 3, items: 9, toReview: 6, accepted: 3, version: v1, notes })).also).toContainEqual(offer);
+    expect(journey(f({ files: 3, items: 9, toReview: 6, accepted: 3, notes })).also).not.toContainEqual(offer);
+  });
+  it("is not asked of a club whose version names nobody outside it", () => {
+    expect(journey(f({ ...after })).title).toContain("Version 1");
   });
 });
 

@@ -52,6 +52,17 @@ What is knowingly unfinished, and what the model still gets wrong on the synthet
 - A ruling made after a version is approved shows on the handover only from the next version (versions are frozen), so the incoming lead can see "Nobody had ruled on it" while the advisor already has.
 - The audit history shows status and trust changes by their stored names (`no_evidence` → `fulfilled`), as it does for other review actions.
 
+## Known gaps (Phase 16)
+
+- An approved note cannot be withdrawn, corrected or re-issued; there is one note per counterparty. A later version does not update it (it is what was sent). A new note would need the old one to be superseded, which is not built.
+- No email or chat is sent: the outgoing lead copies the link and sends it themselves. Nothing records that it was sent, only that it was acknowledged.
+- The acknowledgement is one button with an optional name. The counterparty cannot reply or say "this is wrong"; the note tells them to contact the new contact.
+- Anyone holding the link can acknowledge it, and can give any name. The name is shown as given.
+- Counterparties are grouped by name only. "Dean" and "Dean's office", or "fest volunteers" and "the volunteers", are separate notes; aliases (`aliases` table) are not used yet.
+- Items released to the incoming lead from finance or private are never offered for a note, even though she may read them.
+- The default new contact is the incoming lead's demo name (Kavya); in a real club the lead would type it.
+- `tests/rls/leak.test.ts` does not walk `counterparty_notes`; its rules are covered by `tests/rls/counterparty-notes.test.ts`, and the e2e sweep includes `/handover/notes`.
+
 ## What the model got wrong (Phase 12 paid runs)
 
 - **Photo P6** (hand over the camera and keys): the follow-up check took "the passbook stays in the cupboard", from the finance chat, as implying it was done. Status became Likely done, and, by the provenance rule, the committee item became finance-level, so the incoming lead would not see it. See outstanding task 4.

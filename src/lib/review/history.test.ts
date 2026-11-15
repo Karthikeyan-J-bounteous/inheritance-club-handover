@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { actionLabel, describeChanges } from "./history.ts";
+import { actionLabel, actorFallback, describeChanges } from "./history.ts";
 import { rulingLabel } from "./labels.ts";
 
 describe("review history", () => {
@@ -38,6 +38,24 @@ describe("review history", () => {
       { label: "Status", before: "no_evidence", after: "fulfilled" },
       { label: "Trust", before: "sourced", after: "corroborated" },
     ]);
+  });
+
+  it("describes notes to people outside the club, and who acknowledged one", () => {
+    const it1 = { obligation_id: "a" };
+    const it2 = { obligation_id: "b" };
+    expect(actionLabel("note_approve")).toBe("Approved a note to someone outside the club");
+    expect(describeChanges({ action: "note_draft", before: null, after: { counterparty: "Bala sir", items: [it1, it2] } })).toEqual([{ label: "Note", before: "nothing", after: "to Bala sir, 2 items" }]);
+    expect(
+      describeChanges({ action: "note_edit", before: { recipient: "Bala sir", new_contact: "Kavya", items: [it1, it2] }, after: { recipient: "Mr. Bala", new_contact: "Kavya", items: [it1] } }),
+    ).toEqual([
+      { label: "To", before: "Bala sir", after: "Mr. Bala" },
+      { label: "Items", before: "2 items", after: "1 item" },
+    ]);
+    // Same count, other items: still shown.
+    expect(describeChanges({ action: "note_edit", before: { items: [it1] }, after: { items: [it2] } })).toEqual([{ label: "Items", before: "1 item", after: "1 item" }]);
+    expect(describeChanges({ action: "note_edit", before: { message: "Hi", items: [it1] }, after: { message: "Hi", items: [it1] } })).toEqual([]);
+    expect(actorFallback("note_ack")).toBe("Someone outside the club, from the signed link");
+    expect(actorFallback("approve_version")).toBe("The system");
   });
 
   it("labels rulings", () => {

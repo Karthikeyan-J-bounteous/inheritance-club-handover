@@ -117,6 +117,58 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"counterparty_note_acks": {
+                  Row: {
+                    "created_at": string,"name": string | null,"note_id": string,"workspace_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"name"?: string | null,"note_id": string,"workspace_id": string
+                  }
+                  Update: {
+                    "created_at"?: string,"name"?: string | null,"note_id"?: string,"workspace_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "counterparty_note_acks_note_id_fkey"
+      columns: ["note_id"]
+isOneToOne: true
+      referencedRelation: "counterparty_notes"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "counterparty_note_acks_workspace_id_fkey"
+      columns: ["workspace_id"]
+isOneToOne: false
+      referencedRelation: "workspaces"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"counterparty_notes": {
+                  Row: {
+                    "access_level": Database["public"]['Enums']["access_level"],"approved_at": string | null,"approved_by": string | null,"club_name": string,"contact_details": string | null,"counterparty": string,"created_at": string,"created_by": string | null,"id": string,"items": NonNullable<Json>,"message": string | null,"new_contact": string,"party_key": string,"recipient": string,"sender_name": string,"state": string,"updated_at": string,"version_id": string,"workspace_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "access_level"?: Database["public"]['Enums']["access_level"],"approved_at"?: string | null,"approved_by"?: string | null,"club_name": string,"contact_details"?: string | null,"counterparty": string,"created_at"?: string,"created_by"?: string | null,"id"?: string,"items"?: NonNullable<Json>,"message"?: string | null,"new_contact": string,"party_key": string,"recipient": string,"sender_name": string,"state"?: string,"updated_at"?: string,"version_id": string,"workspace_id": string
+                  }
+                  Update: {
+                    "access_level"?: Database["public"]['Enums']["access_level"],"approved_at"?: string | null,"approved_by"?: string | null,"club_name"?: string,"contact_details"?: string | null,"counterparty"?: string,"created_at"?: string,"created_by"?: string | null,"id"?: string,"items"?: NonNullable<Json>,"message"?: string | null,"new_contact"?: string,"party_key"?: string,"recipient"?: string,"sender_name"?: string,"state"?: string,"updated_at"?: string,"version_id"?: string,"workspace_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "counterparty_notes_version_id_fkey"
+      columns: ["version_id"]
+isOneToOne: false
+      referencedRelation: "versions"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "counterparty_notes_workspace_id_fkey"
+      columns: ["workspace_id"]
+isOneToOne: false
+      referencedRelation: "workspaces"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"demo_sandboxes": {
                   Row: {
                     "created_at": string,"expires_at": string,"id": string,"user_ids": (string)[],"workspace_id": string | null
@@ -563,7 +615,10 @@ isOneToOne: false
                 }
           }
           Functions: {
-            "add_extracted_commitment":
+            "acknowledge_counterparty_note":
+{ Args: { "p_name": string,"p_note": string }; Returns: Json
+                           },
+"add_extracted_commitment":
 { Args: { "p_deliverable": string,"p_due_text": string,"p_event": string,"p_owed_by": string,"p_owed_to": string,"p_quote": string,"p_workspace": string }; Returns: {
               "created": boolean,"obligation_id": string
             }[]
@@ -575,6 +630,9 @@ isOneToOne: false
                            },
 "answer_gap":
 { Args: { "p_answer": string,"p_approver"?: string,"p_detail"?: string,"p_entry"?: string,"p_level": Database["public"]['Enums']["access_level"],"p_next_due"?: string,"p_obligation": string,"p_question": string,"p_start_by"?: string }; Returns: string
+                           },
+"approve_counterparty_note":
+{ Args: { "p_note": string }; Returns: undefined
                            },
 "approve_version":
 { Args: { "p_reason": string,"p_workspace": string }; Returns: string
@@ -620,6 +678,12 @@ isOneToOne: false
 "delete_workspace":
 { Args: { "p_reason": string,"p_workspace": string }; Returns: undefined
                            },
+"discard_counterparty_note":
+{ Args: { "p_note": string }; Returns: undefined
+                           },
+"draft_counterparty_note":
+{ Args: { "p_counterparty": string,"p_new_contact": string,"p_workspace": string }; Returns: string
+                           },
 "event_authors":
 { Args: { "p_workspace": string }; Returns: {
               "author": string,"events": number
@@ -643,6 +707,9 @@ isOneToOne: false
                            },
 "ping":
 { Args: Record<PropertyKey, never>; Returns: boolean
+                           },
+"public_counterparty_note":
+{ Args: { "p_note": string }; Returns: Json
                            },
 "record_followup":
 { Args: { "p_context": Json,"p_evidence": Json,"p_obligation": string,"p_workspace": string }; Returns: {
@@ -668,6 +735,9 @@ isOneToOne: false
 { Args: { "p_workspace": string }; Returns: {
               "is_current": boolean,"item_count": number,"marked_at": string,"marked_by": string,"reason": string
             }[]
+                           },
+"update_counterparty_note":
+{ Args: { "p_contact_details": string,"p_items": (string)[],"p_message": string,"p_new_contact": string,"p_note": string,"p_recipient": string }; Returns: undefined
                            }
           }
           Enums: {

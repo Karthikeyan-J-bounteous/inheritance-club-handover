@@ -189,3 +189,16 @@ Committed in the Round 2 report (section 10) as improvement 2.
 - **Conflicts are explained to the incoming lead:** a contradicted item says the records disagree, shows both sides, and gives the advisor's ruling and reason, or says that nobody had ruled when the version was approved.
 - **Promises already done now appear on the handover** under "Already done", so the incoming lead can read and answer every item in a version (before, fulfilled promises were counted but not shown).
 - **No model is involved,** and the pipeline never reads the lead's answers as new records.
+
+## Round 3, Phase 16: counterparty handoff notes (improvement 3)
+
+Committed in the Round 2 report (section 10) as improvement 3.
+
+- **One note per person or office outside the club** that the latest approved version names: a promise's counterparty (a sponsor, a lab in-charge, speakers, volunteers), or the approver of a recurring duty (the HoD, the Dean's office). The club itself and its committees are not counterparties. Found by code; records that name them differently ("all workshop speakers", "workshop speakers") are one counterparty.
+- **Built only from approved items the incoming lead may read** (level everyone or committee, never finance or private), chosen and copied by the database from the approved version, so a note cannot carry restricted text. A promise and its Trello card, marked as the same item, are said once.
+- **A fixed template, no model text:** what the club still owes them, by when; what the club asks of them each time (for a duty they approve); what is already done; and that the incoming lead is their contact now. It is honest about what the records do not settle: "Our records do not show this as done yet", "Our records disagree on whether this was done; Kavya will check with you".
+- **The outgoing lead edits and approves it** on Notes to people outside the club (`/handover/notes`): who it is to, the new contact, how to reach them, a short message in their own words, and which items go in, with a live preview of the exact note. Only the outgoing lead can draft, edit, approve or discard a note. An approved note never changes. A draft saved before a newer version was approved must be saved again before approval.
+- **A signed link** (`/n/…`): the counterparty opens the note with no account. The server checks the link's signature (an HMAC under a server-only key) before reading anything, then reads that one note through a function only the server may call. The page shows none of the app's own header, and pressing "I have read this note" (with an optional name) records an acknowledgement once.
+- **The acknowledgement shows on the handover,** in a new "Notes to people outside the club" section, for the outgoing lead and the incoming lead (who sees which notes name her as the contact), and in the review History, as coming from the signed link.
+- **Guidance:** once a version is approved, the home page sends the outgoing lead to write the notes before handing on to the incoming lead, and offers a note beside the gap questions and the review.
+- Every draft, edit, approval, discard and acknowledgement writes an audit row with before and after, at the note's level.

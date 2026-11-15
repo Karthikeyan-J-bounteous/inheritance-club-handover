@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { ROLE_LABELS, type AppRole } from "@/lib/access";
 import { formatIst } from "@/lib/format";
-import { actionLabel, describeChanges, REVIEW_ACTIONS } from "@/lib/review/history";
+import { actionLabel, actorFallback, describeChanges, REVIEW_ACTIONS } from "@/lib/review/history";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { EmptyState } from "@/components/feedback/empty-state";
 import { ErrorState } from "@/components/feedback/error-state";
@@ -36,7 +36,7 @@ export async function History({ workspaceId }: { workspaceId: string }) {
             <li key={r.id} className="rounded-md border p-3 text-sm" data-testid="history-row" data-action={r.action}>
               <div className="flex flex-wrap items-center gap-2">
                 <Badge variant="outline">{actionLabel(r.action)}</Badge>
-                <span className="font-medium">{r.actor ? (role.get(r.actor) ?? "Someone who has left the workspace") : "The system"}</span>
+                <span className="font-medium">{r.actor ? (role.get(r.actor) ?? "Someone who has left the workspace") : actorFallback(r.action)}</span>
                 <span className="text-muted-foreground">{formatIst(r.created_at)}</span>
               </div>
               {r.obligation_id && <p className="mt-1">{title.get(r.obligation_id) ?? "An item you can no longer read"}</p>}

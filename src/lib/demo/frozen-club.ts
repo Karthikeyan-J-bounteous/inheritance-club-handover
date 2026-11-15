@@ -140,8 +140,11 @@ export async function insertFrozenClub(admin: Db, club: FrozenClub, t: FrozenTar
     if (!id) throw new Error(`no item ${key}`);
     return id;
   };
-  check("obligations", await admin.from("obligations").insert(club.obligations.map((o) => ({
-    id: ob(o.key), workspace_id: ws, kind: o.kind, description: o.description, owed_by: o.owed_by, owed_to: o.owed_to,
+  // One insert gives every item the same created_at; space them a millisecond apart in the
+  // build's order, so "oldest first" (the ledger's cards, a note's linked items) is the build's order.
+  const t0 = Date.now();
+  check("obligations", await admin.from("obligations").insert(club.obligations.map((o, i) => ({
+    id: ob(o.key), workspace_id: ws, created_at: new Date(t0 + i).toISOString(), kind: o.kind, description: o.description, owed_by: o.owed_by, owed_to: o.owed_to,
     due_text: o.due_text, due_date: o.due_date, next_due: o.next_due, approval_required: o.approval_required, approver: o.approver,
     status: o.status, access_level: o.access_level, private_uploaders: o.private_uploaders.map((k) => users[k]),
     review_state: o.review_state, fulfilment_checked_at: o.fulfilment_checked_at, period: o.period, cadence: o.cadence,
