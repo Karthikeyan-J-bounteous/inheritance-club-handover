@@ -4,7 +4,7 @@ import { readiness, type Role } from "@/lib/review/readiness";
 import { approveVersion, markReady } from "@/app/review/actions";
 import { ReasonForm } from "./forms";
 
-export type Signoff = { marked_at: string; item_count: number; reason: string; is_current: boolean } | null;
+export type Signoff = { marked_at: string; item_count: number; reason: string; is_current: boolean; approved_as: number | null } | null;
 
 /**
  * Where the draft stands: counts, what blocks the next step, and the step itself. The outgoing
@@ -22,7 +22,7 @@ export function SignoffPanel({
   signoff: Signoff;
   latestNumber: number | null;
 }) {
-  const gates = readiness({ role, acceptedCount: counts.accepted, needsRereviewCount: counts.changed, signoff: signoff ? { isCurrent: signoff.is_current } : null });
+  const gates = readiness({ role, acceptedCount: counts.accepted, needsRereviewCount: counts.changed, signoff: signoff ? { isCurrent: signoff.is_current, approvedAs: signoff.approved_as } : null });
   return (
     <section aria-label="Sign-off" className="flex flex-col gap-3 rounded-2xl border bg-card p-5 text-sm" data-testid="signoff">
       <div className="flex flex-wrap items-center gap-2">
@@ -39,7 +39,9 @@ export function SignoffPanel({
       </p>
       <p data-testid="signoff-status">
         {signoff
-          ? signoff.is_current
+          ? signoff.is_current && signoff.approved_as
+            ? `Approved as version ${signoff.approved_as}. Nothing has changed since; change an item to start the next version.`
+            : signoff.is_current
             ? `Marked ready for the advisor on ${formatIst(signoff.marked_at)} (${signoff.item_count} items): “${signoff.reason}”.`
             : `Marked ready on ${formatIst(signoff.marked_at)}, but the draft has changed since. It must be marked ready again.`
           : "Not marked ready yet."}

@@ -1,6 +1,6 @@
 # Build status
 
-Read this first when resuming work, on any machine. Last updated: 2026-11-15, Phase 17 (inferred recurring duties, Round 3 improvement 1) built on `build/phase-17`, which was branched from `build/phase-16` (not yet merged when Phase 17 started). Phases 14 and 15 are merged.
+Read this first when resuming work, on any machine. Last updated: 2026-11-15, Phase 18 (hardening, end-to-end sweeps, README, the Round 3 product document and form answers) built on `build/phase-18`, branched from `main` after Phases 16 and 17 were merged.
 
 Other docs:
 - [dev-setup.md](dev-setup.md): setting up a new computer (tools, secrets, local database, hosted project).
@@ -21,13 +21,24 @@ Round 2 (Phases 0 to 13, plus the guided tour) is merged and was submitted; the 
 | 0 to 13 | Round 2 (see the README status table and [decisions.md](decisions.md)) | merged |
 | 14 | Round 3: remove both walkthroughs; UI/UX overhaul so the app guides itself | merged (deploy: see outstanding tasks) |
 | 15 | Round 3, improvement 2: gap questions for the outgoing lead | merged (deploy: see outstanding tasks) |
-| 16 | Round 3, improvement 3: counterparty handoff notes | built, awaiting merge and deploy |
-| 17 | Round 3, improvement 1: inferred recurring duties | built on top of 16, awaiting merge and deploy |
-| 18 | Round 3: hardening, end-to-end sweeps, README, final report PDF | next |
+| 16 | Round 3, improvement 3: counterparty handoff notes | merged (deploy: see outstanding tasks) |
+| 17 | Round 3, improvement 1: inferred recurring duties | merged (deploy: see outstanding tasks) |
+| 18 | Round 3: hardening, end-to-end sweeps, README, final report PDF, form answers | built, awaiting merge and deploy |
 
-Tests on `build/phase-17`: 715 unit plus RLS (`pnpm test`; Phase 16 had 683), 68 Playwright (new: `inferred-duties.spec.ts`), all passing; lint, typecheck and production build clean.
+Tests on `build/phase-18`: 497 unit and 220 database (`pnpm test`, 717 in all; Phase 17 had 715), 73 Playwright (new: `robustness.spec.ts`); lint, typecheck and production build clean.
 
-### Phase 17 (built, awaiting merge)
+### Phase 18 (built, awaiting merge)
+
+Hardening and documentation. Every item on the submission list is ready except the steps only the user can do (outstanding tasks 1 to 4).
+
+- **Sweeps** for what a judge does unasked, now in `e2e/robustness.spec.ts`: every page signed out, odd addresses (bad ids, unknown versions, version 0, a messages page past the end, forged note links, unknown tabs, odd search text), a refresh on every page, a refresh mid-build, and the same action twice. Bad files were probed against the parsers: every case already had a clear message.
+- **Fixed:** Approve pressed twice made an identical version 2 (migration 0025: a version identical to the last is refused, and an unchanged draft cannot be marked; a ruling after approval can still be approved); a repeated acknowledgement, reply or placeholder was stored twice; drafting a note twice showed an error; a messages page past the end showed an error; a refresh mid-build left the build stopped (it now resumes); the sign-in page's message count (2,255 in six files since Phase 17). Each fix's test was shown to fail without it.
+- **README** rewritten: what it is, try it in five minutes, the three improvements, features, and a numbered clone-and-run with no API key (`pnpm cache:local`, new).
+- **Product document:** `docs/report/round3.html` with six screenshots from a fresh year copy (fake model, no paid call); `pnpm report` renders `docs/Inheritance_Round3_Product.pdf` (git-ignored, so render it on the machine you submit from).
+- **Form answers:** `docs/submission.md`, one paste-ready answer per form field.
+- Decisions: [decisions.md](decisions.md#phase-18-decisions-hardening-end-to-end-sweeps-docs). Open points: [known-gaps.md](known-gaps.md#known-gaps-phase-18).
+
+### Phase 17 (merged)
 
 Inferred recurring duties, Round 3 improvement 1, delivered to its minimum: in a year copy, the ledger's Yearly duties tab lists four "Duties nobody wrote down", each labelled Inferred with the years it was done (first record and done record, each a verified quote); Kavya's handover calendar has them in their months, and the IoT basics workshop slides (due 27 Nov 2026, start by 10 Nov 2026) show "Start now" (covered end to end by `e2e/inferred-duties.spec.ts`).
 
@@ -39,7 +50,7 @@ Inferred recurring duties, Round 3 improvement 1, delivered to its minimum: in a
 - **UI:** "Found from repetition" badge, "About once a year (inferred, not stated)", who did it each year, and the occurrences in place of the quote list, on the ledger, the review card, approved versions and the handover calendar. No gap question is asked about them.
 - Decisions and open points: [decisions.md](decisions.md#phase-17-decisions-inferred-duties-round-3-improvement-1), [known-gaps.md](known-gaps.md#known-gaps-phase-17).
 
-### Phase 16 (built, awaiting merge)
+### Phase 16 (merged)
 
 Counterparty handoff notes, Round 3 improvement 3, delivered to its minimum: in a year copy, Arun drafts a note to Brightwave Labs (the sponsor), adds how to reach Kavya and a message, saves, approves, copies the signed link; the link opens in a fresh browser with no account, "Ms. Rao" acknowledges it; the acknowledgement shows on the handover for Arun and Kavya and in the review History (covered end to end by `e2e/counterparty-notes.spec.ts`).
 
@@ -80,15 +91,21 @@ Not done in Phase 14, by choice: a dark mode, and a Lighthouse or axe run (the p
 
 ## Outstanding user tasks
 
-1. Merge `build/phase-16` first, then `build/phase-17` (it contains 16's commits), and deploy once (checklist in [deploy.md](deploy.md#after-every-phase)). **Phase 17 adds migration 0024: run `pnpm db:push` before redeploying**, or the ledger, review and handover fail on the hosted app (they read `obligations.occurrences`). No new environment variable. Optional: `pnpm cache:warm` loads the new saved answers (182) so a rebuild of the year club on the hosted app costs nothing. After deploying, in a private window: Explore a built handover → Build the ledger → Yearly duties → "Duties nobody wrote down (4)"; then switch to Kavya → Hand over → November 2026 shows the workshop slides with "Start now".
-   Phase 16's own notes, still applying:
-   Review and merge `build/phase-16`, then deploy (checklist in [deploy.md](deploy.md#after-every-phase)). **This phase adds migration 0023: run `pnpm db:push` before redeploying**, or `/handover` and the home page fail on the hosted app (the new code reads `counterparty_notes`). If Phase 15 was not deployed yet, the push also applies 0021 and 0022, and this deploy covers both. No seed or prompt change, so no `seed:hosted` or `cache:warm`; no new environment variable (the link key comes from `SUPABASE_SECRET_KEY`, already set). After deploying, in a private window: Explore a built handover → Notes to people outside the club → draft, save, approve, open the link in another private window, acknowledge, then check the handover.
-2. Before the first Round 3 deploy, confirm the hosted database is current: `/api/health` should report the latest `main` commit, and `pnpm db:push` should report migrations 0018 to 0020 as already applied. If `pnpm cache:warm` was never run against the hosted database, run it (building from the sample files then costs nothing).
-3. The Round 1 user interviews were not done. The docs say so. Do not add interview answers unless real people gave them.
+Round 3 closes **16 Nov 2026, 11:59 pm, no late window**. Aim to submit by about 8 pm.
+
+1. **Merge `build/phase-18` and deploy once** (checklist in [deploy.md](deploy.md#after-every-phase)). Phases 16 and 17 are merged but, as far as this file knows, not deployed: if so, this one deploy covers all three.
+   - `pnpm db:push` **before** redeploying. It applies whichever of 0021 to 0025 the hosted database lacks (0023 and 0024 are needed by the Phase 16 and 17 code; 0025 is Phase 18's). Without it the handover, ledger and review pages fail on the hosted app.
+   - `pnpm cache:warm` (if not run since Phase 17): loads the 182 saved answers so building from the sample files on the hosted app costs nothing.
+   - Redeploy `main` in Vercel; check `/api/health` shows `"db": "ok"` and the merge commit.
+   - No new environment variable, no seed change.
+2. **Check the live app in a private window, as a judge would:** Sign in → Explore a built handover → follow the home page as Arun; Build the ledger → Yearly duties → "Duties nobody wrote down (4)"; Check the records → Questions for you → answer "set up the demo kits"; Review → accept it again → mark ready; Switch person → Dr. Meena → approve version 2 (pressing Approve again must now say it is already approved); Arun → Hand over → Notes → draft, save, approve the sponsor's note, open its link in another private window, acknowledge; Kavya → Hand over (calendar "Start now", the answer, the acknowledgement). Then once on a phone-sized window.
+3. **Before judging:** in the Supabase dashboard raise **Authentication → Rate Limits → Sign-ups and sign-ins** (every visitor's sign-ins come from Vercel's few IPs; the default is 30 per 5 minutes per IP; see [deploy.md](deploy.md#notes)).
+4. **Submit** (team leader only) at https://forms.gle/FxhT5Z1NupvGTGSw6: render the PDF with `pnpm report` (needs `pnpm exec playwright install chromium` once), upload `docs/Inheritance_Round3_Product.pdf`, and paste the answers from [submission.md](submission.md).
+5. The Round 1 user interviews were not done. The docs say so. Do not add interview answers unless real people gave them.
 
 ## Environment facts
 
-- **Live app:** `https://inheritance-club-handover.vercel.app`. Hosted Supabase project ref: `gmlsskizjxhtoxnwhywj` (link it on a new machine; see [dev-setup.md](dev-setup.md)). Vercel deploys are manual.
+- **Live app:** `https://inheritance.karthikeyanj.com` (also reachable at `https://inheritance-club-handover.vercel.app`; both serve the same deployment). Hosted Supabase project ref: `gmlsskizjxhtoxnwhywj` (link it on a new machine; see [dev-setup.md](dev-setup.md)). Vercel deploys are manual.
 - **Local stack:** `pnpm db:start` (Docker must be running), then `pnpm db:reset && pnpm seed`. `.env.local` holds local Supabase keys, `DEMO_USER_PASSWORD`, `ANTHROPIC_API_KEY` and the model names; `.env.hosted.local` holds hosted values for `pnpm seed:hosted` and `pnpm cache:warm`. Never print or commit either file's values.
 - **npm registry:** the project `.npmrc` pins public npm. On the user's work Mac the global `~/.npmrc` points at an expired company mirror; never touch it. For corepack and `pnpm dlx`, prefix commands with `COREPACK_NPM_REGISTRY=https://registry.npmjs.org` (and `npm_config_registry` if needed), for that shell only.
 - **TLS:** the user's work network re-signs HTTPS. Node needs `--use-system-ca`, which is already in `pnpm dev`, `eval:*` and `demo:freeze`. Never disable certificate checks.

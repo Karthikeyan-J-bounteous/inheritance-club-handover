@@ -26,6 +26,10 @@ export async function acknowledge(_prev: FormState, formData: FormData): Promise
   const { action, note } = input.data;
   if (action !== "accept" && !note) return { error: "Add a note: say what your question is, or why you decline." };
   const supabase = await createSupabaseServerClient();
+  // Pressed twice (or resent after a refresh): the same answer is already the latest; keep one.
+  const { data: latest } = await supabase.from("latest_acks").select("action, note")
+    .eq("version_id", input.data.version).eq("obligation_id", input.data.obligation).eq("user_id", viewer.userId).maybeSingle();
+  if (latest && latest.action === action && (latest.note ?? "") === (note ?? "")) return { ok: DONE[action] };
   const { error } = await supabase.from("acks").insert({
     version_id: input.data.version,
     obligation_id: input.data.obligation,
@@ -56,6 +60,10 @@ export async function replyToAck(_prev: FormState, formData: FormData): Promise<
   const input = ReplyInput.safeParse(Object.fromEntries(formData));
   if (!input.success) return { error: input.error.issues[0]?.message ?? "Invalid request." };
   const supabase = await createSupabaseServerClient();
+  // The same reply sent twice (a double press, or a resend after a refresh) is kept once.
+  const { data: last } = await supabase.from("ack_replies").select("text")
+    .eq("ack_id", input.data.ack).eq("user_id", viewer.userId).order("created_at", { ascending: false }).limit(1).maybeSingle();
+  if (last?.text === input.data.text) return { ok: "Reply sent. The incoming lead sees it under their question." };
   const { error } = await supabase.from("ack_replies").insert({ ack_id: input.data.ack, user_id: viewer.userId, text: input.data.text });
   if (error) {
     return { error: error.code === "42501" ? "Only the outgoing lead or the faculty advisor can reply, and only to a question or decline they can read." : "Could not save your reply." };
@@ -77,6 +85,10 @@ export async function sealPlaceholder(_prev: FormState, formData: FormData): Pro
   const input = SealInput.safeParse(Object.fromEntries(formData));
   if (!input.success) return { error: input.error.issues[0]?.message ?? "Invalid request." };
   const supabase = await createSupabaseServerClient();
+  // The same placeholder added twice is kept once.
+  const { data: same } = await supabase.from("sealed_items").select("id")
+    .eq("obligation_id", input.data.obligation).eq("holder_role", input.data.holder).eq("topic_label", input.data.topic).limit(1);
+  if (same?.length) return { ok: "This placeholder is already there. Everyone can see that something is held back, and by whom." };
   const { error } = await supabase.from("sealed_items").insert({
     workspace_id: viewer.membership.workspaceId,
     obligation_id: input.data.obligation,

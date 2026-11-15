@@ -1,21 +1,72 @@
 # Inheritance
 
-A handover ledger for university student clubs.
+**They left. Their promises didn't.** A handover ledger for university student clubs.
 
-Every year a club's committee changes and knowledge is lost: who was promised what, which duties come round every semester, and which of them need someone's permission first. Inheritance reads a club's WhatsApp chat exports, meeting minutes (.md/.docx) and Trello JSON export. From them it builds a ledger of **obligations**: commitments owed to people, and recurring duties with the approvals they need.
+Every year a club's committee changes and knowledge is lost: who was promised what, which duties come round every year, and which of them need someone's permission first. Inheritance reads a club's WhatsApp chat exports, meeting minutes (.md/.docx) and Trello JSON export, and builds a ledger of **obligations**: promises owed to people, and recurring duties with the approvals they need.
 
 - Every claim links to a verbatim quote, and code (not a model) checks that the quote really appears in its source message.
-- Anything unsupported is shown as a gap ("No evidence kept"), never as done.
-- The outgoing lead and faculty advisor review and approve a version before the incoming lead sees it.
-- Each role sees only what it is allowed to, enforced by Postgres row-level security.
+- Anything unsupported is shown as a gap ("No evidence kept"), never as done. An inference is labelled Inferred, never shown as fact.
+- The outgoing lead and faculty advisor review and approve a version before the incoming lead sees it. Approved versions never change.
+- Each role sees only what it is allowed to, enforced by Postgres row-level security, not by hiding things in the page.
 
-Workflow: **Connect → Reconstruct → Verify → Review → Handover**.
+Workflow: **Add files → Build the ledger → Check the records → Review → Hand over**.
 
 > **All demo data is synthetic.** No real people or organisations appear in this repository or the live demo.
 
-Built for the CodersInPune Hackathon. Round 3 (the finale) is in progress; the plan is in [docs/status.md](docs/status.md).
+Built solo for the CodersInPune Hackathon (Round 3 finale, November 2026).
 
-**Try it:** open the live app at <https://inheritance-club-handover.vercel.app> and press Sign in. The demo accounts and their password are shown on that page. "Explore a built handover" gives you your own copy of a year of a synthetic IoT club with its ledger already built; "Start from your own files" gives you an empty club to import the sample files into and build yourself.
+## Try it (5 minutes, no setup)
+
+Open **<https://inheritance.karthikeyanj.com>** and press **Sign in**.
+
+1. Press **Explore a built handover**. In about half a minute you get your own private copy of a year of a synthetic IoT club (about 2,250 messages in six files at four access levels: this year's chats, Trello board, minutes and a private chat, plus last year's committee chat), with its ledger already built by Claude and version 1 approved. Nothing you do affects anyone else.
+2. The home page tells you your next step and gives you one button for it. You start as **Arun**, the outgoing lead.
+3. Use **Switch person** (top right) to become **Dr. Meena** (faculty advisor), **Kavya** (incoming lead) or **Divya** (treasurer). Each sees only what their role may read.
+4. Or press **Start from your own files** for an empty club: one click loads four sample files, then build, check, review, approve and hand over yourself.
+
+No password is needed for your own copy. The four **shared demo accounts** and their password are also listed on the sign-in page.
+
+A good path through the three Round 3 improvements, in a built copy:
+
+| As | Go to | What to see |
+|---|---|---|
+| Arun | Build the ledger → **Yearly duties** | "Duties nobody wrote down (4)": duties found only because they repeat, labelled Inferred, with the years they were done |
+| Arun | Check the records → **Questions for you** | Answer a gap (for example "set up the demo kits"); the item's trust changes and the answer is labelled "Stated by the outgoing lead" |
+| Arun | Review | Accept it again and mark ready; switch to Dr. Meena and approve version 2 |
+| Arun | Hand over → **Notes to people outside the club** | Draft a note to the sponsor, save, approve, copy the signed link, open it in a private window and acknowledge it |
+| Kavya | Hand over | People waiting on her, the calendar (the IoT workshop slides say "Start now"), the lead's answers, the note's acknowledgement |
+
+## Features
+
+**Add files (Connect).** WhatsApp `.txt` (Android and iPhone), Trello `.json`, minutes as `.md` or `.docx`, several at once. An access level per file (everyone, committee, finance, private); one-to-one chats start as private and money-related files as finance. A "what was read" report counts every dropped line by reason. Files are parsed, not stored. One-click sample files. Remove a file (audited), name aliases, delete the whole club.
+
+**Build the ledger (Reconstruct).** One button runs small background steps with live progress and time left, and carries on after a refresh:
+- promises: who owes whom, what, by when;
+- recurring duties: how often, which approval, from whom, how far ahead to start, next due and start-by dates (computed by code);
+- follow-up: later records that say it was done, imply it, or say it was not;
+- context notes: decisions, contacts, risks, dependencies;
+- the same item recorded twice (a chat promise and its Trello card) linked, never merged;
+- **duties nobody wrote down**, found by code from repetition across years (Round 3).
+
+**Check the records (Verify).** Every quote opens its source message, highlighted, with its neighbours. Five trust labels set by a fixed rule: Corroborated, Sourced, Inferred, Contradicted, Gap. Conflicts (records that disagree) wait for the advisor's ruling; gaps say what would close them. **Questions for the outgoing lead** turn gaps into answers (Round 3).
+
+**Review.** Accept, edit, reject or reopen each item with a reason; "same item" or "not the same" on linked records. Two-step sign-off: the outgoing lead marks the draft ready, the advisor approves an immutable version (one version per mark, so a double press cannot make two). A diff between versions. Full audit history with actor, reason, before and after.
+
+**Hand over.** The incoming lead's view of the latest approved version: people waiting on her, a duty calendar with "Start now" and "Overdue", already-done items, conflicts with both sides and the ruling, sealed placeholders for what she may not read. She accepts, questions or declines each item; the outgoing lead and advisor reply. **Notes to people outside the club**, sent by signed link and acknowledged without an account (Round 3).
+
+**Guidance and reliability.** No walkthrough needed: a home page with each person's next step, a one-line purpose on every page, a next-step bar at the end of every step, empty, error and loading states everywhere, confirmation before anything destructive, buttons that cannot be pressed twice, odd addresses explained instead of crashing, and a phone layout.
+
+**Demo mode.** A private copy per visitor (four accounts of its own, passwords derived on the server, deleted after seven days), a daily keep-alive and clean-up job, and a daily budget on model calls.
+
+## Round 3: the three improvements committed in Round 2
+
+| # | Improvement | What was built |
+|---|---|---|
+| 1 | **Find recurring duties nobody wrote down** | Code finds a task reported done at about the same time of year in two or more years that no stated duty covers. It is stored as a duty labelled Inferred, lists the years it was done (each a verified quote), and gets a start-by date from the longest past lead time. In the built club: 4 of 4 planted duties found, dates right, none extra. |
+| 2 | **Gap questions for the outgoing lead** | A promise with no follow-up, a duty with no approver or date, and an unruled conflict each become one question. The answer is saved as a message in a "Stated by the outgoing lead" file at a chosen level, so the quote check, trust rule, audit log, re-review and version diff all apply unchanged. |
+| 3 | **Counterparty handoff notes** | For each person or office the approved version names (a sponsor, the lab in-charge, the Dean's office), a change-of-contact note from a fixed template plus the lead's own fields, copied by the database from approved items the incoming lead may read. The lead edits and approves it; the counterparty opens a signed link without an account and acknowledges it; the acknowledgement shows on the handover. |
+
+Phase 14 removed the guided tour and rebuilt the interface so it guides a first-time visitor by itself; Phase 18 hardened it (odd addresses, refreshes, the same action twice) and wrote these docs. Details: [docs/status.md](docs/status.md) and [docs/changes-from-round1.md](docs/changes-from-round1.md).
 
 ## Status
 
@@ -24,39 +75,64 @@ Built for the CodersInPune Hackathon. Round 3 (the finale) is in progress; the p
 | 0 | Scaffold, health route, test tooling, CI | done |
 | 1 | Schema, RLS, seed, demo login, role switcher | done |
 | 2 | Parsers: WhatsApp, Trello, minutes (.md/.docx), all stamped in IST | done |
-| 3 | Connect (import) page and ledger timeline | done |
+| 3 | Connect (import) page and timeline | done |
 | 4 | LLM adapter, commitment extraction, quote verifier | done |
 | 5 | Fulfilment, recurring duties with approvals, context notes | done |
 | 6 | Matching, trust rule, docket | done |
 | 7 | Ledger UI and evidence pane | done |
 | 8 | Review: two-step sign-off, rulings, immutable versions, audit | done |
 | 9 | Handover: people waiting, duty calendar, sealed placeholders, acknowledgements | done |
-| 10 | Demo mode: "Load demo club" per visitor, daily keep-alive and clean-up | done |
+| 10 | Demo mode: a private copy per visitor, daily keep-alive and clean-up | done |
 | 11 | Synthetic year generator with hand-written ground truth | done |
 | 12 | Scoring, leak tests, a second synthetic club, end-to-end tests | done |
 | 13 | Two stricter checks, the built year club in demo copies, replies to questions | done |
-| 14 to 18 | Round 3: UI/UX overhaul, the three committed improvements, hardening and documentation | in progress |
+| 14 | Round 3: no walkthrough; UI/UX overhaul so the app guides itself | done |
+| 15 | Round 3, improvement 2: gap questions for the outgoing lead | done |
+| 16 | Round 3, improvement 3: counterparty handoff notes | done |
+| 17 | Round 3, improvement 1: duties found from repetition | done |
+| 18 | Round 3: hardening, end-to-end sweeps, README, final report | done |
 
 ## Stack
 
-Next.js (App Router, TypeScript strict), Tailwind CSS + shadcn/ui, Supabase (Postgres, Auth, RLS, `pg_trgm`), Anthropic SDK behind a single adapter, Zod, Vitest, Playwright. Hosted on Vercel Hobby and Supabase Free.
+Next.js 16 (App Router, TypeScript strict), Tailwind CSS + shadcn/ui, Supabase (Postgres, Auth, RLS, `pg_trgm`), Anthropic SDK (Claude Haiku 5.5) behind a single adapter, Zod, `whatsapp-chat-parser`, `mammoth`, Vitest, Playwright. Hosted on Vercel Hobby and Supabase Free.
 
-## Local setup
+## Run it yourself
 
-Requirements: Node 24, pnpm (via corepack), and Docker Desktop (for local Supabase). Setting up a second computer, including which secrets to bring across: [docs/dev-setup.md](docs/dev-setup.md).
+Requirements: **Node 24**, **pnpm** (through corepack), **Docker Desktop** (running), and macOS, Linux or Windows with WSL 2. About 15 minutes, most of it Docker pulling the Supabase images. **No Anthropic API key is needed** to run the app, the demo club or the tests.
 
 ```bash
+# 1. Get the code and its packages
+git clone https://github.com/Karthikeyan-J-bounteous/inheritance-club-handover.git
+cd inheritance-club-handover
 export COREPACK_NPM_REGISTRY=https://registry.npmjs.org   # this shell only; lets corepack fetch pnpm
 corepack enable pnpm
 pnpm install
-pnpm exec playwright install chromium   # for pnpm e2e
-pnpm db:start                # local Supabase in Docker; prints URL and keys
-cp .env.example .env.local   # paste URL, publishable key, secret key; choose DEMO_USER_PASSWORD
-pnpm seed                    # four demo accounts + the synthetic demo club
+pnpm exec playwright install chromium   # for the end-to-end tests and the report renderer
+
+# 2. Start a local Supabase (Postgres, Auth) in Docker; this also creates the database
+pnpm db:start                # prints the API URL, the publishable key and the secret key
+
+# 3. Configure
+cp .env.example .env.local
+#    In .env.local set NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY and
+#    SUPABASE_SECRET_KEY from step 2's output, and choose any DEMO_USER_PASSWORD.
+#    Leave ANTHROPIC_API_KEY empty unless you want to call the real model.
+
+# 4. Seed the demo accounts and club, and load the saved model answers
+pnpm seed                    # four shared demo accounts + a small synthetic club, version 1 approved
+pnpm cache:local             # saved answers for the sample files, so building from them needs no API key
+
+# 5. Run
 pnpm dev                     # http://localhost:3000
 ```
 
-Supabase Studio (a database browser) runs at http://127.0.0.1:54323 while the local stack is up. Deploying to hosted Supabase and Vercel is covered in [docs/deploy.md](docs/deploy.md).
+Then open <http://localhost:3000>, press **Sign in** and **Explore a built handover** (as in "Try it" above).
+
+- **Building from your own files** uses the real model and needs `ANTHROPIC_API_KEY`. Without a key, set `LLM_PROVIDER=fake` in `.env.local`: an offline rule-based stand-in (what the tests use) builds a rougher ledger at no cost. The sample files work either way after `pnpm cache:local`.
+- **Check it works:** <http://localhost:3000/api/health> returns `"status": "ok"` and `"db": "ok"`; `pnpm test` runs the unit and database tests; `pnpm e2e` runs the browser tests.
+- Supabase Studio (a database browser) runs at <http://127.0.0.1:54323> while the local stack is up. `pnpm db:stop` stops it.
+- **Deploying** to hosted Supabase and Vercel: [docs/deploy.md](docs/deploy.md). A second development machine: [docs/dev-setup.md](docs/dev-setup.md).
+- **The product document** (the Round 3 PDF) is rendered from [docs/report/round3.html](docs/report/round3.html) with `pnpm report`.
 
 Packages always come from the public npm registry. The project `.npmrc` contains only `registry=https://registry.npmjs.org/`, with no tokens or auth. The `COREPACK_NPM_REGISTRY` export applies only to the current shell session, and no global config is changed.
 
@@ -70,7 +146,7 @@ Packages always come from the public npm registry. The project `.npmrc` contains
 | `pnpm test` | All Vitest projects. RLS tests are skipped (with a count) if Supabase env is missing |
 | `pnpm test:unit` | Unit tests only |
 | `pnpm test:rls` | RLS integration tests against local Supabase (fails if env is missing) |
-| `pnpm e2e` | Playwright: re-seeds, clears the fake model's saved answers, starts the dev server with the fake model, and tests login, roles, import and building the ledger. Set `E2E_BASE_URL` to test a deployment read-only |
+| `pnpm e2e` | Playwright: re-seeds, clears the fake model's saved answers, starts its own dev server (port 3100) with the fake model, and runs every journey. Set `E2E_BASE_URL` to test a deployment (tests that change data are skipped) |
 | `pnpm db:start` / `db:stop` / `db:status` | Local Supabase stack |
 | `pnpm db:reset` | Re-create the local database from `supabase/migrations` |
 | `pnpm db:push` | Apply migrations to the linked hosted project (`--remote`; the CLI targets local by default) |
@@ -79,7 +155,8 @@ Packages always come from the public npm registry. The project `.npmrc` contains
 | `pnpm seed` / `seed:hosted` | Seed demo accounts and the synthetic club (local / hosted) |
 | `pnpm eval:extract` | Extraction quality on the mini scenario (dry run; `-- --yes` calls the model) |
 | `pnpm demo:freeze` | Builds a scenario's ledger through the app's own pipeline on local Supabase with the real model, scores it, and (for `--scenario year`) writes the frozen club for demo copies. Estimate only without `-- --yes` |
-| `pnpm cache:export` / `cache:warm` | Copy the saved model answers for the synthetic scenarios from the local cache to `data/demo/llm-cache.json`, and from there to the hosted cache |
+| `pnpm cache:export` / `cache:warm` / `cache:local` | Copy the saved model answers for the synthetic scenarios from the local cache to `data/demo/llm-cache.json`; load that file into the hosted cache (`warm`) or the local one (`local`) |
+| `pnpm report` | Render the Round 3 product document (`docs/report/round3.html`) to `docs/Inheritance_Round3_Product.pdf` (git-ignored) |
 | `pnpm eval:pipeline` | Scores the whole pipeline against a scenario's ground truth: `--scenario mini\|year\|photo` (default mini). Dry run with a cost estimate by default; `-- --fake` scores the offline stand-in for free; `-- --yes` calls the model; `--model <id>` compares another |
 
 ## Parsers
@@ -104,9 +181,9 @@ Packages always come from the public npm registry. The project `.npmrc` contains
 ## Connect (import) and timeline
 
 - **`/import`**: the outgoing lead or advisor chooses files, and the app suggests who may see each one. One-to-one chats start as private, and files whose names mention money start as finance. The uploader confirms they are authorised to use the data and sees a notice naming the LLM provider. Each file is parsed on the server and saved with its events in one transaction by `import_source()`, running as the signed-in user, so RLS checks every row. The raw file is not stored; only its events, a "what was read" summary and its SHA-256 are kept. The page also lists the files your role may read, lets the uploader or advisor remove a file (with a reason, audited), edits aliases, and holds the delete-workspace control. The shared demo club cannot be deleted.
-- **`/ledger?tab=timeline`**: every message your role may read, grouped by IST day, filterable by file and text.
+- **`/messages`**: every message your role may read, grouped by IST day, filterable by file and text.
 - **Upload limit**: about 3.9 MB per import, because Vercel caps request bodies at about 4.5 MB. A year of text-only chat is usually well under that.
-- **Sample files**: synthetic sample files to try the flow are linked from the page (`public/samples/mini/`).
+- **Sample files**: "Use the 4 sample files" loads the synthetic photography club (`public/samples/photo/`) at preset levels; the files can also be downloaded from the page.
 
 ## Building the ledger (LLM)
 
@@ -182,7 +259,7 @@ Demo accounts (synthetic): `arun.demo@example.com` (outgoing lead), `meena.demo@
 ## Demo mode
 
 - **Your own demo club** (on `/login`): a private workspace with four accounts of its own. Nothing a visitor does reaches anyone else, and RLS applies as in any club. The role menu switches only among the accounts of the visitor's own copy. Two choices:
-  - **Explore a built handover**: the synthetic year club (1,961 messages; volunteers chat, committee chat, Trello board, finance minutes, and the advisor's private chat) with the ledger a real model built from it, frozen in `src/lib/demo/year-club.json` and loaded without a model call (`src/lib/demo/frozen-club.ts`). Version 1 is approved by the copy's own outgoing lead and advisor; the model's six extra items are left as drafts to review.
+  - **Explore a built handover**: the synthetic year club (2,255 messages; volunteers chat, committee chat, Trello board, finance minutes, the advisor's private chat, and last year's committee chat) with the ledger a real model built from it (49 items, 4 of them duties found from repetition), frozen in `src/lib/demo/year-club.json` and loaded without a model call (`src/lib/demo/frozen-club.ts`). Version 1 is approved by the copy's own outgoing lead and advisor; the model's five extra items are left as drafts to review.
   - **Start from your own files**: the four people and nothing else. Connect offers the photography club's four sample files (`public/samples/photo/`) with the level to set for each.
 - The shared accounts below use the small Phase 1 fixture (`src/lib/demo/fixture.ts`, loaded by `load-club.ts`), which the RLS tests assert row by row.
 - Copy accounts have no stored password: the server derives each from the account's email with an HMAC under `SUPABASE_SECRET_KEY`. A signed, http-only cookie offers "Return to your demo club" after signing out.
@@ -198,6 +275,10 @@ Demo accounts (synthetic): `arun.demo@example.com` (outgoing lead), `meena.demo@
 - **Unit** (`pnpm test:unit`): parsers, pipeline rules, review and handover logic, the generator, and the offline pipeline over every scenario, scored (no decoys, no wrong links, no leaks, no prompt that writes stored text mixing access levels).
 - **RLS** (`pnpm test:rls`, local Supabase): each role's rows, the database functions, and a **leak test**: both generated scenarios imported by their real uploaders, the ledger built by the outgoing lead and the advisor, a version signed off, then every row of every table, view and read function searched, per role, for finance amounts and private subjects that role may not read.
 - **End to end** (`pnpm e2e`, Playwright, offline model): login, roles, import, building the ledger, review, handover, demo copies, and the **whole flow** on the second club in a visitor's copy (four files at four levels → build → review → approve → hand over), followed by every page and every source-message URL opened as every role and searched for restricted text.
+- **Round 3 journeys** (e2e, each in a visitor's own copy of the built club): gap questions (answer → trust changes → accept again → approve version 2 → the incoming lead reads it), counterparty notes (draft → approve → open the signed link in a fresh browser → acknowledge → shown on the handover), duties found from repetition (labelled, their years, on the calendar with "Start now"), and the guidance with no walkthrough.
+- **Robustness** (`e2e/robustness.spec.ts`, Phase 18): every page signed out, odd addresses (bad ids, unknown versions, pages past the end, invalid note links), a refresh on every page and in the middle of a build, and the same action twice (a double-pressed approval makes one version).
+
+Latest run (15 Nov 2026): 497 unit, 220 database and 73 end-to-end tests, all passing.
 
 ## Health check
 
@@ -208,6 +289,8 @@ Demo accounts (synthetic): `arun.demo@example.com` (outgoing lead), `meena.demo@
 ## Docs
 
 - [docs/status.md](docs/status.md): where the build is, and the Round 3 plan
+- [docs/report/round3.html](docs/report/round3.html): the Round 3 product document (`pnpm report` renders the PDF)
+- [docs/submission.md](docs/submission.md): the answers for the Round 3 submission form
 - [docs/dev-setup.md](docs/dev-setup.md): setting up another computer
 - [docs/deploy.md](docs/deploy.md): hosted Supabase, Vercel, and the after-every-phase checklist
 - [docs/architecture.md](docs/architecture.md): migrations, library code, routes, tests

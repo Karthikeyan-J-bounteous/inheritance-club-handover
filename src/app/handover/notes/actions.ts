@@ -5,7 +5,7 @@ import { refresh } from "next/cache";
 import { z } from "zod";
 import type { FormState } from "@/lib/form-state";
 import { DEMO_USERS } from "@/lib/demo/demo-users";
-import { NOTE_LIMITS } from "@/lib/notes/notes";
+import { NOTE_LIMITS, partyKey } from "@/lib/notes/notes";
 import { getViewer } from "@/lib/session";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -44,6 +44,14 @@ export async function draftNote(_prev: FormState, formData: FormData): Promise<F
     p_counterparty: input.data.counterparty,
     p_new_contact: defaultContact(),
   });
+  if (error?.code === "23505") {
+    // Pressed twice, or drafted in another tab: open the note that already exists.
+    const key = partyKey(input.data.counterparty);
+    const { data: existing } = key
+      ? await supabase.from("counterparty_notes").select("id").eq("workspace_id", viewer.membership.workspaceId).eq("party_key", key).maybeSingle()
+      : { data: null };
+    if (existing) redirect(`/handover/notes/${existing.id}`);
+  }
   if (error || !data) return { error: explain(error, "Could not draft the note. Nothing was saved.") };
   redirect(`/handover/notes/${data}`);
 }

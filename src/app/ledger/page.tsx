@@ -25,6 +25,14 @@ type TabKey = (typeof TABS)[number]["key"];
 
 const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
 
+/** A build this person started and left in the last half hour (a refresh, or the tab closed): the panel carries on with it. */
+async function unfinishedRun(supabase: Awaited<ReturnType<typeof createSupabaseServerClient>>, workspaceId: string, userId: string): Promise<string | null> {
+  const since = new Date(Date.now() - 30 * 60_000).toISOString();
+  const { data } = await supabase.from("jobs").select("payload").eq("workspace_id", workspaceId).in("status", ["queued", "running"])
+    .eq("payload->>requested_by", userId).gte("created_at", since).order("created_at", { ascending: false }).limit(1);
+  return (data?.[0]?.payload as { run_id?: string } | null)?.run_id ?? null;
+}
+
 async function LedgerContent({ searchParams }: { searchParams: PageProps<"/ledger">["searchParams"] }) {
   let viewer;
   try {
@@ -45,11 +53,13 @@ async function LedgerContent({ searchParams }: { searchParams: PageProps<"/ledge
   const promises = (kinds ?? []).filter((k) => k.kind === "commitment").length;
   const duties = (kinds ?? []).length - promises;
   const canRun = role === "outgoing_lead" || role === "advisor";
+  const resumeRunId = canRun ? await unfinishedRun(supabase, workspaceId, viewer.userId) : null;
   return (
     <div className="flex flex-col gap-6">
       <PipelinePanel
         canRun={canRun}
         built={{ promises, duties }}
+        resumeRunId={resumeRunId}
         provider={process.env.LLM_PROVIDER === "fake" ? "fake" : "anthropic"}
         model={process.env.LLM_MODEL_FAST ?? "not configured"}
       />

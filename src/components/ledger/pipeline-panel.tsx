@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRightIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -59,12 +59,15 @@ export function PipelinePanel({
   provider,
   model,
   built,
+  resumeRunId = null,
 }: {
   canRun: boolean;
   provider: string;
   model: string;
   /** What the ledger already holds, as this role reads it. */
   built: { promises: number; duties: number };
+  /** This person's own unfinished run (they refreshed, or left and came back): carry on with it. */
+  resumeRunId?: string | null;
 }) {
   const router = useRouter();
   const [runId, setRunId] = useState<string | null>(null);
@@ -147,6 +150,19 @@ export function PipelinePanel({
     setState("running");
     await drive(r.runId);
   }
+
+  // After a refresh mid-build, pick the run up where it stopped instead of showing an idle panel.
+  const resumed = useRef(false);
+  useEffect(() => {
+    if (!canRun || !resumeRunId || resumed.current) return;
+    resumed.current = true;
+    cancelled.current = false;
+    setRunId(resumeRunId);
+    setRunStartedAt(Date.now());
+    setState("running");
+    void drive(resumeRunId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- once, on mount
+  }, []);
 
   async function stop() {
     cancelled.current = true;

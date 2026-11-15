@@ -738,7 +738,7 @@ isOneToOne: false
                            },
 "signoff_status":
 { Args: { "p_workspace": string }; Returns: {
-              "is_current": boolean,"item_count": number,"marked_at": string,"marked_by": string,"reason": string
+              "approved_as": number,"is_current": boolean,"item_count": number,"marked_at": string,"marked_by": string,"reason": string
             }[]
                            },
 "update_counterparty_note":

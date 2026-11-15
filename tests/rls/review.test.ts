@@ -157,6 +157,28 @@ describe.skipIf(!hasEnv)("review actions, sign-off, rulings and versions", () =>
       expect((await approve()).error).toBeNull();
     });
 
+    it("a version identical to the last is refused: pressing Approve again, or marking an unchanged draft (Phase 18)", async () => {
+      expect((await ready()).error).toBeNull();
+      expect((await approve()).error).toBeNull();
+      // The same press twice no longer makes an identical version 2.
+      expect((await approve()).error?.message).toMatch(/nothing has changed since version 1 was approved/);
+      expect((await ready()).error?.message).toMatch(/nothing has changed since version 1 was approved: accept/);
+      expect((await admin().from("versions").select("number").eq("workspace_id", WS)).data).toEqual([{ number: 1 }]);
+      const status = async () => (await as.meena.rpc("signoff_status", { p_workspace: WS })).data![0]!;
+      expect(await status()).toMatchObject({ is_current: true, approved_as: 1 });
+      // A real change starts the next version as before.
+      expect((await review(as.arun, O("O5"), "accept")).error).toBeNull();
+      expect(await status()).toMatchObject({ is_current: false, approved_as: null });
+      expect((await ready()).error).toBeNull();
+      expect(await status()).toMatchObject({ is_current: true, approved_as: null });
+      expect((await approve()).error).toBeNull();
+      // A ruling after approval changes what the next version carries, without a new mark.
+      expect((await as.meena.rpc("rule_conflict", { p_entry: D1, p_ruling: "done", p_reason: "Asked the speakers" })).error).toBeNull();
+      expect(await status()).toMatchObject({ is_current: true, approved_as: null });
+      expect((await approve()).error).toBeNull();
+      expect((await admin().from("versions").select("number").eq("workspace_id", WS).order("number")).data).toEqual([{ number: 1 }, { number: 2 }, { number: 3 }]);
+    });
+
     it("mark-ready is audited and the sign-offs are append-only, even for the service role", async () => {
       expect((await ready("Checked every quote")).error).toBeNull();
       const audit = await as.meena.from("audit_log").select("actor, reason").eq("action", "mark_ready");

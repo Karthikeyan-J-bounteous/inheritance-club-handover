@@ -27,7 +27,9 @@
     "eval:pipeline": "node --use-system-ca --env-file=.env.local scripts/eval-pipeline.ts",
     "demo:freeze": "node --use-system-ca --env-file=.env.local scripts/freeze-demo.ts",
     "cache:export": "node --env-file=.env.local scripts/llm-cache.ts export",
-    "cache:warm": "node --env-file=.env.hosted.local scripts/llm-cache.ts import"
+    "cache:warm": "node --env-file=.env.hosted.local scripts/llm-cache.ts import",
+    "cache:local": "node --env-file=.env.local scripts/llm-cache.ts import --local",
+    "report": "node scripts/render-report.ts docs/report/round3.html docs/Inheritance_Round3_Product.pdf"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.6.0",
