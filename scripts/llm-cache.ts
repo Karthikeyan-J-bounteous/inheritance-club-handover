@@ -4,6 +4,7 @@
 //
 //   pnpm cache:export                 # local llm_cache -> data/demo/llm-cache.json (real-model rows only)
 //   pnpm cache:warm                   # data/demo/llm-cache.json -> the hosted llm_cache (.env.hosted.local)
+//   pnpm cache:local                  # data/demo/llm-cache.json -> the local llm_cache (.env.local)
 //
 // Keys are hashes of the full prompt; an entry is only ever used by someone who already holds
 // the exact prompt text. Every row comes from the synthetic scenarios built by freeze-demo.ts.
