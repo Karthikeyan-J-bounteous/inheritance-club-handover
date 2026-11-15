@@ -26,6 +26,19 @@ describe("trustState", () => {
     expect(trustState([ev(), ev({ relation: "fulfils", inferred: true, sourceId: "trello", author: "Priya" })])).toBe("inferred");
   });
 
+  it("is inferred when every record is inferred: a duty found from repetition, many files and people", () => {
+    const occurrences = [
+      ev({ relation: "past_instance", inferred: true, sourceId: "chat-2025", author: "Nikhil" }),
+      ev({ relation: "past_instance", inferred: true, sourceId: "chat-2026", author: "Arun" }),
+      ev({ relation: "past_instance", inferred: true, sourceId: "trello", author: "Kavya" }),
+    ];
+    expect(trustState(occurrences)).toBe("inferred");
+    // Once a record states it, it is no longer only inferred.
+    expect(trustState([...occurrences, ev({ relation: "supports", sourceId: "minutes", author: "Priya" })])).toBe("sourced");
+    // An unverified stated quote does not count.
+    expect(trustState([...occurrences, ev({ relation: "supports", verified: false })])).toBe("inferred");
+  });
+
   it("a stated completion outweighs an inferred one", () => {
     expect(trustState([ev(), ev({ relation: "fulfils", inferred: true }), ev({ relation: "fulfils", author: "Priya" })])).toBe("corroborated");
   });

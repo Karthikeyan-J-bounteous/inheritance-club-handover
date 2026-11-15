@@ -40,8 +40,9 @@ export function independent(a: Pick<TrustEvidence, "eventId" | "sourceId" | "aut
 
 /**
  * No verified evidence: gap. Says done and says not done: contradicted. Done only by
- * inference: inferred (never shown as fact). Two independent records that agree:
- * corroborated. Otherwise: sourced.
+ * inference, or nothing but inferred evidence at all (a duty found from repetition, migration
+ * 0024): inferred (never shown as fact). Two independent records that agree: corroborated.
+ * Otherwise: sourced.
  */
 export function trustState(evidence: readonly TrustEvidence[]): TrustState {
   const v = evidence.filter((e) => e.verified);
@@ -52,6 +53,7 @@ export function trustState(evidence: readonly TrustEvidence[]): TrustState {
   if (done && notDone) return "contradicted";
   if (done && !direct) return "inferred";
   const firm = v.filter((e) => !e.inferred);
+  if (firm.length === 0) return "inferred";
   for (let i = 0; i < firm.length; i++) {
     for (let j = i + 1; j < firm.length; j++) if (independent(firm[i], firm[j])) return "corroborated";
   }
