@@ -102,7 +102,7 @@ export async function RoleVisibility() {
           {oErr ? (
             <p role="alert" className="rounded-lg bg-danger-soft px-3 py-2 text-destructive">Could not load obligations. Try again in a moment.</p>
           ) : !obligations?.length ? (
-            <EmptyState title="Nothing visible to this role" body="Items appear here once the advisor approves a version, or when the outgoing lead releases one to you." />
+            <EmptyState title="No live ledger rows for this role" body="This list shows the working ledger this role may read, and it is empty for this role right now. Approved items handed over to you are on the Handover page." />
           ) : (
             <ul className="flex flex-col gap-2" data-testid="visible-obligations">
               {obligations.map((o) => (
