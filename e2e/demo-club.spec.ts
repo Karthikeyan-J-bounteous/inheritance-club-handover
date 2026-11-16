@@ -69,6 +69,24 @@ test.describe("demo club per visitor", () => {
     await expect(badge(page)).toBeVisible();
   });
 
+  test("the welcome note can be dismissed for good, and the permissions table starts closed", async ({ page }) => {
+    await loadCopy(page);
+    // Proof for whoever wants it: closed until opened, and the counts are still there inside.
+    const panel = page.getByTestId("role-visibility");
+    await expect(panel).not.toHaveAttribute("open", "");
+    await expect(page.getByTestId("count-obligations")).toBeHidden();
+    await panel.getByText("How permissions are enforced").click();
+    await expect(page.getByTestId("count-obligations")).toHaveText(String(ARUN_READS));
+
+    await page.getByTestId("welcome-banner").getByRole("button", { name: "Dismiss this message" }).click();
+    await expect(page.getByTestId("welcome-banner")).toHaveCount(0);
+    await expect(page).toHaveURL(/\/$/);
+    // A refresh does not bring it back.
+    await page.reload();
+    await expect(page.getByRole("heading", { name: "Hello, Arun" })).toBeVisible();
+    await expect(page.getByTestId("welcome-banner")).toHaveCount(0);
+  });
+
   test("deleting your copy removes it and its accounts, and signs you out", async ({ page }) => {
     await loadCopy(page);
     await page.goto("/import");

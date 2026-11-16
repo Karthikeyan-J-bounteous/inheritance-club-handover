@@ -4,6 +4,7 @@ import { ArrowRightIcon, FileTextIcon, LockIcon, QuoteIcon, ShieldCheckIcon } fr
 import { ErrorState } from "@/components/feedback/error-state";
 import { LoadingBlock } from "@/components/feedback/loading-block";
 import { NextStep } from "@/components/home/next-step";
+import { WelcomeBanner } from "@/components/home/welcome-banner";
 import { RoleVisibility } from "@/components/role-visibility";
 import { Button } from "@/components/ui/button";
 import { getViewer } from "@/lib/session";
@@ -21,10 +22,10 @@ async function Welcome({ searchParams }: { searchParams: PageProps<"/">["searchP
   const { welcome } = await searchParams;
   if (welcome !== "copy") return null;
   return (
-    <p role="status" className="rise-in rounded-2xl border border-primary/20 bg-accent px-5 py-4 text-sm text-accent-foreground">
+    <WelcomeBanner>
       Your own demo club is ready. You are signed in as Arun, the outgoing lead. Your next step is below; use
       “Switch person” at the top right to see the club as Dr. Meena, Kavya or Divya.
-    </p>
+    </WelcomeBanner>
   );
 }
 

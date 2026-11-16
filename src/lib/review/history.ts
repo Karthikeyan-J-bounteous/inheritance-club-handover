@@ -1,5 +1,5 @@
 import { FIELD_LABELS } from "./fields.ts";
-import { rulingLabel } from "./labels.ts";
+import { diffValueLabel, rulingLabel } from "./labels.ts";
 
 // The review history: audit rows written by the review actions, in words.
 
@@ -54,6 +54,11 @@ export type AuditLike = { action: string; before: Json; after: Json };
 
 const asRecord = (v: Json): Record<string, unknown> => (v && typeof v === "object" && !Array.isArray(v) ? (v as Record<string, unknown>) : {});
 const show = (v: unknown): string => (v === null || v === undefined || v === "" ? "nothing" : String(v));
+/** `show`, with stored status, trust, review and access values in the app's own words. */
+const showField = (field: string, v: unknown): string => {
+  const s = show(v);
+  return s === "nothing" ? s : (diffValueLabel(field, s) ?? s);
+};
 
 export type HistoryChange = { label: string; before: string; after: string };
 
@@ -64,13 +69,13 @@ export function describeChanges(row: AuditLike): HistoryChange[] {
   if (row.action === "edit") {
     return Object.keys(FIELD_LABELS)
       .filter((f) => f in after && show(before[f]) !== show(after[f]))
-      .map((f) => ({ label: FIELD_LABELS[f], before: show(before[f]), after: show(after[f]) }));
+      .map((f) => ({ label: FIELD_LABELS[f], before: showField(f, before[f]), after: showField(f, after[f]) }));
   }
   if (row.action === "rule") {
     return [{ label: "Ruling", before: rulingLabel(before.ruling as string | null), after: rulingLabel(after.ruling as string | null) }];
   }
   if (row.action === "accept" || row.action === "reject" || row.action === "reopen") {
-    return [{ label: "Review", before: show(before.review_state), after: show(after.review_state) }];
+    return [{ label: "Review", before: showField("review_state", before.review_state), after: showField("review_state", after.review_state) }];
   }
   if (row.action === "link_same" || row.action === "link_distinct") {
     return [{ label: "Link", before: show(before.verdict), after: show(after.verdict) }];
@@ -79,7 +84,7 @@ export function describeChanges(row: AuditLike): HistoryChange[] {
     return [{ label: "Items marked ready", before: "nothing", after: show(after.item_count) }];
   }
   if (row.action === "answer_gap") {
-    return GAP_FIELDS.filter(([f]) => show(before[f]) !== show(after[f])).map(([f, label]) => ({ label, before: show(before[f]), after: show(after[f]) }));
+    return GAP_FIELDS.filter(([f]) => show(before[f]) !== show(after[f])).map(([f, label]) => ({ label, before: showField(f, before[f]), after: showField(f, after[f]) }));
   }
   if (row.action === "note_draft") {
     return [{ label: "Note", before: "nothing", after: `to ${show(after.counterparty)}, ${itemCount(after.items)}` }];

@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { ACCESS_LABELS, type AccessLevel } from "@/lib/access";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { capitalise, groupLinked } from "@/lib/ledger-view";
+import { REVIEW_LABELS, STATUS_LABELS, TRUST_LABELS } from "@/lib/review/labels";
 import { loadLinkData } from "./link-data";
 import { AlsoRecorded, CONTEXT_SELECT, RecordedElsewhere, type CardFact, ContextList, DocketLink, EVIDENCE_SELECT, EvidenceList, PossibleMatches, type ContextRow, type EvidenceRow } from "./obligation-parts";
 import { EmptyState } from "@/components/feedback/empty-state";
@@ -9,13 +10,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ErrorState } from "@/components/feedback/error-state";
 
-export const TRUST_LABELS = {
-  corroborated: "Corroborated",
-  sourced: "Sourced",
-  inferred: "Inferred",
-  contradicted: "Contradicted",
-  gap: "Gap: no evidence kept",
-} as const;
+// The label maps live in src/lib/review/labels.ts (so pure code can use them); re-exported for existing importers.
+export { REVIEW_LABELS, STATUS_LABELS, TRUST_LABELS };
 
 /** What each trust state means, in the words of the trust rule (src/lib/pipeline/trust.ts). */
 export const TRUST_HELP = {
@@ -24,16 +20,6 @@ export const TRUST_HELP = {
   inferred: "Only implied: no record says so plainly (a completion only suggested, or a duty found because it was done at the same time in past years).",
   contradicted: "One record says it was done and another says it was not. See “Check the records”.",
   gap: "No verified evidence is kept for this item.",
-} as const;
-
-export const REVIEW_LABELS = { draft: "Draft", accepted: "Accepted", rejected: "Rejected", edited: "Edited" } as const;
-
-export const STATUS_LABELS = {
-  open: "Open",
-  fulfilled: "Done",
-  likely_fulfilled: "Likely done (inferred)",
-  no_evidence: "No evidence kept",
-  contradicted: "Contradicted",
 } as const;
 
 type Row = {

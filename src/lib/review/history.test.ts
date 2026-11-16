@@ -20,7 +20,7 @@ describe("review history", () => {
 
   it("describes rulings, review moves, links, marks and approvals", () => {
     expect(describeChanges({ action: "rule", before: { ruling: null }, after: { ruling: "not_done" } })).toEqual([{ label: "Ruling", before: "No ruling yet", after: "Not done" }]);
-    expect(describeChanges({ action: "reject", before: { review_state: "accepted" }, after: { review_state: "rejected" } })).toEqual([{ label: "Review", before: "accepted", after: "rejected" }]);
+    expect(describeChanges({ action: "reject", before: { review_state: "accepted" }, after: { review_state: "rejected" } })).toEqual([{ label: "Review", before: "Accepted", after: "Rejected" }]);
     expect(describeChanges({ action: "link_same", before: null, after: { verdict: "same" } })).toEqual([{ label: "Link", before: "nothing", after: "same" }]);
     expect(describeChanges({ action: "mark_ready", before: null, after: { item_count: 4 } })[0].after).toBe("4");
     expect(describeChanges({ action: "approve_version", before: null, after: { number: 2 } })[0].after).toBe("number 2");
@@ -35,8 +35,8 @@ describe("review history", () => {
       after: { status: "fulfilled", trust_state: "corroborated", approver: null, access_level: "everyone", question: "followup", answer: "done" },
     });
     expect(changes).toEqual([
-      { label: "Status", before: "no_evidence", after: "fulfilled" },
-      { label: "Trust", before: "sourced", after: "corroborated" },
+      { label: "Status", before: "No evidence kept", after: "Done" },
+      { label: "Trust", before: "Sourced", after: "Corroborated" },
     ]);
   });
 

@@ -74,7 +74,9 @@ function stageDone(f: JourneyFacts): boolean[] {
     // Checking the records (conflicts, gaps) comes before reviewing; it is behind you once
     // reviewing has started, and, for the outgoing lead, once the gap questions are answered.
     (f.accepted > 0 || v) && f.openQuestions === 0,
-    v,
+    // A version exists, but the stage is not finished while a mark waits for the advisor or an item
+    // changed after it was accepted (an answer to a gap question does that).
+    v && !awaitingApproval(f) && f.toReview === 0,
     answeredAll,
   ];
 }

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { diffVersions, isEmptyDiff, type DiffRow, type VersionItem } from "./diff.ts";
+import { diffValueLabel } from "./labels.ts";
 
 const ev = (quote: string, relation = "supports", extra = {}) => ({ event_id: `e-${quote}`, quote, relation, verified: true, ...extra });
 const item = (over: Record<string, unknown> = {}, extra: Partial<VersionItem> = {}): VersionItem => ({
@@ -66,5 +67,21 @@ describe("diffVersions", () => {
   it("does not report notes when one side has none recorded", () => {
     const d = diffVersions([row("a", item())], [row("a", item(), [{ id: "n", kind: "risk", text: "t" }])]);
     expect(isEmptyDiff(d)).toBe(true);
+  });
+});
+
+describe("diffValueLabel", () => {
+  it("puts stored status, trust, review and access values in the app's words", () => {
+    expect(diffValueLabel("status", "no_evidence")).toBe("No evidence kept");
+    expect(diffValueLabel("status", "fulfilled")).toBe("Done");
+    expect(diffValueLabel("status", "likely_fulfilled")).toBe("Likely done (inferred)");
+    expect(diffValueLabel("trust_state", "gap")).toBe("Gap: no evidence kept");
+    expect(diffValueLabel("review_state", "draft")).toBe("Draft");
+    expect(diffValueLabel("access_level", "finance")).toBe("Finance");
+  });
+  it("leaves other fields, unknown values and nothing alone", () => {
+    expect(diffValueLabel("owed_by", "open")).toBe("open");
+    expect(diffValueLabel("status", "something_new")).toBe("something_new");
+    expect(diffValueLabel("status", null)).toBeNull();
   });
 });

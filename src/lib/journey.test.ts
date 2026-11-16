@@ -133,6 +133,28 @@ describe("advisor", () => {
   });
 });
 
+describe("the review stage", () => {
+  const review = (j: ReturnType<typeof journey>) => j.stages.find((s) => s.key === "approve")!;
+  it("is not done while a mark newer than the version waits for the advisor", () => {
+    const j = journey(f({ role: "advisor", items: 9, accepted: 9, version: v1, signoff: { isCurrent: true, markedAt: "2026-11-11T09:00:00Z" } }));
+    expect(j.title).toBe("Approve the version");
+    expect(review(j).state).not.toBe("done");
+    expect(j.doneCount).toBe(3);
+  });
+  it("is not done while an accepted item changed after the version (a gap answer does that)", () => {
+    const j = journey(f({ files: 3, items: 9, toReview: 3, accepted: 9, version: v1, openQuestions: 2 }));
+    expect(review(j).state).not.toBe("done");
+    expect(j.stages[2].state).toBe("current");
+  });
+  it("is done once the version is approved and nothing waits", () => {
+    const j = journey(f({ role: "advisor", items: 9, accepted: 9, version: v1, signoff: { isCurrent: true, markedAt: "2026-11-09T09:00:00Z" } }));
+    expect(review(j).state).toBe("done");
+  });
+  it("is done for the incoming lead, who cannot read the working ledger", () => {
+    expect(review(journey(f({ role: "incoming_lead", version: v1 }))).state).toBe("done");
+  });
+});
+
 describe("incoming lead", () => {
   it("waits when nothing is approved", () => {
     const j = journey(f({ role: "incoming_lead" }));

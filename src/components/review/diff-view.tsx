@@ -1,9 +1,9 @@
 import { Badge } from "@/components/ui/badge";
 import { isEmptyDiff, type VersionDiff } from "@/lib/review/diff";
-import { rulingLabel } from "@/lib/review/labels";
+import { diffValueLabel, rulingLabel } from "@/lib/review/labels";
 
 const RELATION: Record<string, string> = { supports: "the promise or duty", fulfils: "says it was done", contradicts: "says it was not done", past_instance: "a past time" };
-const none = (v: string | null) => v ?? "nothing";
+const none = (field: string, v: string | null) => diffValueLabel(field, v) ?? "nothing";
 
 /** What changed between two lists of items, as the viewer's role can read them. */
 export function DiffView({ diff, against, empty, stated }: { diff: VersionDiff; against: string; empty?: string; /** Messages that are the outgoing lead's answers to gap questions. */ stated?: ReadonlySet<string> }) {
@@ -42,7 +42,7 @@ export function DiffView({ diff, against, empty, stated }: { diff: VersionDiff; 
                 <ul className="mt-1 flex flex-col gap-0.5 text-muted-foreground">
                   {c.fields.map((f) => (
                     <li key={f.field}>
-                      {f.label}: <span className="line-through">{none(f.before)}</span> → <span className="text-foreground">{none(f.after)}</span>
+                      {f.label}: <span className="line-through">{none(f.field, f.before)}</span> → <span className="text-foreground">{none(f.field, f.after)}</span>
                     </li>
                   ))}
                   {c.quotesAdded.map((q) => (
