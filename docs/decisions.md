@@ -195,3 +195,10 @@ Chosen while building; change any you disagree with.
 - **Fix 1, the region:** `"regions": ["syd1"]` in `vercel.json` (Hobby allows one region; `syd1` is Vercel's `ap-southeast-2`). This speeds up every page, since pages also make several sequential queries. Visitors in India reach the Mumbai edge, then Sydney's function; the browser to function hop is one extra round trip and the many database hops are now local.
 - **Fix 2, the calls:** baselines for accepted items are updated once per distinct status and trust pair (8 updates, not 44) and the docket summaries run together: 90 calls became 54, 13 of them concurrent. `tests/rls/sandbox-calls.test.ts` caps it at 60.
 - **Not done:** the four `createUser` calls and their bookkeeping updates stay sequential on purpose (a function that dies mid-way must leave at most one account unrecorded; see Phase 10). The files' events are still inserted file by file so the identity `seq` follows each file.
+
+## Phase 19 decisions (interface fixes from a first-time-visitor pass)
+
+- **Format stored values where they are shown, not where they are stored.** `diffVersions` still returns the raw field values (they are data, and the diff tests compare them); `diffValueLabel` turns status, trust, review and access values into the app's words at display time, in the diff view and in the audit history. Unknown values and other fields pass through unchanged, so a new status shows its code rather than a wrong word.
+- **A stage is "done" when nothing is left in it, not when its artefact exists.** Review used to count as done as soon as any version existed. It now also needs no mark waiting for the advisor and nothing to re-check. The incoming lead cannot read the working ledger, so for that role "nothing waits" is true by construction and the stage stays done.
+- **The role panel's empty state describes the panel, not the project.** It lists live ledger rows, which a role may not read even when items have been approved for it; the handover page is where approved items are.
+

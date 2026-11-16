@@ -1,6 +1,6 @@
 # Build status
 
-Read this first when resuming work, on any machine. Last updated: 2026-11-15, Phase 18 (hardening, end-to-end sweeps, README, the Round 3 product document and form answers) built on `build/phase-18`, branched from `main` after Phases 16 and 17 were merged.
+Read this first when resuming work, on any machine. Last updated: 2026-11-16, Phase 19 (three interface fixes found by a first-time-visitor pass on the live app) built on `build/phase-19`, branched from `main` after Phase 18 and the demo-copy timeout fix.
 
 Other docs:
 - [dev-setup.md](dev-setup.md): setting up a new computer (tools, secrets, local database, hosted project).
@@ -23,11 +23,22 @@ Round 2 (Phases 0 to 13, plus the guided tour) is merged and was submitted; the 
 | 15 | Round 3, improvement 2: gap questions for the outgoing lead | merged (deploy: see outstanding tasks) |
 | 16 | Round 3, improvement 3: counterparty handoff notes | merged (deploy: see outstanding tasks) |
 | 17 | Round 3, improvement 1: inferred recurring duties | merged (deploy: see outstanding tasks) |
-| 18 | Round 3: hardening, end-to-end sweeps, README, final report PDF, form answers | built, awaiting merge and deploy |
+| 18 | Round 3: hardening, end-to-end sweeps, README, final report PDF, form answers | merged |
+| 19 | Round 3, rule 4 ("tighten the interface"): three small fixes from a first-time-visitor pass | built, awaiting merge and deploy |
 
 Tests on `build/phase-18`: 497 unit and 220 database (`pnpm test`, 717 in all; Phase 17 had 715), 73 Playwright (new: `robustness.spec.ts`); lint, typecheck and production build clean.
 
-### Phase 18 (built, awaiting merge)
+### Phase 19 (built, awaiting merge)
+
+Round 3 rule 4: "someone who did not build it must be able to complete the main journey without a walkthrough". A first-time-visitor pass on the live app (sign-in, answer a gap question, review, mark ready, approve as the advisor, read the handover as Kavya) needed no help. It found three small things, fixed here; no migration, no new variable, no dependency, no model call.
+
+- **Raw stored values in the "Changed since version N" box and the Audit history** (`no_evidence → fulfilled`, `draft → accepted`). They now use the app's own words ("No evidence kept → Done"). The label maps moved to `src/lib/review/labels.ts` (re-exported from `commitments.tsx`), with one pure `diffValueLabel`.
+- **The progress strip said "Review and approve" was done while approval or a second look was still the next step** (Dr. Meena's home page: "Approve the version" beside "4 of 5 steps done"; Arun with step 4 ticked and step 3 current). The stage is done only when a version exists, no mark waits for the advisor and no accepted item changed since (`src/lib/journey.ts`).
+- **Kavya's "What you can read" panel said "Nothing visible to this role… once the advisor approves a version"** while version 2 was approved and 46 items waited for her. That panel lists live ledger rows (RLS keeps them from her); the copy now says so and points to the Handover page.
+- Tests: 503 unit (6 new or changed: the review stage under four conditions, `diffValueLabel`, the history wording); each was shown to fail with its fix reverted. Lint, typecheck and production build clean. The RLS and Playwright suites need the local database (Docker was not running), so they were not re-run; no SQL changed and the only e2e check on the strip matches `\d of 5 steps done`. Run them with Docker up before merging if you can.
+- Left as is: a lower-case duplicate item name in the diff ("write the handover document" next to "Write the handover document") is the extracted data (two records of one promise), not the interface; "Reason" on accept/reject is not marked required (the browser asks if it is empty).
+
+### Phase 18 (merged)
 
 Hardening and documentation. Every item on the submission list is ready except the steps only the user can do (outstanding tasks 1 to 4).
 
