@@ -29,7 +29,8 @@
     "cache:export": "node --env-file=.env.local scripts/llm-cache.ts export",
     "cache:warm": "node --env-file=.env.hosted.local scripts/llm-cache.ts import",
     "cache:local": "node --env-file=.env.local scripts/llm-cache.ts import --local",
-    "report": "node scripts/render-report.ts docs/report/round3.html docs/Inheritance_Round3_Product.pdf"
+    "report": "node scripts/render-report.ts docs/report/round3.html docs/Inheritance_Round3_Product.pdf",
+    "report:home": "node scripts/capture-report-home.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.6.0",
